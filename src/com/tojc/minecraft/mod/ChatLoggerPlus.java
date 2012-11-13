@@ -14,23 +14,23 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 public class ChatLoggerPlus
 {
 	@Instance("com.tojc.minecraft.mod.ChatLoggerPlus")
-    public static ChatLoggerPlus instance;
+	public static ChatLoggerPlus instance;
 
 	@Mod.PreInit
-	public void preInit(FMLPreInitializationEvent event)
+	public void onPreInit(FMLPreInitializationEvent event)
 	{
-		FMLLog.log(Level.INFO, "ChatLoggerPlus: preInit");
+		DebugLog.info("onPreInit");
 	}
 
 	@Mod.Init
-	public void init(FMLInitializationEvent event)
+	public void onInit(FMLInitializationEvent event)
 	{
-		FMLLog.log(Level.INFO, "ChatLoggerPlus: init");
+		DebugLog.info("onInit");
 	}
 
 	@Mod.PostInit
-	public void postInit(FMLPostInitializationEvent event)
+	public void onPostInit(FMLPostInitializationEvent event)
 	{
-		FMLLog.log(Level.INFO, "ChatLoggerPlus: postInit");
+		DebugLog.info("onPostInit");
 	}
 }
