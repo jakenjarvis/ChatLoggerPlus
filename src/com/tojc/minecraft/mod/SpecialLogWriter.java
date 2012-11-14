@@ -22,11 +22,14 @@ import java.io.BufferedWriter;
 import java.io.Closeable;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.EventListener;
+import java.util.EventObject;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
@@ -36,6 +39,7 @@ import net.minecraft.client.Minecraft;
 public class SpecialLogWriter
 {
 	private ChatLoggerConfiguration config = null;
+	private FileOperationCompletedListener listener = null;
 
 	private LogFileNameManager logfilemanager = null;
 
@@ -73,9 +77,32 @@ public class SpecialLogWriter
 		ClosedAfterglow
 	}
 
-	public SpecialLogWriter(ChatLoggerConfiguration config)
+	public interface FileOperationCompletedListener extends EventListener
+	{
+		public void onOpenFileOperationCompleted(FileOperationCompletedEvent e);
+		public void onCloseFileOperationCompleted(FileOperationCompletedEvent e);
+	}
+
+	public class FileOperationCompletedEvent extends EventObject
+	{
+		private String filename;
+
+		public FileOperationCompletedEvent(Object source, String filename)
+		{
+			super(source);
+			this.filename = filename;
+		}
+
+		public String getFileName()
+		{
+			return this.filename;
+		}
+	}
+
+	public SpecialLogWriter(ChatLoggerConfiguration config, FileOperationCompletedListener listener)
 	{
 		this.config = config;
+		this.listener = listener;
 		this.logfilemanager = new LogFileNameManager(config);
 		this.datetimeformat = new SimpleDateFormat(this.config.getFormatDateTime());
 		this.buffer.clear();
@@ -204,6 +231,22 @@ public class SpecialLogWriter
 						this.pw.flush();
 
 						this.buffer.clear();
+
+						if(this.listener != null)
+						{
+							String filename = "";
+							try
+							{
+								filename = this.logfile.getCanonicalPath();
+								FileOperationCompletedEvent e = new FileOperationCompletedEvent(this, filename);
+								this.listener.onOpenFileOperationCompleted(e);
+							}
+							catch(Exception e1)
+							{
+								DebugLog.log(Level.SEVERE, e1, "Failed to get file name.");
+								e1.printStackTrace();
+							}
+						}
 					}
 				}
 				break;
@@ -301,6 +344,22 @@ public class SpecialLogWriter
 				prudent_close(this.fos);
 				DebugLog.info("logger.close()");
 				this.isflush = false;
+
+				if(this.listener != null)
+				{
+					String filename = "";
+					try
+					{
+						filename = this.logfile.getCanonicalPath();
+						FileOperationCompletedEvent e = new FileOperationCompletedEvent(this, filename);
+						this.listener.onOpenFileOperationCompleted(e);
+					}
+					catch(Exception e1)
+					{
+						DebugLog.log(Level.SEVERE, e1, "Failed to get file name.");
+						e1.printStackTrace();
+					}
+				}
 				break;
 
 			case ClosedAfterglow:

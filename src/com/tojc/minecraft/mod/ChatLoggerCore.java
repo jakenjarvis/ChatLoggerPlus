@@ -20,13 +20,16 @@ package com.tojc.minecraft.mod;
 
 import java.io.File;
 
+import com.tojc.minecraft.mod.SpecialLogWriter.FileOperationCompletedEvent;
+import com.tojc.minecraft.mod.SpecialLogWriter.FileOperationCompletedListener;
+
 import net.minecraft.client.Minecraft;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 
-public class ChatLoggerCore
+public class ChatLoggerCore implements FileOperationCompletedListener
 {
 	private ChatLoggerConfiguration config = null;
 	private HandlerAndEventListener listener = null;
@@ -38,7 +41,7 @@ public class ChatLoggerCore
 
 		this.config = new ChatLoggerConfiguration(event.getSuggestedConfigurationFile());
 		this.listener = new HandlerAndEventListener(this);
-		this.writer = new SpecialLogWriter(this.config);
+		this.writer = new SpecialLogWriter(this.config, this);
 	}
 
 	public void onInit(FMLInitializationEvent event)
@@ -60,9 +63,15 @@ public class ChatLoggerCore
 	{
 		if(this.config.getChatLoggerEnabled())
 		{
-			this.sendChatMessage("§aChatLoggerPlus: Logging start.");
 			this.writer.open();
 		}
+	}
+
+	@Override
+	public void onOpenFileOperationCompleted(FileOperationCompletedEvent e)
+	{
+		this.sendChatMessage("§aChatLoggerPlus: Logging start.");
+		this.sendChatMessage("§aChatLoggerPlus: " + e.getFileName());
 	}
 
 	public void onWrite(String message)
@@ -89,6 +98,11 @@ public class ChatLoggerCore
 		}
 	}
 
+	@Override
+	public void onCloseFileOperationCompleted(FileOperationCompletedEvent e)
+	{
+	}
+
 	private void sendChatMessage(String message)
 	{
 		Minecraft mc = Minecraft.getMinecraft();
@@ -97,4 +111,5 @@ public class ChatLoggerCore
 			mc.thePlayer.addChatMessage(message);
 		}
 	}
+
 }
