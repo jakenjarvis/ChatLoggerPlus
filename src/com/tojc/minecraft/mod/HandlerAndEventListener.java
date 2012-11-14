@@ -113,7 +113,7 @@ public class HandlerAndEventListener implements IConnectionHandler, IChatListene
 	public void connectionOpened(NetHandler netClientHandler, String server, int port, INetworkManager manager)
 	{
 		DebugLog.info("connectionOpened A: " + server + ":" + port);
-		this.core.onServerConnection(server + ":" + port);
+		this.core.onServerConnection(server + "-" + port);
 	}
 
 	@Override
