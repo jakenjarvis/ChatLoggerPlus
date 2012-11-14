@@ -114,6 +114,7 @@ public class HandlerAndEventListener implements IConnectionHandler, IChatListene
 	{
 		DebugLog.info("connectionOpened A: " + server + ":" + port);
 		this.core.onServerConnection(server + "-" + port);
+		//TODO: とりあえず、-にして対応したが、ここは:で渡し、ファイル名にする前に置換するように変更する。
 	}
 
 	@Override
