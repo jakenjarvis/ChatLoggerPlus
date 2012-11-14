@@ -33,12 +33,9 @@ public class ChatLoggerConfiguration
 	private Property formatReplaceDate = null;
 	private Property formatReplaceTime = null;
 
-	private Property defaultReplaceLogFileFolderName = null;
-	private Property defaultReplaceLogFileName = null;
-
+	private Property defaultReplaceLogFileFullPathFileName = null;
 	private Property enforcementReplaceLogFileFullPathFileName = null;
 
-	private static String CATEGORY_LOGOUTPUT_FORMAT = "logoutputformat";
 	private static String CATEGORY_FILENAME_FORMAT = "filenameformat";
 
 	private static String CATEGORY_RELATIVE_PATH = "relativepath";
@@ -56,17 +53,14 @@ public class ChatLoggerConfiguration
 
 			this.chatLoggerEnabled = this.config.get(Configuration.CATEGORY_GENERAL, "ChatLoggerEnabled", true);
 			this.chatLoggerEnabled.comment = "true/false";
+			this.formatDateTime = this.config.get(Configuration.CATEGORY_GENERAL, "FormatDateTime", "yyyy/MM/dd-HH:mm:ss");
 
-			this.defaultReplaceLogFileFolderName = this.config.get(CATEGORY_RELATIVE_PATH, "DefaultReplaceLogFileFolderName", "chatlog/%SERVERNAME%/%PLAYERNAME%");
-			this.defaultReplaceLogFileFolderName.comment = "Replace : %SERVERNAME% %PLAYERNAME% %DATE% %TIME%";
-
-			this.defaultReplaceLogFileName = this.config.get(CATEGORY_RELATIVE_PATH, "DefaultReplaceLogFileName", "ChatLog_%DATE%.log");
-			this.defaultReplaceLogFileName.comment = "Replace : %SERVERNAME% %PLAYERNAME% %DATE% %TIME%";
+			this.defaultReplaceLogFileFullPathFileName = this.config.get(CATEGORY_RELATIVE_PATH, "DefaultReplaceLogFileFullPathFileName", "chatlog/%SERVERNAME%/%PLAYERNAME%/ChatLog_%DATE%.log");
+			this.defaultReplaceLogFileFullPathFileName.comment = "Replace : %SERVERNAME% %PLAYERNAME% %DATE% %TIME%";
 
 			this.enforcementReplaceLogFileFullPathFileName = this.config.get(CATEGORY_ABSOLUTE_PATH, "EnforcementReplaceLogFileFullPathFileName", "");
 			this.enforcementReplaceLogFileFullPathFileName.comment = "Replace : %SERVERNAME% %PLAYERNAME% %DATE% %TIME%  * If null, the relativepath is used.";
 
-			this.formatDateTime = this.config.get(CATEGORY_LOGOUTPUT_FORMAT, "FormatDateTime", "yyyy/MM/dd-HH:mm:ss");
 			this.formatReplaceDate = this.config.get(CATEGORY_FILENAME_FORMAT, "FormatReplaceDate", "yyyyMMdd");
 			this.formatReplaceTime = this.config.get(CATEGORY_FILENAME_FORMAT, "FormatReplaceTime", "HHmmss");
 		}
@@ -123,26 +117,15 @@ public class ChatLoggerConfiguration
 	}
 
 
-	public String getDefaultReplaceLogFileFolderName()
+	public String getDefaultReplaceLogFileFullPathFileName()
 	{
-		return this.defaultReplaceLogFileFolderName.value;
+		return this.defaultReplaceLogFileFullPathFileName.value;
 	}
-	public void setDefaultReplaceLogFileFolderName(String defaultReplaceLogFileFolderName)
+	public void setDefaultReplaceLogFileFullPathFileName(String defaultReplaceLogFileFullPathFileName)
 	{
-		this.defaultReplaceLogFileFolderName.value = defaultReplaceLogFileFolderName;
+		this.defaultReplaceLogFileFullPathFileName.value = defaultReplaceLogFileFullPathFileName;
 		this.config.save();
 	}
-
-	public String getDefaultReplaceLogFileName()
-	{
-		return this.defaultReplaceLogFileName.value;
-	}
-	public void setDefaultReplaceLogFileName(String defaultReplaceLogFileName)
-	{
-		this.defaultReplaceLogFileName.value = defaultReplaceLogFileName;
-		this.config.save();
-	}
-
 
 	public String getEnforcementReplaceLogFileFullPathFileName()
 	{

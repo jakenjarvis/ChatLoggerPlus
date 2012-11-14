@@ -89,7 +89,7 @@ public class LogFileNameManager
 		else
 		{
 			//デフォルト自動生成
-			result = new File(getDefaultLogFilePath(), getDefaultLogFileName());
+			result = new File(getDefaultLogFileFullPathFileName());
 		}
 		return result;
 	}
@@ -116,16 +116,10 @@ public class LogFileNameManager
 		return Calendar.getInstance().getTime();
 	}
 
-	private String getDefaultLogFilePath()
+	private String getDefaultLogFileFullPathFileName()
 	{
-		String replaceDefaultFolder = replaceSymbol(this.config.getDefaultReplaceLogFileFolderName());
-		return Minecraft.getMinecraftDir().toPath().resolve(replaceDefaultFolder).toString();
-	}
-
-	private String getDefaultLogFileName()
-	{
-		String replaceDefaultName = replaceSymbol(this.config.getDefaultReplaceLogFileName());
-		return replaceDefaultName;
+		String replaceDefaultLogFile = replaceSymbol(this.config.getDefaultReplaceLogFileFullPathFileName());
+		return Minecraft.getMinecraftDir().toPath().resolve(replaceDefaultLogFile).toString();
 	}
 
 	private String replaceSymbol(String target)
