@@ -218,9 +218,13 @@ public class SpecialLogWriter
 						StringBuffer message = new StringBuffer();
 						message.append(datetimeformat.format(this.logfilemanager.getFileBaseDate()));
 						message.append(" : ");
-						message.append("ChatLoggerPlus Logging start");
-						this.pw.println(message.toString());
+						message.append("ChatLoggerPlus Logging start. (");
+						message.append(this.logfilemanager.getServerName());
+						message.append(" - ");
+						message.append(this.logfilemanager.getPlayerName());
+						message.append(")");
 
+						this.pw.println(message.toString());
 						this.pw.println("--------------------------------------------------------------------------------");
 
 						// バッファの出力
