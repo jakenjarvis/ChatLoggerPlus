@@ -19,8 +19,6 @@
 package com.tojc.minecraft.mod;
 
 import java.io.File;
-import java.nio.file.FileSystems;
-import java.nio.file.Path;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -120,10 +118,9 @@ public class LogFileNameManager
 
 	private String getDefaultLogFileFullPathFileName()
 	{
-		Path path = FileSystems.getDefault().getPath(Minecraft.getMinecraftDir().toString());
 		String replaceDefaultLogFile = replaceSymbol(this.config.getDefaultReplaceLogFileFullPathFileName());
-		// Minecraft.getMinecraftDir().toPath().resolve(replaceDefaultLogFile).toString();
-		return path.resolve(replaceDefaultLogFile).toString();
+		String result = new File(Minecraft.getMinecraftDir().toString(), replaceDefaultLogFile).getPath();
+		return result;
 	}
 
 	private String replaceSymbol(String target)
