@@ -52,6 +52,8 @@ public class ChatLoggerConfiguration
 		{
 			this.config.load();
 
+			// TODO: エラーになったら、読み飛ばしちゃうので、いずれ修正。
+
 			this.chatLoggerEnabled = this.config.get(Configuration.CATEGORY_GENERAL, "ChatLoggerEnabled", true);
 			this.chatLoggerEnabled.comment = "true/false";
 

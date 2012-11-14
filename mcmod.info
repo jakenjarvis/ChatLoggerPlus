@@ -2,7 +2,7 @@
 {
   "modid": "com.tojc.minecraft.mod.ChatLoggerPlus",
   "name": "ChatLoggerPlus",
-  "description": "チャットの会話内容をログファイルに出力します。",
+  "description": "Output to log chat conversations.",
   "version": "0.1.0",
   "mcversion": "1.4.2",
   "url": "https://github.com/jakenjarvis/ChatLoggerPlus",
@@ -10,7 +10,7 @@
   "authors": [
     "Jaken"
   ],
-  "credits": "Jaken",
+  "credits": "Copyright (C) 2012 Members of the ChatLoggerPlus project.",
   "logoFile": "",
   "screenshots": [
   ],
