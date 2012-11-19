@@ -30,6 +30,10 @@ public class ChatLoggerConfiguration
 
 	private Property chatLoggerEnabled = null;
 	private Property formatDateTime = null;
+	private Property fillColorCodeEnabled = null;
+	private Property fillColorCodeRegex = null;
+	private Property fillColorCodeReplace = null;
+
 	private Property formatReplaceDate = null;
 	private Property formatReplaceTime = null;
 
@@ -54,6 +58,12 @@ public class ChatLoggerConfiguration
 			this.chatLoggerEnabled = this.config.get(Configuration.CATEGORY_GENERAL, "ChatLoggerEnabled", true);
 			this.chatLoggerEnabled.comment = "true/false";
 			this.formatDateTime = this.config.get(Configuration.CATEGORY_GENERAL, "FormatDateTime", "yyyy/MM/dd-HH:mm:ss");
+
+			this.fillColorCodeEnabled = this.config.get(Configuration.CATEGORY_GENERAL, "FillColorCodeEnabled", false);
+			this.fillColorCodeEnabled.comment = "true/false, true=fill / false=Not modify";
+
+			this.fillColorCodeRegex = this.config.get(Configuration.CATEGORY_GENERAL, "FillColorCodeRegex", "§[0-9a-f]");
+			this.fillColorCodeReplace = this.config.get(Configuration.CATEGORY_GENERAL, "FillColorCodeReplace", "");
 
 			this.defaultReplaceLogFileFullPathFileName = this.config.get(CATEGORY_RELATIVE_PATH, "DefaultReplaceLogFileFullPathFileName", "chatlog/%SERVERNAME%/%PLAYERNAME%/ChatLog_%DATE%.log");
 			this.defaultReplaceLogFileFullPathFileName.comment = "Replace : %SERVERNAME% %PLAYERNAME% %DATE% %TIME%";
@@ -95,6 +105,37 @@ public class ChatLoggerConfiguration
 		this.formatDateTime.value = formatDateTime;
 		this.config.save();
 	}
+
+	public boolean getFillColorCodeEnabled()
+	{
+		return this.fillColorCodeEnabled.getBoolean(true);
+	}
+	public void setFillColorCodeEnabled(boolean fillColorCodeEnabled)
+	{
+		this.fillColorCodeEnabled.value = String.valueOf(fillColorCodeEnabled);
+		this.config.save();
+	}
+
+	public String getFillColorCodeRegex()
+	{
+		return this.fillColorCodeRegex.value;
+	}
+	public void setFillColorCodeRegex(String fillColorCodeRegex)
+	{
+		this.fillColorCodeRegex.value = fillColorCodeRegex;
+		this.config.save();
+	}
+
+	public String getFillColorCodeReplace()
+	{
+		return this.fillColorCodeReplace.value;
+	}
+	public void setFillColorCodeReplace(String fillColorCodeReplace)
+	{
+		this.fillColorCodeReplace.value = fillColorCodeReplace;
+		this.config.save();
+	}
+
 
 	public String getFormatReplaceDate()
 	{

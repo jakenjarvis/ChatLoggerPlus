@@ -41,6 +41,10 @@ com.tojc.minecraft.mod.ChatLoggerPlus.cfgファイルをテキストエディタ
     general {
        # true/false
        ChatLoggerEnabled=true
+       # true/false, true=fill / false=Not modify
+       FillColorCodeEnabled=true
+       FillColorCodeRegex=§[0-9a-f]
+       FillColorCodeReplace=
        FormatDateTime=yyyy/MM/dd-HH:mm:ss
     }
 
@@ -54,6 +58,38 @@ MODを外さずに、ログ出力をOFFにしたい場合は、falseにします
 yyyy/MM/dd-HH:mm:ssといった、日時の出力内容をカスタマイズできます。  
 書式は、javaのString#format()に準じます。
 詳しくは、「java format 書式」あたりをキーワードに検索してみてください。
+
+### FillColorCodeEnabled カラーコードの塗りつぶしの有効、無効切替
+ログファイル出力前に、カラーコードを塗りつぶす処理を行うかどうかを切り替えます。
+trueだと、塗りつぶしを行い、falseだと何もしません。  
+※デフォルトでは、ログを加工しないように、「無効」になっています。
+
+この処理は、以下のFillColorCodeRegexとFillColorCodeReplaceによって、内容を変更できます。
+
+#### FillColorCodeRegex 塗りつぶし条件（正規表現）
+※「正規表現」が何かわからない場合、この項目を触らないようにしてください。ログを破損する原因になります。
+通常はデフォルト設定のままで使用してください。
+
+ここで指定した条件が、ログに出力する１行すべてで評価されます。
+行頭の日時の出力部分に対しても、有効となっていますので注意してください。
+
+#### FillColorCodeReplace 塗りつぶし文字列
+※「正規表現」が何かわからない場合、この項目を触らないようにしてください。ログを破損する原因になります。
+通常はデフォルト設定のままで使用してください。
+
+#### カラーコードとは
+「文字の色を変更して表示するため」の「固定文字列」のことです。
+たとえば、マルチで誰かに直接話しかけられた場合は、以下のようなメッセージが出力されます。
+
+    例）
+    2012/11/17-02:53:41 : §dFrom testuser§d: 今度二人で遊ぼうぜ！
+
+FillColorCodeRegexとFillColorCodeReplaceの設定がデフォルトの場合、このメッセージは以下のように加工されます。
+
+    例）
+    2012/11/17-02:53:41 : From testuser: 今度二人で遊ぼうぜ！
+
+このように、カラーコードがログに不要な場合、FillColorCodeEnabledをtrueにすると、ずいぶん見やすくなります。  
 
 ## relativepath 相対パス
 「absolutepath 絶対パス」が有効な場合、この項目は無効になります。

@@ -263,7 +263,14 @@ public class SpecialLogWriter
 
 	private void println_write(String message)
 	{
-		this.pw.println(message);
+		String output_message = new String(message);
+		if(this.config.getFillColorCodeEnabled())
+		{
+			String regex = this.config.getFillColorCodeRegex();
+			String replace = this.config.getFillColorCodeReplace();
+			output_message = output_message.replaceAll(regex, replace);
+		}
+		this.pw.println(output_message);
 
 		this.isflush = true;
 		this.output_count = (this.output_count >= Integer.MAX_VALUE) ? 0 : this.output_count + 1;
