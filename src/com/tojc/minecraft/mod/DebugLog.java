@@ -27,48 +27,112 @@ public class DebugLog
 {
 	private static String HEADER = "ChatLoggerPlus : ";
 
+//    private static String replacePercentEscape(String target)
+//    {
+//    	// %がString.formatでエラーになるので、エスケープする。
+//    	return target.replaceAll("%", "%%");
+//    }
+
     public static void log(Level level, String format, Object... data)
     {
-		FMLLog.log(level, HEADER + format, data);
+    	if(data.length >= 1)
+    	{
+    		FMLLog.log(level, HEADER + format, data);
+    	}
+    	else
+    	{
+    		//FMLLog.log(level, replacePercentEscape(HEADER + format), new Object(){});
+    		FMLLog.log(level, "%s", HEADER + format);
+    	}
     }
 
     public static void log(Level level, Throwable ex, String format, Object... data)
     {
-		FMLLog.log(level, ex, HEADER + format, data);
+    	if(data.length >= 1)
+    	{
+    		FMLLog.log(level, ex, HEADER + format, data);
+    	}
+    	else
+    	{
+    		FMLLog.log(level, ex, "%s", HEADER + format);
+    	}
     }
 
     public static void severe(String format, Object... data)
     {
-		FMLLog.severe(HEADER + format, data);
+    	if(data.length >= 1)
+    	{
+    		FMLLog.severe(HEADER + format, data);
+    	}
+    	else
+    	{
+    		FMLLog.severe("%s", HEADER + format);
+    	}
     }
 
     public static void warning(String format, Object... data)
     {
-		FMLLog.warning(HEADER + format, data);
+    	if(data.length >= 1)
+    	{
+    		FMLLog.warning(HEADER + format, data);
+    	}
+    	else
+    	{
+    		FMLLog.warning("%s", HEADER + format);
+    	}
     }
 
     public static void info(String format, Object... data)
     {
-		FMLLog.info(HEADER + format, data);
+    	if(data.length >= 1)
+    	{
+    		FMLLog.info(HEADER + format, data);
+    	}
+    	else
+    	{
+    		FMLLog.info("%s", HEADER + format);
+    	}
     }
 
     public static void fine(String format, Object... data)
     {
-		FMLLog.fine(HEADER + format, data);
+    	if(data.length >= 1)
+    	{
+    		FMLLog.fine(HEADER + format, data);
+    	}
+    	else
+    	{
+    		FMLLog.fine("%s", HEADER + format);
+    	}
     }
 
     public static void finer(String format, Object... data)
     {
-		FMLLog.finer(HEADER + format, data);
+    	if(data.length >= 1)
+    	{
+    		FMLLog.finer(HEADER + format, data);
+    	}
+    	else
+    	{
+    		FMLLog.finer("%s", HEADER + format);
+    	}
     }
 
     public static void finest(String format, Object... data)
     {
-		FMLLog.finest(HEADER + format, data);
+    	if(data.length >= 1)
+    	{
+    		FMLLog.finest(HEADER + format, data);
+    	}
+    	else
+    	{
+    		FMLLog.finest("%s", HEADER + format);
+    	}
     }
 
     public static Logger getLogger()
     {
         return FMLLog.getLogger();
     }
+
 }
