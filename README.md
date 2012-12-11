@@ -1,5 +1,6 @@
 ChatLoggerPlus (Minecraft MOD)
 ==============
+[Minecraft 非公式日本ユーザーフォーラム ChatLoggerPlus公開トピックへのリンク](http://forum.minecraftuser.jp/viewtopic.php?f=13&t=7929)
 
 # MODの利用について
 * このMODを利用する場合は、すべて自己責任でお願いいたします。
