@@ -25,7 +25,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.src.GuiScreen;
+import net.minecraft.client.gui.GuiScreen;
 
 import cpw.mods.fml.common.ITickHandler;
 import cpw.mods.fml.common.Side;
@@ -220,72 +220,75 @@ public class CurrentScreenMonitor implements ITickHandler
 		GuiModsMissingForServer("GuiModsMissingForServer", cpw.mods.fml.client.GuiModsMissingForServer.class),
 
 		// extends GuiScreen
-		GuiAchievements("GuiAchievements",net.minecraft.src.GuiAchievements.class),
-		GuiChat("GuiChat",net.minecraft.src.GuiChat.class),
-		GuiCommandBlock("GuiCommandBlock",net.minecraft.src.GuiCommandBlock.class),
-		GuiConnecting("GuiConnecting",net.minecraft.src.GuiConnecting.class),
-		GuiContainer("GuiContainer",net.minecraft.src.GuiContainer.class),
-		GuiControls("GuiControls",net.minecraft.src.GuiControls.class),
-		GuiCreateFlatWorld("GuiCreateFlatWorld",net.minecraft.src.GuiCreateFlatWorld.class),
-		GuiCreateWorld("GuiCreateWorld",net.minecraft.src.GuiCreateWorld.class),
-		GuiDisconnected("GuiDisconnected",net.minecraft.src.GuiDisconnected.class),
-		GuiDownloadTerrain("GuiDownloadTerrain",net.minecraft.src.GuiDownloadTerrain.class),
-		GuiEditSign("GuiEditSign",net.minecraft.src.GuiEditSign.class),
-		GuiErrorScreen("GuiErrorScreen",net.minecraft.src.GuiErrorScreen.class),
-		GuiFlatPresets("GuiFlatPresets",net.minecraft.src.GuiFlatPresets.class),
-		GuiGameOver("GuiGameOver",net.minecraft.src.GuiGameOver.class),
-		GuiIngameMenu("GuiIngameMenu",net.minecraft.src.GuiIngameMenu.class),
-		GuiLanguage("GuiLanguage",net.minecraft.src.GuiLanguage.class),
-		GuiMainMenu("GuiMainMenu",net.minecraft.src.GuiMainMenu.class),
-		GuiMemoryErrorScreen("GuiMemoryErrorScreen",net.minecraft.src.GuiMemoryErrorScreen.class),
-		GuiMultiplayer("GuiMultiplayer",net.minecraft.src.GuiMultiplayer.class),
-		GuiOptions("GuiOptions",net.minecraft.src.GuiOptions.class),
-		GuiProgress("GuiProgress",net.minecraft.src.GuiProgress.class),
-		GuiRenameWorld("GuiRenameWorld",net.minecraft.src.GuiRenameWorld.class),
-		GuiScreenAddServer("GuiScreenAddServer",net.minecraft.src.GuiScreenAddServer.class),
-		GuiScreenBook("GuiScreenBook",net.minecraft.src.GuiScreenBook.class),
-		GuiScreenDemo("GuiScreenDemo",net.minecraft.src.GuiScreenDemo.class),
-		GuiScreenServerList("GuiScreenServerList",net.minecraft.src.GuiScreenServerList.class),
-		GuiSelectWorld("GuiSelectWorld",net.minecraft.src.GuiSelectWorld.class),
-		GuiShareToLan("GuiShareToLan",net.minecraft.src.GuiShareToLan.class),
-		GuiSnooper("GuiSnooper",net.minecraft.src.GuiSnooper.class),
-		GuiStats("GuiStats",net.minecraft.src.GuiStats.class),
-		GuiTexturePacks("GuiTexturePacks",net.minecraft.src.GuiTexturePacks.class),
-		GuiVideoSettings("GuiVideoSettings",net.minecraft.src.GuiVideoSettings.class),
-		GuiWinGame("GuiWinGame",net.minecraft.src.GuiWinGame.class),
-		GuiYesNo("GuiYesNo",net.minecraft.src.GuiYesNo.class),
-		ModLoader("ModLoader",net.minecraft.src.ModLoader.class),
-		//NetClientWebTextures("NetClientWebTextures",net.minecraft.src.NetClientWebTextures.class),
-		ScreenChatOptions("ScreenChatOptions",net.minecraft.src.ScreenChatOptions.class),
+		GuiAchievements("GuiAchievements", net.minecraft.client.gui.achievement.GuiAchievements.class),
+		GuiChat("GuiChat", net.minecraft.client.gui.GuiChat.class),
+		GuiCommandBlock("GuiCommandBlock", net.minecraft.client.gui.GuiCommandBlock.class),
+		GuiConnecting("GuiConnecting", net.minecraft.client.multiplayer.GuiConnecting.class),
+		GuiContainer("GuiContainer", net.minecraft.client.gui.inventory.GuiContainer.class),
+		GuiControls("GuiControls", net.minecraft.client.gui.GuiControls.class),
+		GuiCreateFlatWorld("GuiCreateFlatWorld", net.minecraft.client.gui.GuiCreateFlatWorld.class),
+		GuiCreateWorld("GuiCreateWorld", net.minecraft.client.gui.GuiCreateWorld.class),
+		GuiDisconnected("GuiDisconnected", net.minecraft.client.gui.GuiDisconnected.class),
+		GuiDownloadTerrain("GuiDownloadTerrain", net.minecraft.client.gui.GuiDownloadTerrain.class),
+		GuiEditSign("GuiEditSign", net.minecraft.client.gui.inventory.GuiEditSign.class),
+		GuiErrorScreen("GuiErrorScreen", net.minecraft.client.gui.GuiErrorScreen.class),
+		GuiFlatPresets("GuiFlatPresets", net.minecraft.client.gui.GuiFlatPresets.class),
+		GuiGameOver("GuiGameOver", net.minecraft.client.gui.GuiGameOver.class),
+		GuiIngameMenu("GuiIngameMenu", net.minecraft.client.gui.GuiIngameMenu.class),
+		GuiLanguage("GuiLanguage", net.minecraft.client.gui.GuiLanguage.class),
+		GuiMainMenu("GuiMainMenu", net.minecraft.client.gui.GuiMainMenu.class),
+		GuiMemoryErrorScreen("GuiMemoryErrorScreen", net.minecraft.client.gui.GuiMemoryErrorScreen.class),
+		GuiMultiplayer("GuiMultiplayer", net.minecraft.client.gui.GuiMultiplayer.class),
+		GuiOptions("GuiOptions", net.minecraft.client.gui.GuiOptions.class),
+		GuiProgress("GuiProgress", net.minecraft.client.gui.GuiProgress.class),
+		GuiRenameWorld("GuiRenameWorld", net.minecraft.client.gui.GuiRenameWorld.class),
+		GuiScreen("GuiScreen", net.minecraft.client.gui.GuiScreen.class),
+		GuiScreenAddServer("GuiScreenAddServer", net.minecraft.client.gui.GuiScreenAddServer.class),
+		GuiScreenBook("GuiScreenBook", net.minecraft.client.gui.GuiScreenBook.class),
+		GuiScreenDemo("GuiScreenDemo", net.minecraft.client.gui.GuiScreenDemo.class),
+		GuiScreenServerList("GuiScreenServerList", net.minecraft.client.gui.GuiScreenServerList.class),
+		GuiSelectWorld("GuiSelectWorld", net.minecraft.client.gui.GuiSelectWorld.class),
+		GuiShareToLan("GuiShareToLan", net.minecraft.client.gui.GuiShareToLan.class),
+		GuiSnooper("GuiSnooper", net.minecraft.client.gui.GuiSnooper.class),
+		GuiStats("GuiStats", net.minecraft.client.gui.achievement.GuiStats.class),
+		GuiTexturePacks("GuiTexturePacks", net.minecraft.client.texturepacks.GuiTexturePacks.class),
+		GuiVideoSettings("GuiVideoSettings", net.minecraft.client.gui.GuiVideoSettings.class),
+		GuiWinGame("GuiWinGame", net.minecraft.client.gui.GuiWinGame.class),
+		GuiYesNo("GuiYesNo", net.minecraft.client.gui.GuiYesNo.class),
+		//NetClientWebTextures("NetClientWebTextures", net.minecraft.client.multiplayer.NetClientWebTextures.class),
+		ScreenChatOptions("ScreenChatOptions", net.minecraft.client.gui.ScreenChatOptions.class),
 
 		// extends GuiContainer
-		GuiBeacon("GuiBeacon",net.minecraft.src.GuiBeacon.class),
-		GuiBrewingStand("GuiBrewingStand",net.minecraft.src.GuiBrewingStand.class),
-		GuiChest("GuiChest",net.minecraft.src.GuiChest.class),
-		GuiCrafting("GuiCrafting",net.minecraft.src.GuiCrafting.class),
-		GuiDispenser("GuiDispenser",net.minecraft.src.GuiDispenser.class),
-		GuiEnchantment("GuiEnchantment",net.minecraft.src.GuiEnchantment.class),
-		GuiFurnace("GuiFurnace",net.minecraft.src.GuiFurnace.class),
-		GuiMerchant("GuiMerchant",net.minecraft.src.GuiMerchant.class),
-		GuiRepair("GuiRepair",net.minecraft.src.GuiRepair.class),
-		InventoryEffectRenderer("InventoryEffectRenderer",net.minecraft.src.InventoryEffectRenderer.class),
+		GuiBeacon("GuiBeacon", net.minecraft.client.gui.inventory.GuiBeacon.class),
+		GuiBrewingStand("GuiBrewingStand", net.minecraft.client.gui.inventory.GuiBrewingStand.class),
+		GuiChest("GuiChest", net.minecraft.client.gui.inventory.GuiChest.class),
+		GuiCrafting("GuiCrafting", net.minecraft.client.gui.inventory.GuiCrafting.class),
+		GuiDispenser("GuiDispenser", net.minecraft.client.gui.inventory.GuiDispenser.class),
+		GuiEnchantment("GuiEnchantment", net.minecraft.client.gui.GuiEnchantment.class),
+		GuiFurnace("GuiFurnace", net.minecraft.client.gui.inventory.GuiFurnace.class),
+		GuiMerchant("GuiMerchant", net.minecraft.client.gui.GuiMerchant.class),
+		GuiRepair("GuiRepair", net.minecraft.client.gui.GuiRepair.class),
+		InventoryEffectRenderer("InventoryEffectRenderer", net.minecraft.client.renderer.InventoryEffectRenderer.class),
 
 		// extends GuiChat
-		GuiSleepMP("GuiSleepMP", net.minecraft.src.GuiSleepMP.class),
+		GuiSleepMP("GuiSleepMP", net.minecraft.client.gui.GuiSleepMP.class),
 
 		// extends InventoryEffectRenderer
-		GuiContainerCreative("GuiContainerCreative", net.minecraft.src.GuiContainerCreative.class),
-		GuiInventory("GuiInventory", net.minecraft.src.GuiInventory.class),
+		GuiContainerCreative("GuiContainerCreative", net.minecraft.client.gui.inventory.GuiContainerCreative.class),
+		GuiInventory("GuiInventory", net.minecraft.client.gui.inventory.GuiInventory.class),
 
 		// extends GuiYesNo
-		GuiConfirmOpenLink("GuiConfirmOpenLink", net.minecraft.src.GuiConfirmOpenLink.class),
+		GuiConfirmOpenLink("GuiConfirmOpenLink", net.minecraft.client.gui.GuiConfirmOpenLink.class),
+		GuiIdMismatchScreen("GuiIdMismatchScreen", cpw.mods.fml.client.GuiIdMismatchScreen.class),
 
 		// extends GuiConfirmOpenLink
-		//GuiChatConfirmLink("GuiChatConfirmLink", net.minecraft.src.GuiChatConfirmLink.class),
-
+		//GuiChatConfirmLink("GuiChatConfirmLink", net.minecraft.client.gui.GuiChatConfirmLink.class),
 
 		// extends GuiScreen(super) ※特殊な扱い（他のMODで追加されたGuiScreenを疑似判定する）
-		UnknownExtendsGuiScreen("UnknownExtendsGuiScreen", net.minecraft.src.GuiScreen.class);
+		UnknownExtendsGuiScreen("UnknownExtendsGuiScreen", net.minecraft.client.gui.GuiScreen.class),
+
+		// extends GuiChat(super) ※特殊な扱い（他のMODで追加されたGuiChatを疑似判定する）
+		UnknownExtendsGuiChat("UnknownExtendsGuiChat", net.minecraft.client.gui.GuiChat.class);
 
 		private GuiScreenType(String name, Class<?> cls)
 		{
@@ -316,7 +319,9 @@ public class CurrentScreenMonitor implements ITickHandler
 	        	if((screen != null) && (targetguiscreen != null))
 	        	{
 		        	if((screen.getGuiScreenClass() == targetguiscreen.getClass())
-		        			&& (screen != UnknownExtendsGuiScreen))
+		        			&& (screen != UnknownExtendsGuiScreen)
+		        			&& (screen != UnknownExtendsGuiChat)
+		        			)
 		        	{
 		                result = screen;
 		                break;
@@ -332,6 +337,11 @@ public class CurrentScreenMonitor implements ITickHandler
 		        	if(UnknownExtendsGuiScreen.getGuiScreenClass().isAssignableFrom(targetguiscreen.getClass()))
 		        	{
 		                result = UnknownExtendsGuiScreen;
+		        	}
+
+		        	if(UnknownExtendsGuiChat.getGuiScreenClass().isAssignableFrom(targetguiscreen.getClass()))
+		        	{
+		                result = UnknownExtendsGuiChat;
 		        	}
 	        	}
 	        }

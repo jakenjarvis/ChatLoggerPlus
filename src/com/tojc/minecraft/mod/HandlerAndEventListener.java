@@ -21,12 +21,12 @@ package com.tojc.minecraft.mod;
 import com.tojc.minecraft.mod.CurrentScreenMonitor.CurrentScreenChangedEvent;
 import com.tojc.minecraft.mod.CurrentScreenMonitor.CurrentScreenChangedListener;
 
+import net.minecraft.network.INetworkManager;
+import net.minecraft.network.NetLoginHandler;
+import net.minecraft.network.packet.NetHandler;
+import net.minecraft.network.packet.Packet1Login;
+import net.minecraft.network.packet.Packet3Chat;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.src.INetworkManager;
-import net.minecraft.src.NetHandler;
-import net.minecraft.src.NetLoginHandler;
-import net.minecraft.src.Packet1Login;
-import net.minecraft.src.Packet3Chat;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.CommandEvent;
@@ -149,8 +149,9 @@ public class HandlerAndEventListener implements IConnectionHandler, IChatListene
 
 		switch(e.getCurrentScreenType())
 		{
-			case GuiChat:	// チャット入力画面は、頻度が高すぎるので除外する。
-			case Unknown:	// プレイ中または未登録画面
+			case GuiChat:					// チャット入力画面は、頻度が高すぎるので除外する。
+			case UnknownExtendsGuiChat:		// 未登録のチャット継承画面も除外しておく。
+			case Unknown:					// プレイ中または未登録画面
 				break;
 
 			default:
