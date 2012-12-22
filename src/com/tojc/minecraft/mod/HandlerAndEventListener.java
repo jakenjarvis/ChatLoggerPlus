@@ -21,16 +21,18 @@ package com.tojc.minecraft.mod;
 import com.tojc.minecraft.mod.CurrentScreenMonitor.CurrentScreenChangedEvent;
 import com.tojc.minecraft.mod.CurrentScreenMonitor.CurrentScreenChangedListener;
 
+import net.minecraft.network.INetworkManager;
+import net.minecraft.network.NetLoginHandler;
+import net.minecraft.network.packet.NetHandler;
+import net.minecraft.network.packet.Packet1Login;
+import net.minecraft.network.packet.Packet3Chat;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.src.INetworkManager;
-import net.minecraft.src.NetHandler;
-import net.minecraft.src.NetLoginHandler;
-import net.minecraft.src.Packet1Login;
-import net.minecraft.src.Packet3Chat;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.CommandEvent;
 import net.minecraftforge.event.ForgeSubscribe;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.event.world.WorldEvent;
 import cpw.mods.fml.common.network.IChatListener;
 import cpw.mods.fml.common.network.IConnectionHandler;
 import cpw.mods.fml.common.network.NetworkRegistry;
@@ -98,6 +100,28 @@ public class HandlerAndEventListener implements IConnectionHandler, IChatListene
 		this.core.onWrite(event.message);
 	}
 
+	@ForgeSubscribe
+	public void onWorldEvent_Load(WorldEvent.Load event)
+	{
+		DebugLog.info("onWorldEvent_Load()");
+		//DebugLog.info("getWorldName() : " + event.world.getWorldInfo().getWorldName());
+		this.core.onOpen();
+	}
+
+	@ForgeSubscribe
+	public void onWorldEvent_Save(WorldEvent.Save event)
+	{
+		DebugLog.info("onWorldEvent_Save()");
+		this.core.onFlush();
+	}
+
+	@ForgeSubscribe
+	public void onWorldEvent_Unload(WorldEvent.Unload event)
+	{
+		DebugLog.info("onWorldEvent_Unload()");
+		this.core.onClose();
+	}
+
 	@Override
 	public void playerLoggedIn(Player player, NetHandler netHandler, INetworkManager manager)
 	{
@@ -127,15 +151,20 @@ public class HandlerAndEventListener implements IConnectionHandler, IChatListene
 	@Override
 	public void connectionClosed(INetworkManager manager)
 	{
+		// MEMO: minecraftforge-src-1.4.5-6.4.2.448にて、複数回呼ばれることを確認したため、使用不可。
+		// connectionOpenedと対でないため、ここでのCloseは誤動作になる。
+		//（チャット発言の度にconnectionClosedされる。呼出し元が複数個所に追加されている）
+
+		// MEMO: minecraftforge-src-1.4.6-6.5.0.467にて、直った？この先も不安なので、WorldEventを使うことにする。
 		DebugLog.info("connectionClosed");
-		this.core.onClose();
+		//this.core.onClose();
 	}
 
 	@Override
 	public void clientLoggedIn(NetHandler clientHandler, INetworkManager manager, Packet1Login login)
 	{
 		DebugLog.info("clientLoggedIn");
-		this.core.onOpen();
+		//this.core.onOpen();
 	}
 
 	@Override
@@ -149,8 +178,9 @@ public class HandlerAndEventListener implements IConnectionHandler, IChatListene
 
 		switch(e.getCurrentScreenType())
 		{
-			case GuiChat:	// チャット入力画面は、頻度が高すぎるので除外する。
-			case Unknown:	// プレイ中または未登録画面
+			case GuiChat:					// チャット入力画面は、頻度が高すぎるので除外する。
+			case UnknownExtendsGuiChat:		// 未登録のチャット継承画面も除外しておく。
+			case Unknown:					// プレイ中または未登録画面
 				break;
 
 			default:
