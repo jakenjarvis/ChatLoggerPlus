@@ -154,6 +154,8 @@ public class HandlerAndEventListener implements IConnectionHandler, IChatListene
 		// MEMO: minecraftforge-src-1.4.5-6.4.2.448にて、複数回呼ばれることを確認したため、使用不可。
 		// connectionOpenedと対でないため、ここでのCloseは誤動作になる。
 		//（チャット発言の度にconnectionClosedされる。呼出し元が複数個所に追加されている）
+
+		// MEMO: minecraftforge-src-1.4.6-6.5.0.467にて、直った？この先も不安なので、WorldEventを使うことにする。
 		DebugLog.info("connectionClosed");
 		//this.core.onClose();
 	}
