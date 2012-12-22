@@ -1,5 +1,5 @@
 @echo off
-set devdir=C:\dev_mcp\mcdev
+set devdir=C:\dev_mcp\mcdev\forge\mcp
 set topleveldomain=com
 set prjsrcdir=C:\dev_mcp\workspace\ChatLoggerPlus\src
 
