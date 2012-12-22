@@ -31,6 +31,8 @@ import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.CommandEvent;
 import net.minecraftforge.event.ForgeSubscribe;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.event.world.WorldEvent;
 import cpw.mods.fml.common.network.IChatListener;
 import cpw.mods.fml.common.network.IConnectionHandler;
 import cpw.mods.fml.common.network.NetworkRegistry;
@@ -98,6 +100,28 @@ public class HandlerAndEventListener implements IConnectionHandler, IChatListene
 		this.core.onWrite(event.message);
 	}
 
+	@ForgeSubscribe
+	public void onWorldEvent_Load(WorldEvent.Load event)
+	{
+		DebugLog.info("onWorldEvent_Load()");
+		//DebugLog.info("getWorldName() : " + event.world.getWorldInfo().getWorldName());
+		this.core.onOpen();
+	}
+
+	@ForgeSubscribe
+	public void onWorldEvent_Save(WorldEvent.Save event)
+	{
+		DebugLog.info("onWorldEvent_Save()");
+		this.core.onFlush();
+	}
+
+	@ForgeSubscribe
+	public void onWorldEvent_Unload(WorldEvent.Unload event)
+	{
+		DebugLog.info("onWorldEvent_Unload()");
+		this.core.onClose();
+	}
+
 	@Override
 	public void playerLoggedIn(Player player, NetHandler netHandler, INetworkManager manager)
 	{
@@ -127,15 +151,18 @@ public class HandlerAndEventListener implements IConnectionHandler, IChatListene
 	@Override
 	public void connectionClosed(INetworkManager manager)
 	{
+		// MEMO: minecraftforge-src-1.4.5-6.4.2.448にて、複数回呼ばれることを確認したため、使用不可。
+		// connectionOpenedと対でないため、ここでのCloseは誤動作になる。
+		//（チャット発言の度にconnectionClosedされる。呼出し元が複数個所に追加されている）
 		DebugLog.info("connectionClosed");
-		this.core.onClose();
+		//this.core.onClose();
 	}
 
 	@Override
 	public void clientLoggedIn(NetHandler clientHandler, INetworkManager manager, Packet1Login login)
 	{
 		DebugLog.info("clientLoggedIn");
-		this.core.onOpen();
+		//this.core.onOpen();
 	}
 
 	@Override
