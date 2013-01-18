@@ -22,6 +22,7 @@ import com.tojc.minecraft.mod.ChatLogger.CurrentScreenMonitor.CurrentScreenChang
 import com.tojc.minecraft.mod.ChatLogger.CurrentScreenMonitor.CurrentScreenChangedListener;
 import com.tojc.minecraft.mod.log.DebugLog;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.NetLoginHandler;
 import net.minecraft.network.packet.NetHandler;
@@ -105,7 +106,8 @@ public class HandlerAndEventListener implements IConnectionHandler, IChatListene
 	public void onWorldEvent_Load(WorldEvent.Load event)
 	{
 		DebugLog.info("onWorldEvent_Load()");
-		//DebugLog.info("getWorldName() : " + event.world.getWorldInfo().getWorldName());
+		DebugLog.info("getWorldName() : " + event.world.getWorldInfo().getWorldName());
+		this.core.onWorldConnection(event.world.getWorldInfo().getWorldName());
 		this.core.onOpen();
 	}
 
@@ -137,15 +139,15 @@ public class HandlerAndEventListener implements IConnectionHandler, IChatListene
 	@Override
 	public void connectionOpened(NetHandler netClientHandler, String server, int port, INetworkManager manager)
 	{
-		DebugLog.info("connectionOpened A: " + server + ":" + port);
-		this.core.onServerConnection(server + "-" + port);
-		//TODO: とりあえず、-にして対応したが、ここは:で渡し、ファイル名にする前に置換するように変更する。
+		String servername = server + "-" + port;
+		DebugLog.info("connectionOpened A: " + servername);
+		this.core.onServerConnection(servername);
 	}
 
 	@Override
 	public void connectionOpened(NetHandler netClientHandler, MinecraftServer server, INetworkManager manager)
 	{
-		DebugLog.info("connectionOpened B: " + server.getServerHostname() + ":" + server.getServerPort());
+		DebugLog.info("connectionOpened B: " + server.getServerHostname() + ":" + server.getServerPort() + ": " + server.getWorldName());
 		this.core.onServerConnection("LocalServer");
 	}
 

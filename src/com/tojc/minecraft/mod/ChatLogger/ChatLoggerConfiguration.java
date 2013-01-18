@@ -76,8 +76,8 @@ public class ChatLoggerConfiguration
 		this.fillColorCodeReplace.initialize(Configuration.CATEGORY_GENERAL, "FillColorCodeReplace", "", null);
 
 		// CATEGORY_RELATIVE_PATH
-		this.defaultReplaceLogFileFullPathFileName.initialize(CATEGORY_RELATIVE_PATH, "DefaultReplaceLogFileFullPathFileName", "chatlog/%SERVERNAME%/%PLAYERNAME%/ChatLog_%DATE%.log", "Replace : %SERVERNAME% %PLAYERNAME% %DATE% %TIME%");
-		this.enforcementReplaceLogFileFullPathFileName.initialize(CATEGORY_ABSOLUTE_PATH, "EnforcementReplaceLogFileFullPathFileName", "", "Replace : %SERVERNAME% %PLAYERNAME% %DATE% %TIME%  * If null, the relativepath is used.");
+		this.defaultReplaceLogFileFullPathFileName.initialize(CATEGORY_RELATIVE_PATH, "DefaultReplaceLogFileFullPathFileName", "chatlog/%SERVERNAME%/%PLAYERNAME%/ChatLog_%DATE%.log", "Replace : %SERVERNAME% %WORLDNAME% %PLAYERNAME% %DATE% %TIME%");
+		this.enforcementReplaceLogFileFullPathFileName.initialize(CATEGORY_ABSOLUTE_PATH, "EnforcementReplaceLogFileFullPathFileName", "", "Replace : %SERVERNAME% %WORLDNAME% %PLAYERNAME% %DATE% %TIME%  * If null, the relativepath is used.");
 
 		// CATEGORY_FILENAME_FORMAT
 		this.formatReplaceDate.initialize(CATEGORY_FILENAME_FORMAT, "FormatReplaceDate", "yyyyMMdd", null);

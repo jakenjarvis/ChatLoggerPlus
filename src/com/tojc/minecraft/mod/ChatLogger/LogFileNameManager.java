@@ -30,6 +30,7 @@ public class LogFileNameManager
 	private ChatLoggerConfiguration config = null;
 
 	private String servername = "";
+	private String worldname = "";
 	private String playername = "";
 	private Date filebasedate = null;
 
@@ -51,6 +52,15 @@ public class LogFileNameManager
 	public String getServerName()
 	{
 		return this.servername;
+	}
+
+	public void setWorldName(String worldname)
+	{
+		this.worldname = worldname;
+	}
+	public String getWorldName()
+	{
+		return this.worldname;
 	}
 
 	public void setPlayerName(String playername)
@@ -126,8 +136,9 @@ public class LogFileNameManager
 	private String replaceSymbol(String target)
 	{
 		String result = target;
-		// Replace : %SERVERNAME% %PLAYERNAME% %DATE% %TIME%
+		// Replace : %SERVERNAME% %WORLDNAME% %PLAYERNAME% %DATE% %TIME%
 		result = result.replace("%SERVERNAME%", this.servername);
+		result = result.replace("%WORLDNAME%", this.worldname);
 		result = result.replace("%PLAYERNAME%", this.playername);
 		result = result.replace("%DATE%", this.dateformat.format(this.filebasedate));
 		result = result.replace("%TIME%", this.timeformat.format(this.filebasedate));

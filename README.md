@@ -39,13 +39,14 @@ com.tojc.minecraft.mod.ChatLoggerPlus.cfgファイルをテキストエディタ
 ## general 一般設定
 
     general {
-       # true/false
-       ChatLoggerEnabled=true
-       # true/false, true=fill / false=Not modify
-       FillColorCodeEnabled=true
-       FillColorCodeRegex=§[0-9a-fk-or]
-       FillColorCodeReplace=
-       FormatDateTime=yyyy/MM/dd-HH:mm:ss
+        # true/false
+        B:ChatLoggerEnabled=true
+
+        # true/false, true=fill / false=Not modify
+        B:FillColorCodeEnabled=false
+        S:FillColorCodeRegex=§[0-9a-fk-or]
+        S:FillColorCodeReplace=
+        S:FormatDateTime=yyyy/MM/dd-HH:mm:ss
     }
 
 ### ChatLoggerEnabled チャットログの有効、無効切替
@@ -95,8 +96,8 @@ FillColorCodeRegexとFillColorCodeReplaceの設定がデフォルトの場合、
 「absolutepath 絶対パス」が有効な場合、この項目は無効になります。
 
     relativepath {
-       # Replace : %SERVERNAME% %PLAYERNAME% %DATE% %TIME%
-       DefaultReplaceLogFileFullPathFileName=chatlog/%SERVERNAME%/%PLAYERNAME%/ChatLog_%DATE%.log
+        # Replace : %SERVERNAME% %WORLDNAME% %PLAYERNAME% %DATE% %TIME%
+        S:DefaultReplaceLogFileFullPathFileName=chatlog/%SERVERNAME%/%PLAYERNAME%/ChatLog_%DATE%.log
     }
 
 ### DefaultReplaceLogFileFullPathFileName デフォルトログファイル名（シンボル置換）
@@ -106,8 +107,8 @@ FillColorCodeRegexとFillColorCodeReplaceの設定がデフォルトの場合、
 ## absolutepath 絶対パス
 
     absolutepath {
-       # Replace : %SERVERNAME% %PLAYERNAME% %DATE% %TIME%  * If null, the relativepath is used.
-       EnforcementReplaceLogFileFullPathFileName=d:/chatlog/%SERVERNAME%/%PLAYERNAME%/ChatLog_%DATE%.log
+        # Replace : %SERVERNAME% %WORLDNAME% %PLAYERNAME% %DATE% %TIME%  * If null, the relativepath is used.
+        S:EnforcementReplaceLogFileFullPathFileName=d:/chatlog/%SERVERNAME%/%PLAYERNAME%/ChatLog_%DATE%.log
     }
 
 ### EnforcementReplaceLogFileFullPathFileName 強制フルパスログファイル名（シンボル置換）
@@ -123,6 +124,8 @@ FillColorCodeRegexとFillColorCodeReplaceの設定がデフォルトの場合、
 
 * %SERVERNAME%  
 サーバ名「（IPアドレスまたはドメイン名）:ポート番号」
+* %WORLDNAME%  
+ワールド名「ログインしたワールド名」※ローカルサーバの場合MpServerになってしまうようです。
 * %PLAYERNAME%  
 プレイヤー名「ログインしているユーザー名」
 * %DATE%  
@@ -140,8 +143,8 @@ yyyyMMdd、HHmmssといった、ファイル名で使う日付と時間の出力
 詳しくは、「java format 書式」あたりをキーワードに検索してみてください。
 
     filenameformat {
-       FormatReplaceDate=yyyyMMdd
-       FormatReplaceTime=HHmmss
+        S:FormatReplaceDate=yyyyMMdd
+        S:FormatReplaceTime=HHmmss
     }
 
 ### FormatReplaceDate 日付用フォーマット

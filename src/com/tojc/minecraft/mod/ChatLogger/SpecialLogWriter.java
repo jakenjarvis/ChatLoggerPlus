@@ -185,6 +185,11 @@ public class SpecialLogWriter
 		this.logfilemanager.setServerName(servername);
 	}
 
+	public void setWorldName(String worldname)
+	{
+		this.logfilemanager.setWorldName(worldname);
+	}
+
 	public void open()
 	{
 		switch(this.state)

@@ -55,6 +55,11 @@ public class ChatLoggerCore implements FileOperationCompletedListener
 		DebugLog.info("onPostInit");
 	}
 
+	public void onWorldConnection(String worldname)
+	{
+		this.writer.setWorldName(worldname);
+	}
+
 	public void onServerConnection(String servername)
 	{
 		this.writer.setServerName(servername);
