@@ -36,11 +36,17 @@ public class ChatLoggerCore implements FileOperationCompletedListener
 	private HandlerAndEventListener listener = null;
 	private SpecialLogWriter writer = null;
 
+	public ChatLoggerConfiguration getConfig()
+	{
+		return this.config;
+	}
+
 	public void onPreInit(FMLPreInitializationEvent event)
 	{
 		DebugLog.info("onPreInit");
 
 		this.config = new ChatLoggerConfiguration(event.getSuggestedConfigurationFile());
+
 		this.listener = new HandlerAndEventListener(this);
 		this.writer = new SpecialLogWriter(this.config, this);
 	}

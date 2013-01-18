@@ -105,7 +105,7 @@ public class SpecialLogWriter
 	{
 		this.config = config;
 		this.listener = listener;
-		this.logfilemanager = new LogFileNameManager(config);
+		this.logfilemanager = new LogFileNameManager(this.config);
 		this.datetimeformat = new SimpleDateFormat(this.config.getFormatDateTime().get());
 		this.buffer.clear();
 	}
@@ -228,6 +228,8 @@ public class SpecialLogWriter
 						message.append("ChatLoggerPlus Logging start. (");
 						message.append(this.logfilemanager.getServerName());
 						message.append(" - ");
+						message.append(this.logfilemanager.getWorldName());
+						message.append(" - ");
 						message.append(this.logfilemanager.getPlayerName());
 						message.append(")");
 
@@ -270,14 +272,7 @@ public class SpecialLogWriter
 
 	private void println_write(String message)
 	{
-		String output_message = new String(message);
-		if(this.config.getFillColorCodeEnabled().get())
-		{
-			String regex = this.config.getFillColorCodeRegex().get();
-			String replace = this.config.getFillColorCodeReplace().get();
-			output_message = output_message.replaceAll(regex, replace);
-		}
-		this.pw.println(output_message);
+		this.pw.println(message);
 
 		this.isflush = true;
 		this.output_count = (this.output_count >= Integer.MAX_VALUE) ? 0 : this.output_count + 1;

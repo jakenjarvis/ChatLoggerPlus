@@ -42,8 +42,8 @@ import cpw.mods.fml.common.network.Player;
 
 public class HandlerAndEventListener implements IConnectionHandler, IChatListener, CurrentScreenChangedListener
 {
-	private CurrentScreenMonitor screenmonitor = null;
 	private ChatLoggerCore core = null;
+	private CurrentScreenMonitor screenmonitor = null;
 
 	public HandlerAndEventListener(ChatLoggerCore core)
 	{
@@ -69,7 +69,7 @@ public class HandlerAndEventListener implements IConnectionHandler, IChatListene
 		// MEMO:一番最初に呼ばれ、<プレイヤー名>の文字が付く前の値が取得できる。
 		// マルチサーバへ接続した場合は、クライアント側はこのイベントが発生しない。
 		//「/」から始まるコマンドは、ここは呼び出されない。
-		//DebugLog.info("serverChat: " + message.message);
+		DebugLog.info("serverChat: " + message.message);
 		return message;
 	}
 
@@ -77,7 +77,12 @@ public class HandlerAndEventListener implements IConnectionHandler, IChatListene
 	public Packet3Chat clientChat(NetHandler handler, Packet3Chat message)
 	{
 		// MEMO:「/」から始まるコマンドは、ここは呼び出されない。
-		//DebugLog.info("clientChat: " + message.message);
+		DebugLog.info("clientChat: " + message.message);
+		ClientChatMessageManager chatmanager = new ClientChatMessageManager(this.core.getConfig(), message.message);
+
+		this.core.onWrite(chatmanager.outputChatLog());
+
+		message.message = chatmanager.outputScreen();
 		return message;
 	}
 
@@ -92,6 +97,8 @@ public class HandlerAndEventListener implements IConnectionHandler, IChatListene
 		commandline.append(" ");
 		commandline.append(join(event.parameters, " "));
 
+		//DebugLog.info("onCommandEvent: " + commandline.toString().trim());
+
 		this.core.onWrite(commandline.toString().trim());
 	}
 
@@ -99,7 +106,8 @@ public class HandlerAndEventListener implements IConnectionHandler, IChatListene
 	public void onClientChatReceivedEvent(ClientChatReceivedEvent event)
 	{
 		// MEMO:「/」から始まるコマンドは、ここは呼び出されない。
-		this.core.onWrite(event.message);
+		//DebugLog.info("onClientChatReceivedEvent: " + event.message);
+		//this.core.onWrite(event.message);
 	}
 
 	@ForgeSubscribe
