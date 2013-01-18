@@ -20,6 +20,8 @@ package com.tojc.minecraft.mod;
 
 import java.util.logging.Level;
 
+import com.tojc.minecraft.mod.ChatLogger.ChatLoggerCore;
+
 import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.Instance;

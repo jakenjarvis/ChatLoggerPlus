@@ -16,10 +16,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.tojc.minecraft.mod;
+package com.tojc.minecraft.mod.ChatLogger;
 
-import com.tojc.minecraft.mod.CurrentScreenMonitor.CurrentScreenChangedEvent;
-import com.tojc.minecraft.mod.CurrentScreenMonitor.CurrentScreenChangedListener;
+import com.tojc.minecraft.mod.ChatLogger.CurrentScreenMonitor.CurrentScreenChangedEvent;
+import com.tojc.minecraft.mod.ChatLogger.CurrentScreenMonitor.CurrentScreenChangedListener;
+import com.tojc.minecraft.mod.log.DebugLog;
 
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.NetLoginHandler;

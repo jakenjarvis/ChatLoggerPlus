@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.tojc.minecraft.mod;
+package com.tojc.minecraft.mod.ChatLogger;
 
 import java.io.BufferedWriter;
 import java.io.Closeable;
@@ -33,6 +33,8 @@ import java.util.EventObject;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
+
+import com.tojc.minecraft.mod.log.DebugLog;
 
 import net.minecraft.client.Minecraft;
 

@@ -16,12 +16,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.tojc.minecraft.mod;
+package com.tojc.minecraft.mod.ChatLogger;
 
 import java.io.File;
 
-import com.tojc.minecraft.mod.SpecialLogWriter.FileOperationCompletedEvent;
-import com.tojc.minecraft.mod.SpecialLogWriter.FileOperationCompletedListener;
+import com.tojc.minecraft.mod.ChatLogger.SpecialLogWriter.FileOperationCompletedEvent;
+import com.tojc.minecraft.mod.ChatLogger.SpecialLogWriter.FileOperationCompletedListener;
+import com.tojc.minecraft.mod.log.DebugLog;
 
 import net.minecraft.client.Minecraft;
 import cpw.mods.fml.common.Mod;
