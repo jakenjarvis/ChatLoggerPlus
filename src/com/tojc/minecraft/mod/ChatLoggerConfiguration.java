@@ -21,161 +21,114 @@ package com.tojc.minecraft.mod;
 import java.io.File;
 import java.util.logging.Level;
 
+import com.tojc.minecraft.mod.Configuration.ConfigurationPropertyBoolean;
+import com.tojc.minecraft.mod.Configuration.ConfigurationPropertyString;
+
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.Property;
 
 public class ChatLoggerConfiguration
 {
-	private Configuration config = null;
-
-	private Property chatLoggerEnabled = null;
-	private Property formatDateTime = null;
-	private Property fillColorCodeEnabled = null;
-	private Property fillColorCodeRegex = null;
-	private Property fillColorCodeReplace = null;
-
-	private Property formatReplaceDate = null;
-	private Property formatReplaceTime = null;
-
-	private Property defaultReplaceLogFileFullPathFileName = null;
-	private Property enforcementReplaceLogFileFullPathFileName = null;
-
 	private static String CATEGORY_FILENAME_FORMAT = "filenameformat";
-
 	private static String CATEGORY_RELATIVE_PATH = "relativepath";
 	private static String CATEGORY_ABSOLUTE_PATH = "absolutepath";
-	//
+
+	private Configuration config = null;
+
+	private ConfigurationPropertyBoolean chatLoggerEnabled = null;
+	private ConfigurationPropertyString formatDateTime = null;
+	private ConfigurationPropertyBoolean fillColorCodeEnabled = null;
+	private ConfigurationPropertyString fillColorCodeRegex = null;
+	private ConfigurationPropertyString fillColorCodeReplace = null;
+
+	private ConfigurationPropertyString defaultReplaceLogFileFullPathFileName = null;
+	private ConfigurationPropertyString enforcementReplaceLogFileFullPathFileName = null;
+
+	private ConfigurationPropertyString formatReplaceDate = null;
+	private ConfigurationPropertyString formatReplaceTime = null;
 
 	public ChatLoggerConfiguration(File file)
 	{
 		this.config = new Configuration(file);
-		try
-		{
-			this.config.load();
 
-			// TODO: エラーになったら、読み飛ばしちゃうので、いずれ修正。
+		this.config.load();
 
-			this.chatLoggerEnabled = this.config.get(Configuration.CATEGORY_GENERAL, "ChatLoggerEnabled", true);
-			this.chatLoggerEnabled.comment = "true/false";
-			this.formatDateTime = this.config.get(Configuration.CATEGORY_GENERAL, "FormatDateTime", "yyyy/MM/dd-HH:mm:ss");
+		// create property
+		this.chatLoggerEnabled = new ConfigurationPropertyBoolean(this.config);
+		this.formatDateTime = new ConfigurationPropertyString(this.config);
+		this.fillColorCodeEnabled = new ConfigurationPropertyBoolean(this.config);
+		this.fillColorCodeRegex = new ConfigurationPropertyString(this.config);
+		this.fillColorCodeReplace = new ConfigurationPropertyString(this.config);
 
-			this.fillColorCodeEnabled = this.config.get(Configuration.CATEGORY_GENERAL, "FillColorCodeEnabled", false);
-			this.fillColorCodeEnabled.comment = "true/false, true=fill / false=Not modify";
+		this.defaultReplaceLogFileFullPathFileName = new ConfigurationPropertyString(this.config);
+		this.enforcementReplaceLogFileFullPathFileName = new ConfigurationPropertyString(this.config);
 
-			this.fillColorCodeRegex = this.config.get(Configuration.CATEGORY_GENERAL, "FillColorCodeRegex", "§[0-9a-f]");
-			this.fillColorCodeReplace = this.config.get(Configuration.CATEGORY_GENERAL, "FillColorCodeReplace", "");
+		this.formatReplaceDate = new ConfigurationPropertyString(this.config);
+		this.formatReplaceTime = new ConfigurationPropertyString(this.config);
 
-			this.defaultReplaceLogFileFullPathFileName = this.config.get(CATEGORY_RELATIVE_PATH, "DefaultReplaceLogFileFullPathFileName", "chatlog/%SERVERNAME%/%PLAYERNAME%/ChatLog_%DATE%.log");
-			this.defaultReplaceLogFileFullPathFileName.comment = "Replace : %SERVERNAME% %PLAYERNAME% %DATE% %TIME%";
+		// initialize
 
-			this.enforcementReplaceLogFileFullPathFileName = this.config.get(CATEGORY_ABSOLUTE_PATH, "EnforcementReplaceLogFileFullPathFileName", "");
-			this.enforcementReplaceLogFileFullPathFileName.comment = "Replace : %SERVERNAME% %PLAYERNAME% %DATE% %TIME%  * If null, the relativepath is used.";
+		// CATEGORY_GENERAL
+		this.chatLoggerEnabled.initialize(Configuration.CATEGORY_GENERAL, "ChatLoggerEnabled", true, "true/false");
+		this.formatDateTime.initialize(Configuration.CATEGORY_GENERAL, "FormatDateTime", "yyyy/MM/dd-HH:mm:ss", null);
+		this.fillColorCodeEnabled.initialize(Configuration.CATEGORY_GENERAL, "FillColorCodeEnabled", false, "true/false, true=fill / false=Not modify");
+		this.fillColorCodeRegex.initialize(Configuration.CATEGORY_GENERAL, "FillColorCodeRegex", "§[0-9a-fk-or]", null);
+		this.fillColorCodeReplace.initialize(Configuration.CATEGORY_GENERAL, "FillColorCodeReplace", "", null);
 
-			this.formatReplaceDate = this.config.get(CATEGORY_FILENAME_FORMAT, "FormatReplaceDate", "yyyyMMdd");
-			this.formatReplaceTime = this.config.get(CATEGORY_FILENAME_FORMAT, "FormatReplaceTime", "HHmmss");
-		}
-		catch(Exception e)
-		{
-			DebugLog.log(Level.SEVERE, e, "Failed to read the configuration file.");
-		}
-		finally
-		{
-			this.config.save();
-		}
-	}
+		// CATEGORY_RELATIVE_PATH
+		this.defaultReplaceLogFileFullPathFileName.initialize(CATEGORY_RELATIVE_PATH, "DefaultReplaceLogFileFullPathFileName", "chatlog/%SERVERNAME%/%PLAYERNAME%/ChatLog_%DATE%.log", "Replace : %SERVERNAME% %PLAYERNAME% %DATE% %TIME%");
+		this.enforcementReplaceLogFileFullPathFileName.initialize(CATEGORY_ABSOLUTE_PATH, "EnforcementReplaceLogFileFullPathFileName", "", "Replace : %SERVERNAME% %PLAYERNAME% %DATE% %TIME%  * If null, the relativepath is used.");
 
+		// CATEGORY_FILENAME_FORMAT
+		this.formatReplaceDate.initialize(CATEGORY_FILENAME_FORMAT, "FormatReplaceDate", "yyyyMMdd", null);
+		this.formatReplaceTime.initialize(CATEGORY_FILENAME_FORMAT, "FormatReplaceTime", "HHmmss", null);
 
-	public boolean getChatLoggerEnabled()
-	{
-		return this.chatLoggerEnabled.getBoolean(true);
-	}
-	public void setChatLoggerEnabled(boolean chatLoggerEnabled)
-	{
-		this.chatLoggerEnabled.value = String.valueOf(chatLoggerEnabled);
 		this.config.save();
 	}
 
-
-	public String getFormatDateTime()
+	public ConfigurationPropertyBoolean getChatLoggerEnabled()
 	{
-		return this.formatDateTime.value;
-	}
-	public void setFormatDateTime(String formatDateTime)
-	{
-		this.formatDateTime.value = formatDateTime;
-		this.config.save();
+		return this.chatLoggerEnabled;
 	}
 
-	public boolean getFillColorCodeEnabled()
+	public ConfigurationPropertyString getFormatDateTime()
 	{
-		return this.fillColorCodeEnabled.getBoolean(true);
-	}
-	public void setFillColorCodeEnabled(boolean fillColorCodeEnabled)
-	{
-		this.fillColorCodeEnabled.value = String.valueOf(fillColorCodeEnabled);
-		this.config.save();
+		return this.formatDateTime;
 	}
 
-	public String getFillColorCodeRegex()
+	public ConfigurationPropertyBoolean getFillColorCodeEnabled()
 	{
-		return this.fillColorCodeRegex.value;
-	}
-	public void setFillColorCodeRegex(String fillColorCodeRegex)
-	{
-		this.fillColorCodeRegex.value = fillColorCodeRegex;
-		this.config.save();
+		return this.fillColorCodeEnabled;
 	}
 
-	public String getFillColorCodeReplace()
+	public ConfigurationPropertyString getFillColorCodeRegex()
 	{
-		return this.fillColorCodeReplace.value;
-	}
-	public void setFillColorCodeReplace(String fillColorCodeReplace)
-	{
-		this.fillColorCodeReplace.value = fillColorCodeReplace;
-		this.config.save();
+		return this.fillColorCodeRegex;
 	}
 
-
-	public String getFormatReplaceDate()
+	public ConfigurationPropertyString getFillColorCodeReplace()
 	{
-		return this.formatReplaceDate.value;
-	}
-	public void setFormatReplaceDate(String formatReplaceDate)
-	{
-		this.formatReplaceDate.value = formatReplaceDate;
-		this.config.save();
+		return this.fillColorCodeReplace;
 	}
 
-	public String getFormatReplaceTime()
+	public ConfigurationPropertyString getDefaultReplaceLogFileFullPathFileName()
 	{
-		return this.formatReplaceTime.value;
-	}
-	public void setFormatReplaceTime(String formatReplaceTime)
-	{
-		this.formatReplaceTime.value = formatReplaceTime;
-		this.config.save();
+		return this.defaultReplaceLogFileFullPathFileName;
 	}
 
-
-	public String getDefaultReplaceLogFileFullPathFileName()
+	public ConfigurationPropertyString getEnforcementReplaceLogFileFullPathFileName()
 	{
-		return this.defaultReplaceLogFileFullPathFileName.value;
-	}
-	public void setDefaultReplaceLogFileFullPathFileName(String defaultReplaceLogFileFullPathFileName)
-	{
-		this.defaultReplaceLogFileFullPathFileName.value = defaultReplaceLogFileFullPathFileName;
-		this.config.save();
+		return this.enforcementReplaceLogFileFullPathFileName;
 	}
 
-	public String getEnforcementReplaceLogFileFullPathFileName()
+	public ConfigurationPropertyString getFormatReplaceDate()
 	{
-		return this.enforcementReplaceLogFileFullPathFileName.value;
+		return this.formatReplaceDate;
 	}
-	public void setEnforcementReplaceLogFileFullPathFileName(String enforcementReplaceLogFileFullPathFileName)
+
+	public ConfigurationPropertyString getFormatReplaceTime()
 	{
-		this.enforcementReplaceLogFileFullPathFileName.value = enforcementReplaceLogFileFullPathFileName;
-		this.config.save();
+		return this.formatReplaceTime;
 	}
 
 }

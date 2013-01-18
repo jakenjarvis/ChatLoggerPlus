@@ -104,7 +104,7 @@ public class SpecialLogWriter
 		this.config = config;
 		this.listener = listener;
 		this.logfilemanager = new LogFileNameManager(config);
-		this.datetimeformat = new SimpleDateFormat(this.config.getFormatDateTime());
+		this.datetimeformat = new SimpleDateFormat(this.config.getFormatDateTime().get());
 		this.buffer.clear();
 	}
 
@@ -264,10 +264,10 @@ public class SpecialLogWriter
 	private void println_write(String message)
 	{
 		String output_message = new String(message);
-		if(this.config.getFillColorCodeEnabled())
+		if(this.config.getFillColorCodeEnabled().get())
 		{
-			String regex = this.config.getFillColorCodeRegex();
-			String replace = this.config.getFillColorCodeReplace();
+			String regex = this.config.getFillColorCodeRegex().get();
+			String replace = this.config.getFillColorCodeReplace().get();
 			output_message = output_message.replaceAll(regex, replace);
 		}
 		this.pw.println(output_message);

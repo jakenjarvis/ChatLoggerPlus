@@ -43,7 +43,7 @@ com.tojc.minecraft.mod.ChatLoggerPlus.cfgファイルをテキストエディタ
        ChatLoggerEnabled=true
        # true/false, true=fill / false=Not modify
        FillColorCodeEnabled=true
-       FillColorCodeRegex=§[0-9a-f]
+       FillColorCodeRegex=§[0-9a-fk-or]
        FillColorCodeReplace=
        FormatDateTime=yyyy/MM/dd-HH:mm:ss
     }

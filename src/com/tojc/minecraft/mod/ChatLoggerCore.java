@@ -61,7 +61,7 @@ public class ChatLoggerCore implements FileOperationCompletedListener
 
 	public void onOpen()
 	{
-		if(this.config.getChatLoggerEnabled())
+		if(this.config.getChatLoggerEnabled().get())
 		{
 			this.writer.open();
 		}
@@ -76,7 +76,7 @@ public class ChatLoggerCore implements FileOperationCompletedListener
 
 	public void onWrite(String message)
 	{
-		if(this.config.getChatLoggerEnabled())
+		if(this.config.getChatLoggerEnabled().get())
 		{
 			this.writer.write(message);
 		}
@@ -84,7 +84,7 @@ public class ChatLoggerCore implements FileOperationCompletedListener
 
 	public void onFlush()
 	{
-		if(this.config.getChatLoggerEnabled())
+		if(this.config.getChatLoggerEnabled().get())
 		{
 			this.writer.flush();
 		}
@@ -92,7 +92,7 @@ public class ChatLoggerCore implements FileOperationCompletedListener
 
 	public void onClose()
 	{
-		if(this.config.getChatLoggerEnabled())
+		if(this.config.getChatLoggerEnabled().get())
 		{
 			this.writer.close();
 		}

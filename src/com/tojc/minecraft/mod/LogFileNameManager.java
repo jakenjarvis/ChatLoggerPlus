@@ -40,8 +40,8 @@ public class LogFileNameManager
 	{
 		this.config = config;
 
-		this.dateformat = new SimpleDateFormat(this.config.getFormatReplaceDate());
-		this.timeformat = new SimpleDateFormat(this.config.getFormatReplaceTime());
+		this.dateformat = new SimpleDateFormat(this.config.getFormatReplaceDate().get());
+		this.timeformat = new SimpleDateFormat(this.config.getFormatReplaceTime().get());
 	}
 
 	public void setServerName(String servername)
@@ -80,7 +80,7 @@ public class LogFileNameManager
 		}
 
 		File result = null;
-		String enforcementPath = this.config.getEnforcementReplaceLogFileFullPathFileName();
+		String enforcementPath = this.config.getEnforcementReplaceLogFileFullPathFileName().get();
 		if(enforcementPath.trim().length() != 0)
 		{
 			//強制指定
@@ -118,7 +118,7 @@ public class LogFileNameManager
 
 	private String getDefaultLogFileFullPathFileName()
 	{
-		String replaceDefaultLogFile = replaceSymbol(this.config.getDefaultReplaceLogFileFullPathFileName());
+		String replaceDefaultLogFile = replaceSymbol(this.config.getDefaultReplaceLogFileFullPathFileName().get());
 		String result = new File(Minecraft.getMinecraftDir().toString(), replaceDefaultLogFile).getPath();
 		return result;
 	}
