@@ -63,7 +63,10 @@ public class ChatLoggerCore implements FileOperationCompletedListener
 
 	public void onWorldConnection(String worldname)
 	{
-		this.writer.setWorldName(worldname);
+		if(!worldname.equals("MpServer"))
+		{
+			this.writer.setWorldName(worldname);
+		}
 	}
 
 	public void onServerConnection(String servername)
