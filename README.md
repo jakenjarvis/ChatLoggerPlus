@@ -26,7 +26,7 @@ ChatLoggerPlusは、一般ユーザー向け、チャットログ保存MODです
 MinecraftForge (ModLoader, is not supported)
 
 ChatLoggerPlusは、クライアント側に導入するMODになります。  
-※サーバ側での会話ログ保存は、別のMODをご利用ください。
+※サーバ側での会話ログ保存は、別のMODをご利用ください。動作確認はしておりません。
 
 # Installation インストール
 他のサイトを参考に、通常のForge対応MODと同様に導入してください。  
