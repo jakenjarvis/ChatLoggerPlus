@@ -35,6 +35,8 @@ import net.minecraftforge.event.CommandEvent;
 import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.world.WorldEvent;
+import cpw.mods.fml.client.registry.KeyBindingRegistry;
+import cpw.mods.fml.client.registry.KeyBindingRegistry.KeyHandler;
 import cpw.mods.fml.common.network.IChatListener;
 import cpw.mods.fml.common.network.IConnectionHandler;
 import cpw.mods.fml.common.network.NetworkRegistry;
@@ -44,6 +46,9 @@ public class HandlerAndEventListener implements IConnectionHandler, IChatListene
 {
 	private ChatLoggerCore core = null;
 	private CurrentScreenMonitor screenmonitor = null;
+
+	private String servername = "";
+	private String worldname = "";
 
 	public HandlerAndEventListener(ChatLoggerCore core)
 	{
@@ -55,6 +60,9 @@ public class HandlerAndEventListener implements IConnectionHandler, IChatListene
 		// playerLoggedIn, clientLoggedIn
 		// connectionReceived, connectionOpened, connectionClosed
 		NetworkRegistry.instance().registerConnectionHandler(this);
+
+		// KeyBinding
+		KeyBindingRegistry.registerKeyBinding(new ChatLoggerKeyHandler(this.core.getConfig()));
 
 		// etc. @ForgeSubscribe
 		MinecraftForge.EVENT_BUS.register(this);
@@ -78,11 +86,22 @@ public class HandlerAndEventListener implements IConnectionHandler, IChatListene
 	{
 		// MEMO:「/」から始まるコマンドは、ここは呼び出されない。
 		DebugLog.info("clientChat: " + message.message);
-		ClientChatMessageManager chatmanager = new ClientChatMessageManager(this.core.getConfig(), message.message);
 
-		this.core.onWrite(chatmanager.outputChatLog());
+		ClientChatMessageManager chatmanager = new ClientChatMessageManager(this.core, this.servername, this.worldname, message.message);
 
 		message.message = chatmanager.outputScreen();
+		// TODO: 直前に吐いてしまう。タイミング悪すぎる
+		for(String output : chatmanager.outputScreenAfterMessages())
+		{
+			this.core.sendLocalChatMessage(output);
+		}
+
+		this.core.onWrite(chatmanager.outputChatLog());
+		for(String output : chatmanager.outputChatLogAfterMessages())
+		{
+			this.core.onWrite(output);
+		}
+
 		return message;
 	}
 
@@ -115,7 +134,14 @@ public class HandlerAndEventListener implements IConnectionHandler, IChatListene
 	{
 		DebugLog.info("onWorldEvent_Load()");
 		DebugLog.info("getWorldName() : " + event.world.getWorldInfo().getWorldName());
-		this.core.onWorldConnection(event.world.getWorldInfo().getWorldName());
+
+		String name = event.world.getWorldInfo().getWorldName();
+		if(!name.equals("MpServer"))
+		{
+			this.worldname = name;
+		}
+
+		this.core.onWorldLoad(this.worldname);
 		this.core.onOpen();
 	}
 
@@ -130,6 +156,7 @@ public class HandlerAndEventListener implements IConnectionHandler, IChatListene
 	public void onWorldEvent_Unload(WorldEvent.Unload event)
 	{
 		DebugLog.info("onWorldEvent_Unload()");
+		this.core.onWorldUnload(this.worldname);
 		this.core.onClose();
 	}
 
@@ -147,16 +174,19 @@ public class HandlerAndEventListener implements IConnectionHandler, IChatListene
 	@Override
 	public void connectionOpened(NetHandler netClientHandler, String server, int port, INetworkManager manager)
 	{
-		String servername = server + "-" + port;
-		DebugLog.info("connectionOpened A: " + servername);
-		this.core.onServerConnection(servername);
+		this.servername = server + "-" + port;
+		DebugLog.info("connectionOpened A: " + this.servername);
+
+		this.core.onServerConnection(this.servername);
 	}
 
 	@Override
 	public void connectionOpened(NetHandler netClientHandler, MinecraftServer server, INetworkManager manager)
 	{
+		this.servername = "LocalServer";
 		DebugLog.info("connectionOpened B: " + server.getServerHostname() + ":" + server.getServerPort() + ": " + server.getWorldName());
-		this.core.onServerConnection("LocalServer");
+
+		this.core.onServerConnection(this.servername);
 	}
 
 	@Override

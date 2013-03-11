@@ -19,8 +19,10 @@
 package com.tojc.minecraft.mod.ChatLogger;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.logging.Level;
 
+import com.tojc.minecraft.mod.Configuration.ConfigurationPropertyArrayString;
 import com.tojc.minecraft.mod.Configuration.ConfigurationPropertyBoolean;
 import com.tojc.minecraft.mod.Configuration.ConfigurationPropertyString;
 
@@ -32,6 +34,7 @@ public class ChatLoggerConfiguration
 	private static String CATEGORY_FILENAME_FORMAT = "filenameformat";
 	private static String CATEGORY_RELATIVE_PATH = "relativepath";
 	private static String CATEGORY_ABSOLUTE_PATH = "absolutepath";
+	private static String CATEGORY_PLUGIN_SETTINGS = "pluginsettings";
 
 	private Configuration config = null;
 
@@ -40,12 +43,16 @@ public class ChatLoggerConfiguration
 	private ConfigurationPropertyBoolean fillColorCodeEnabled = null;
 	private ConfigurationPropertyString fillColorCodeRegex = null;
 	private ConfigurationPropertyString fillColorCodeReplace = null;
+	private ConfigurationPropertyString defaultPluginDirectoryName = null;
 
 	private ConfigurationPropertyString defaultReplaceLogFileFullPathFileName = null;
 	private ConfigurationPropertyString enforcementReplaceLogFileFullPathFileName = null;
 
 	private ConfigurationPropertyString formatReplaceDate = null;
 	private ConfigurationPropertyString formatReplaceTime = null;
+
+	private ConfigurationPropertyArrayString pluginOrderToScreen = null;
+	private ConfigurationPropertyArrayString pluginOrderToChatLog = null;
 
 	public ChatLoggerConfiguration(File file)
 	{
@@ -59,12 +66,16 @@ public class ChatLoggerConfiguration
 		this.fillColorCodeEnabled = new ConfigurationPropertyBoolean(this.config);
 		this.fillColorCodeRegex = new ConfigurationPropertyString(this.config);
 		this.fillColorCodeReplace = new ConfigurationPropertyString(this.config);
+		this.defaultPluginDirectoryName = new ConfigurationPropertyString(this.config);
 
 		this.defaultReplaceLogFileFullPathFileName = new ConfigurationPropertyString(this.config);
 		this.enforcementReplaceLogFileFullPathFileName = new ConfigurationPropertyString(this.config);
 
 		this.formatReplaceDate = new ConfigurationPropertyString(this.config);
 		this.formatReplaceTime = new ConfigurationPropertyString(this.config);
+
+		this.pluginOrderToScreen = new ConfigurationPropertyArrayString(this.config);
+		this.pluginOrderToChatLog = new ConfigurationPropertyArrayString(this.config);
 
 		// initialize
 
@@ -74,6 +85,7 @@ public class ChatLoggerConfiguration
 		this.fillColorCodeEnabled.initialize(Configuration.CATEGORY_GENERAL, "FillColorCodeEnabled", false, "true/false, true=fill / false=Not modify");
 		this.fillColorCodeRegex.initialize(Configuration.CATEGORY_GENERAL, "FillColorCodeRegex", "§[0-9a-fk-or]", null);
 		this.fillColorCodeReplace.initialize(Configuration.CATEGORY_GENERAL, "FillColorCodeReplace", "", null);
+		this.defaultPluginDirectoryName.initialize(Configuration.CATEGORY_GENERAL, "DefaultPluginDirectoryName", com.tojc.minecraft.mod.ChatLoggerPlus.class.getName() + ".plugins", null);
 
 		// CATEGORY_RELATIVE_PATH
 		this.defaultReplaceLogFileFullPathFileName.initialize(CATEGORY_RELATIVE_PATH, "DefaultReplaceLogFileFullPathFileName", "chatlog/%SERVERNAME%/%PLAYERNAME%/ChatLog_%DATE%.log", "Replace : %SERVERNAME% %WORLDNAME% %PLAYERNAME% %DATE% %TIME%");
@@ -82,6 +94,10 @@ public class ChatLoggerConfiguration
 		// CATEGORY_FILENAME_FORMAT
 		this.formatReplaceDate.initialize(CATEGORY_FILENAME_FORMAT, "FormatReplaceDate", "yyyyMMdd", null);
 		this.formatReplaceTime.initialize(CATEGORY_FILENAME_FORMAT, "FormatReplaceTime", "HHmmss", null);
+
+		// CATEGORY_PLUGIN_SETTINGS
+		this.pluginOrderToScreen.initialize(CATEGORY_PLUGIN_SETTINGS, "PluginOrderToScreen", new ArrayList<String>(), "Please do not modify.");
+		this.pluginOrderToChatLog.initialize(CATEGORY_PLUGIN_SETTINGS, "PluginOrderToChatLog", new ArrayList<String>(), "Please do not modify.");
 
 		this.config.save();
 	}
@@ -111,6 +127,11 @@ public class ChatLoggerConfiguration
 		return this.fillColorCodeReplace;
 	}
 
+	public ConfigurationPropertyString getDefaultPluginDirectoryName()
+	{
+		return this.defaultPluginDirectoryName;
+	}
+
 	public ConfigurationPropertyString getDefaultReplaceLogFileFullPathFileName()
 	{
 		return this.defaultReplaceLogFileFullPathFileName;
@@ -129,6 +150,16 @@ public class ChatLoggerConfiguration
 	public ConfigurationPropertyString getFormatReplaceTime()
 	{
 		return this.formatReplaceTime;
+	}
+
+	public ConfigurationPropertyArrayString getPluginOrderToScreen()
+	{
+		return this.pluginOrderToScreen;
+	}
+
+	public ConfigurationPropertyArrayString getPluginOrderToChatLog()
+	{
+		return this.pluginOrderToChatLog;
 	}
 
 }

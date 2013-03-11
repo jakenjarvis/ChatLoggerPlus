@@ -20,8 +20,13 @@ package com.tojc.minecraft.mod.ChatLogger;
 
 import java.io.File;
 
+import javax.script.ScriptEngineFactory;
+import javax.script.ScriptEngineManager;
+
 import com.tojc.minecraft.mod.ChatLogger.SpecialLogWriter.FileOperationCompletedEvent;
 import com.tojc.minecraft.mod.ChatLogger.SpecialLogWriter.FileOperationCompletedListener;
+import com.tojc.minecraft.mod.ChatLogger.Plugin.PluginManager;
+import com.tojc.minecraft.mod.ChatLogger.Plugin.PluginOrder;
 import com.tojc.minecraft.mod.log.DebugLog;
 
 import net.minecraft.client.Minecraft;
@@ -33,6 +38,8 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 public class ChatLoggerCore implements FileOperationCompletedListener
 {
 	private ChatLoggerConfiguration config = null;
+	private PluginManager pluginManager = null;
+
 	private HandlerAndEventListener listener = null;
 	private SpecialLogWriter writer = null;
 
@@ -41,14 +48,24 @@ public class ChatLoggerCore implements FileOperationCompletedListener
 		return this.config;
 	}
 
+	public PluginManager getPluginManager()
+	{
+		return this.pluginManager;
+	}
+
 	public void onPreInit(FMLPreInitializationEvent event)
 	{
 		DebugLog.info("onPreInit");
 
 		this.config = new ChatLoggerConfiguration(event.getSuggestedConfigurationFile());
 
-		this.listener = new HandlerAndEventListener(this);
-		this.writer = new SpecialLogWriter(this.config, this);
+		if(this.config.getChatLoggerEnabled().get())
+		{
+			this.pluginManager = new PluginManager(this.config);
+
+			this.listener = new HandlerAndEventListener(this);
+			this.writer = new SpecialLogWriter(this.config, this);
+		}
 	}
 
 	public void onInit(FMLInitializationEvent event)
@@ -61,17 +78,29 @@ public class ChatLoggerCore implements FileOperationCompletedListener
 		DebugLog.info("onPostInit");
 	}
 
-	public void onWorldConnection(String worldname)
+	public void onWorldLoad(String worldname)
 	{
-		if(!worldname.equals("MpServer"))
+		if(this.config.getChatLoggerEnabled().get())
 		{
 			this.writer.setWorldName(worldname);
+			this.pluginManager.load();
+		}
+	}
+
+	public void onWorldUnload(String worldname)
+	{
+		if(this.config.getChatLoggerEnabled().get())
+		{
+			this.pluginManager.unload();
 		}
 	}
 
 	public void onServerConnection(String servername)
 	{
-		this.writer.setServerName(servername);
+		if(this.config.getChatLoggerEnabled().get())
+		{
+			this.writer.setServerName(servername);
+		}
 	}
 
 	public void onOpen()
@@ -85,8 +114,11 @@ public class ChatLoggerCore implements FileOperationCompletedListener
 	@Override
 	public void onOpenFileOperationCompleted(FileOperationCompletedEvent e)
 	{
-		this.sendChatMessage("§aChatLoggerPlus: Logging start.");
-		this.sendChatMessage("§aChatLoggerPlus: " + e.getFileName());
+		if(this.config.getChatLoggerEnabled().get())
+		{
+			this.sendLocalChatMessage("§aChatLoggerPlus: Logging start.");
+			this.sendLocalChatMessage("§aChatLoggerPlus: " + e.getFileName());
+		}
 	}
 
 	public void onWrite(String message)
@@ -118,7 +150,7 @@ public class ChatLoggerCore implements FileOperationCompletedListener
 	{
 	}
 
-	private void sendChatMessage(String message)
+	public void sendLocalChatMessage(String message)
 	{
 		Minecraft mc = Minecraft.getMinecraft();
 		if((mc != null) && (mc.thePlayer != null))
@@ -127,4 +159,12 @@ public class ChatLoggerCore implements FileOperationCompletedListener
 		}
 	}
 
+	public void sendGlobalChatMessage(String message)
+	{
+		Minecraft mc = Minecraft.getMinecraft();
+		if((mc != null) && (mc.thePlayer != null))
+		{
+			mc.thePlayer.sendChatMessage(message);
+		}
+	}
 }

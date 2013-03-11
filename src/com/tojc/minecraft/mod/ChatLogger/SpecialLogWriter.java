@@ -284,37 +284,40 @@ public class SpecialLogWriter
 
 	public void write(String output)
 	{
-		StringBuffer message = new StringBuffer();
-		message.append(datetimeformat.format(LogFileNameManager.makeDate()));
-		message.append(" : ");
-		message.append(output);
-
-		switch(this.state)
+		if(output != null)
 		{
-			case Initialize:
-				DebugLog.info("logger.write(buffer): " + message.toString());
-				this.buffer.add(message.toString());
+			StringBuffer message = new StringBuffer();
+			message.append(datetimeformat.format(LogFileNameManager.makeDate()));
+			message.append(" : ");
+			message.append(output);
 
-				// オープンを試みる。
-				this.open();
-				break;
+			switch(this.state)
+			{
+				case Initialize:
+					DebugLog.info("logger.write(buffer): " + message.toString());
+					this.buffer.add(message.toString());
 
-			case Opened:
-				DebugLog.info("logger.write(logfile): " + message.toString());
-				println_write(message.toString());
-				break;
+					// オープンを試みる。
+					this.open();
+					break;
 
-			case ClosedAfterglow:
-				// 毎回書き込むたびに、open/closeする。
-				this.open();
-				this.write(output);
-				this.close();
+				case Opened:
+					DebugLog.info("logger.write(logfile): " + message.toString());
+					println_write(message.toString());
+					break;
 
-				onCheckPlayerChenged();
-				break;
+				case ClosedAfterglow:
+					// 毎回書き込むたびに、open/closeする。
+					this.open();
+					this.write(output);
+					this.close();
 
-			default:
-				break;
+					onCheckPlayerChenged();
+					break;
+
+				default:
+					break;
+			}
 		}
 	}
 
@@ -365,7 +368,7 @@ public class SpecialLogWriter
 					{
 						filename = this.logfile.getCanonicalPath();
 						FileOperationCompletedEvent e = new FileOperationCompletedEvent(this, filename);
-						this.listener.onOpenFileOperationCompleted(e);
+						this.listener.onCloseFileOperationCompleted(e);
 					}
 					catch(Exception e1)
 					{
