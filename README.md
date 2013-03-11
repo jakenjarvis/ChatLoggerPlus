@@ -2,18 +2,21 @@ ChatLoggerPlus (Minecraft MOD)
 ==============
 [Minecraft 非公式日本ユーザーフォーラム ChatLoggerPlus公開トピックへのリンク](http://forum.minecraftuser.jp/viewtopic.php?f=13&t=7929)
 
-# MODの利用について
+# Note MODの利用について
 * このMODを利用する場合は、すべて自己責任でお願いいたします。
 * 開発者は、いかなる損害、損失、個人情報の流出等に対しての責任は負いません。
 * 利用者は、この条件「自己責任」に同意し、利用者がログの責任を持つものとします。
 
-# ログファイルの取り扱いについて
+## ログファイルの取り扱いについて
 「会話の内容を記録する」という性質上、ログファイルの取り扱いには十分ご注意ください。
 
 ※他者との会話の内容を、無断で公開すると、トラブルの原因になりますので自粛してください。
 名誉棄損や個人情報流出、権利侵害といった問題に発展する可能性があります。
 
-# 特徴
+## 動画での紹介等について
+特に制限を設けていませんので、ご自由にお使いください。
+
+# Feature 特徴
 ChatLoggerPlusは、一般ユーザー向け、チャットログ保存MODです。  
 自分がプレイしているときに、 **画面に表示された会話ログ** を、ファイルに出力します。  
 「いつ、誰と、どんな会話をしたか」が記録に残るので、コミュニケーションの役に立ちます。  
@@ -24,14 +27,11 @@ ChatLoggerPlusは、一般ユーザー向け、チャットログ保存MODです
 MinecraftForge (ModLoader, is not supported)
 
 ChatLoggerPlusは、クライアント側に導入するMODになります。  
-※サーバ側での会話ログ保存は、別のMODをご利用ください。
+※サーバ側での会話ログ保存は、別のMODをご利用ください。動作確認はしておりません。
 
-# インストール
+# Installation インストール
 他のサイトを参考に、通常のForge対応MODと同様に導入してください。  
 既存の処理を書き換えるようなことはしていませんので、スムーズに導入できるかと思います。
-
-# 動画での紹介等について
-特に制限を設けていませんので、ご自由にお使いください。
 
 --------------------------------------------------
 # Configuration 設定
@@ -40,13 +40,14 @@ com.tojc.minecraft.mod.ChatLoggerPlus.cfgファイルをテキストエディタ
 ## general 一般設定
 
     general {
-       # true/false
-       ChatLoggerEnabled=true
-       # true/false, true=fill / false=Not modify
-       FillColorCodeEnabled=true
-       FillColorCodeRegex=§[0-9a-f]
-       FillColorCodeReplace=
-       FormatDateTime=yyyy/MM/dd-HH:mm:ss
+        # true/false
+        B:ChatLoggerEnabled=true
+
+        # true/false, true=fill / false=Not modify
+        B:FillColorCodeEnabled=false
+        S:FillColorCodeRegex=§[0-9a-fk-or]
+        S:FillColorCodeReplace=
+        S:FormatDateTime=yyyy/MM/dd-HH:mm:ss
     }
 
 ### ChatLoggerEnabled チャットログの有効、無効切替
@@ -96,8 +97,8 @@ FillColorCodeRegexとFillColorCodeReplaceの設定がデフォルトの場合、
 「absolutepath 絶対パス」が有効な場合、この項目は無効になります。
 
     relativepath {
-       # Replace : %SERVERNAME% %PLAYERNAME% %DATE% %TIME%
-       DefaultReplaceLogFileFullPathFileName=chatlog/%SERVERNAME%/%PLAYERNAME%/ChatLog_%DATE%.log
+        # Replace : %SERVERNAME% %WORLDNAME% %PLAYERNAME% %DATE% %TIME%
+        S:DefaultReplaceLogFileFullPathFileName=chatlog/%SERVERNAME%/%PLAYERNAME%/ChatLog_%DATE%.log
     }
 
 ### DefaultReplaceLogFileFullPathFileName デフォルトログファイル名（シンボル置換）
@@ -107,8 +108,8 @@ FillColorCodeRegexとFillColorCodeReplaceの設定がデフォルトの場合、
 ## absolutepath 絶対パス
 
     absolutepath {
-       # Replace : %SERVERNAME% %PLAYERNAME% %DATE% %TIME%  * If null, the relativepath is used.
-       EnforcementReplaceLogFileFullPathFileName=d:/chatlog/%SERVERNAME%/%PLAYERNAME%/ChatLog_%DATE%.log
+        # Replace : %SERVERNAME% %WORLDNAME% %PLAYERNAME% %DATE% %TIME%  * If null, the relativepath is used.
+        S:EnforcementReplaceLogFileFullPathFileName=d:/chatlog/%SERVERNAME%/%PLAYERNAME%/ChatLog_%DATE%.log
     }
 
 ### EnforcementReplaceLogFileFullPathFileName 強制フルパスログファイル名（シンボル置換）
@@ -124,6 +125,8 @@ FillColorCodeRegexとFillColorCodeReplaceの設定がデフォルトの場合、
 
 * %SERVERNAME%  
 サーバ名「（IPアドレスまたはドメイン名）:ポート番号」
+* %WORLDNAME%  
+ワールド名「ログインしたワールド名」※ローカルサーバの場合MpServerになってしまうようです。
 * %PLAYERNAME%  
 プレイヤー名「ログインしているユーザー名」
 * %DATE%  
@@ -141,8 +144,8 @@ yyyyMMdd、HHmmssといった、ファイル名で使う日付と時間の出力
 詳しくは、「java format 書式」あたりをキーワードに検索してみてください。
 
     filenameformat {
-       FormatReplaceDate=yyyyMMdd
-       FormatReplaceTime=HHmmss
+        S:FormatReplaceDate=yyyyMMdd
+        S:FormatReplaceTime=HHmmss
     }
 
 ### FormatReplaceDate 日付用フォーマット
@@ -199,4 +202,6 @@ githubにて、ソースコードの管理をしております。
 よくわからない場合は、[Wikipedia - GNU General Public License](http://ja.wikipedia.org/wiki/GPL)も参照ください。
 
 # ダウンロード
-[こちら](https://github.com/jakenjarvis/ChatLoggerPlus/downloads)から、該当するファイルをダウンロードしてください。
+[こちら](https://www.dropbox.com/sh/dfvb3hu7np7zv5c/6jZcMRxtZD)から、該当するファイルをダウンロードしてください。
+※[Minecraft 非公式日本ユーザーフォーラム ChatLoggerPlus公開トピック](http://forum.minecraftuser.jp/viewtopic.php?f=13&t=7929)からのダウンロードのほうが、整理している分、わかりやすいかもしれません。
+

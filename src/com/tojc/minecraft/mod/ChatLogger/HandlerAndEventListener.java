@@ -16,11 +16,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.tojc.minecraft.mod;
+package com.tojc.minecraft.mod.ChatLogger;
 
-import com.tojc.minecraft.mod.CurrentScreenMonitor.CurrentScreenChangedEvent;
-import com.tojc.minecraft.mod.CurrentScreenMonitor.CurrentScreenChangedListener;
+import com.tojc.minecraft.mod.ChatLogger.CurrentScreenMonitor.CurrentScreenChangedEvent;
+import com.tojc.minecraft.mod.ChatLogger.CurrentScreenMonitor.CurrentScreenChangedListener;
+import com.tojc.minecraft.mod.log.DebugLog;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.NetLoginHandler;
 import net.minecraft.network.packet.NetHandler;
@@ -40,8 +42,8 @@ import cpw.mods.fml.common.network.Player;
 
 public class HandlerAndEventListener implements IConnectionHandler, IChatListener, CurrentScreenChangedListener
 {
-	private CurrentScreenMonitor screenmonitor = null;
 	private ChatLoggerCore core = null;
+	private CurrentScreenMonitor screenmonitor = null;
 
 	public HandlerAndEventListener(ChatLoggerCore core)
 	{
@@ -67,7 +69,7 @@ public class HandlerAndEventListener implements IConnectionHandler, IChatListene
 		// MEMO:一番最初に呼ばれ、<プレイヤー名>の文字が付く前の値が取得できる。
 		// マルチサーバへ接続した場合は、クライアント側はこのイベントが発生しない。
 		//「/」から始まるコマンドは、ここは呼び出されない。
-		//DebugLog.info("serverChat: " + message.message);
+		DebugLog.info("serverChat: " + message.message);
 		return message;
 	}
 
@@ -75,7 +77,12 @@ public class HandlerAndEventListener implements IConnectionHandler, IChatListene
 	public Packet3Chat clientChat(NetHandler handler, Packet3Chat message)
 	{
 		// MEMO:「/」から始まるコマンドは、ここは呼び出されない。
-		//DebugLog.info("clientChat: " + message.message);
+		DebugLog.info("clientChat: " + message.message);
+		ClientChatMessageManager chatmanager = new ClientChatMessageManager(this.core.getConfig(), message.message);
+
+		this.core.onWrite(chatmanager.outputChatLog());
+
+		message.message = chatmanager.outputScreen();
 		return message;
 	}
 
@@ -90,6 +97,8 @@ public class HandlerAndEventListener implements IConnectionHandler, IChatListene
 		commandline.append(" ");
 		commandline.append(join(event.parameters, " "));
 
+		//DebugLog.info("onCommandEvent: " + commandline.toString().trim());
+
 		this.core.onWrite(commandline.toString().trim());
 	}
 
@@ -97,14 +106,16 @@ public class HandlerAndEventListener implements IConnectionHandler, IChatListene
 	public void onClientChatReceivedEvent(ClientChatReceivedEvent event)
 	{
 		// MEMO:「/」から始まるコマンドは、ここは呼び出されない。
-		this.core.onWrite(event.message);
+		//DebugLog.info("onClientChatReceivedEvent: " + event.message);
+		//this.core.onWrite(event.message);
 	}
 
 	@ForgeSubscribe
 	public void onWorldEvent_Load(WorldEvent.Load event)
 	{
 		DebugLog.info("onWorldEvent_Load()");
-		//DebugLog.info("getWorldName() : " + event.world.getWorldInfo().getWorldName());
+		DebugLog.info("getWorldName() : " + event.world.getWorldInfo().getWorldName());
+		this.core.onWorldConnection(event.world.getWorldInfo().getWorldName());
 		this.core.onOpen();
 	}
 
@@ -136,15 +147,15 @@ public class HandlerAndEventListener implements IConnectionHandler, IChatListene
 	@Override
 	public void connectionOpened(NetHandler netClientHandler, String server, int port, INetworkManager manager)
 	{
-		DebugLog.info("connectionOpened A: " + server + ":" + port);
-		this.core.onServerConnection(server + "-" + port);
-		//TODO: とりあえず、-にして対応したが、ここは:で渡し、ファイル名にする前に置換するように変更する。
+		String servername = server + "-" + port;
+		DebugLog.info("connectionOpened A: " + servername);
+		this.core.onServerConnection(servername);
 	}
 
 	@Override
 	public void connectionOpened(NetHandler netClientHandler, MinecraftServer server, INetworkManager manager)
 	{
-		DebugLog.info("connectionOpened B: " + server.getServerHostname() + ":" + server.getServerPort());
+		DebugLog.info("connectionOpened B: " + server.getServerHostname() + ":" + server.getServerPort() + ": " + server.getWorldName());
 		this.core.onServerConnection("LocalServer");
 	}
 

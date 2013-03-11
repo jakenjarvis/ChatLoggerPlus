@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.tojc.minecraft.mod;
+package com.tojc.minecraft.mod.ChatLogger;
 
 import java.io.BufferedWriter;
 import java.io.Closeable;
@@ -33,6 +33,8 @@ import java.util.EventObject;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
+
+import com.tojc.minecraft.mod.log.DebugLog;
 
 import net.minecraft.client.Minecraft;
 
@@ -103,8 +105,8 @@ public class SpecialLogWriter
 	{
 		this.config = config;
 		this.listener = listener;
-		this.logfilemanager = new LogFileNameManager(config);
-		this.datetimeformat = new SimpleDateFormat(this.config.getFormatDateTime());
+		this.logfilemanager = new LogFileNameManager(this.config);
+		this.datetimeformat = new SimpleDateFormat(this.config.getFormatDateTime().get());
 		this.buffer.clear();
 	}
 
@@ -183,6 +185,11 @@ public class SpecialLogWriter
 		this.logfilemanager.setServerName(servername);
 	}
 
+	public void setWorldName(String worldname)
+	{
+		this.logfilemanager.setWorldName(worldname);
+	}
+
 	public void open()
 	{
 		switch(this.state)
@@ -220,6 +227,8 @@ public class SpecialLogWriter
 						message.append(" : ");
 						message.append("ChatLoggerPlus Logging start. (");
 						message.append(this.logfilemanager.getServerName());
+						message.append(" - ");
+						message.append(this.logfilemanager.getWorldName());
 						message.append(" - ");
 						message.append(this.logfilemanager.getPlayerName());
 						message.append(")");
@@ -263,14 +272,7 @@ public class SpecialLogWriter
 
 	private void println_write(String message)
 	{
-		String output_message = new String(message);
-		if(this.config.getFillColorCodeEnabled())
-		{
-			String regex = this.config.getFillColorCodeRegex();
-			String replace = this.config.getFillColorCodeReplace();
-			output_message = output_message.replaceAll(regex, replace);
-		}
-		this.pw.println(output_message);
+		this.pw.println(message);
 
 		this.isflush = true;
 		this.output_count = (this.output_count >= Integer.MAX_VALUE) ? 0 : this.output_count + 1;
@@ -363,7 +365,7 @@ public class SpecialLogWriter
 					{
 						filename = this.logfile.getCanonicalPath();
 						FileOperationCompletedEvent e = new FileOperationCompletedEvent(this, filename);
-						this.listener.onOpenFileOperationCompleted(e);
+						this.listener.onCloseFileOperationCompleted(e);
 					}
 					catch(Exception e1)
 					{

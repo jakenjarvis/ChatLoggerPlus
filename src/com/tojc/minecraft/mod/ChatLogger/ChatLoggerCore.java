@@ -16,12 +16,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.tojc.minecraft.mod;
+package com.tojc.minecraft.mod.ChatLogger;
 
 import java.io.File;
 
-import com.tojc.minecraft.mod.SpecialLogWriter.FileOperationCompletedEvent;
-import com.tojc.minecraft.mod.SpecialLogWriter.FileOperationCompletedListener;
+import com.tojc.minecraft.mod.ChatLogger.SpecialLogWriter.FileOperationCompletedEvent;
+import com.tojc.minecraft.mod.ChatLogger.SpecialLogWriter.FileOperationCompletedListener;
+import com.tojc.minecraft.mod.log.DebugLog;
 
 import net.minecraft.client.Minecraft;
 import cpw.mods.fml.common.Mod;
@@ -35,11 +36,17 @@ public class ChatLoggerCore implements FileOperationCompletedListener
 	private HandlerAndEventListener listener = null;
 	private SpecialLogWriter writer = null;
 
+	public ChatLoggerConfiguration getConfig()
+	{
+		return this.config;
+	}
+
 	public void onPreInit(FMLPreInitializationEvent event)
 	{
 		DebugLog.info("onPreInit");
 
 		this.config = new ChatLoggerConfiguration(event.getSuggestedConfigurationFile());
+
 		this.listener = new HandlerAndEventListener(this);
 		this.writer = new SpecialLogWriter(this.config, this);
 	}
@@ -54,6 +61,14 @@ public class ChatLoggerCore implements FileOperationCompletedListener
 		DebugLog.info("onPostInit");
 	}
 
+	public void onWorldConnection(String worldname)
+	{
+		if(!worldname.equals("MpServer"))
+		{
+			this.writer.setWorldName(worldname);
+		}
+	}
+
 	public void onServerConnection(String servername)
 	{
 		this.writer.setServerName(servername);
@@ -61,7 +76,7 @@ public class ChatLoggerCore implements FileOperationCompletedListener
 
 	public void onOpen()
 	{
-		if(this.config.getChatLoggerEnabled())
+		if(this.config.getChatLoggerEnabled().get())
 		{
 			this.writer.open();
 		}
@@ -76,7 +91,7 @@ public class ChatLoggerCore implements FileOperationCompletedListener
 
 	public void onWrite(String message)
 	{
-		if(this.config.getChatLoggerEnabled())
+		if(this.config.getChatLoggerEnabled().get())
 		{
 			this.writer.write(message);
 		}
@@ -84,7 +99,7 @@ public class ChatLoggerCore implements FileOperationCompletedListener
 
 	public void onFlush()
 	{
-		if(this.config.getChatLoggerEnabled())
+		if(this.config.getChatLoggerEnabled().get())
 		{
 			this.writer.flush();
 		}
@@ -92,7 +107,7 @@ public class ChatLoggerCore implements FileOperationCompletedListener
 
 	public void onClose()
 	{
-		if(this.config.getChatLoggerEnabled())
+		if(this.config.getChatLoggerEnabled().get())
 		{
 			this.writer.close();
 		}

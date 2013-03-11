@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.tojc.minecraft.mod;
+package com.tojc.minecraft.mod.ChatLogger;
 
 import java.util.EnumSet;
 import java.util.EventListener;
