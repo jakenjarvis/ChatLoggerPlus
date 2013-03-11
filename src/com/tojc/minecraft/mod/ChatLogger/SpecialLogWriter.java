@@ -365,7 +365,7 @@ public class SpecialLogWriter
 					{
 						filename = this.logfile.getCanonicalPath();
 						FileOperationCompletedEvent e = new FileOperationCompletedEvent(this, filename);
-						this.listener.onOpenFileOperationCompleted(e);
+						this.listener.onCloseFileOperationCompleted(e);
 					}
 					catch(Exception e1)
 					{
