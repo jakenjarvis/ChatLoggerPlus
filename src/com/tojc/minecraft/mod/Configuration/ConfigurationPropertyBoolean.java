@@ -25,6 +25,6 @@ public class ConfigurationPropertyBoolean extends ConfigurationPropertyTypeBase<
 	@Override
 	protected void onSet(Boolean value)
 	{
-		this.property.value = String.valueOf(value);
+		this.property.set(value);
 	}
 }

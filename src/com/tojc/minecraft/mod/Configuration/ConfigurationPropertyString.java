@@ -19,12 +19,12 @@ public class ConfigurationPropertyString extends ConfigurationPropertyTypeBase<S
 	@Override
 	protected String onGet()
 	{
-		return this.property.value;
+		return this.property.getString();
 	}
 
 	@Override
 	protected void onSet(String value)
 	{
-		this.property.value = value;
+		this.property.set(value);
 	}
 }
