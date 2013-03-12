@@ -25,6 +25,6 @@ public class ConfigurationPropertyInteger extends ConfigurationPropertyTypeBase<
 	@Override
 	protected void onSet(Integer value)
 	{
-		this.property.value = String.valueOf(value);
+		this.property.set(value);
 	}
 }

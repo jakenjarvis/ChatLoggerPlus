@@ -25,6 +25,6 @@ public class ConfigurationPropertyDouble extends ConfigurationPropertyTypeBase<D
 	@Override
 	protected void onSet(Double value)
 	{
-		this.property.value = String.valueOf(value);
+		this.property.set(value);
 	}
 }
