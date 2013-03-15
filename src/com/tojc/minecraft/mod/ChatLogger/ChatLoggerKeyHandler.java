@@ -15,9 +15,10 @@ public class ChatLoggerKeyHandler extends KeyHandler
 {
 	private final static String KEY_SETTINGS = "ChatLoggerPlus settings";
 
+	private ChatLoggerCore core = null;
 	private ChatLoggerConfiguration config = null;
 
-	public ChatLoggerKeyHandler(ChatLoggerConfiguration config)
+	public ChatLoggerKeyHandler(ChatLoggerCore core)
 	{
 		super(
 			new KeyBinding[]
@@ -29,7 +30,8 @@ public class ChatLoggerKeyHandler extends KeyHandler
 				false
 			});
 
-		this.config = config;
+		this.core = core;
+		this.config = this.core.getConfig();
 	}
 
 	@Override
@@ -48,7 +50,7 @@ public class ChatLoggerKeyHandler extends KeyHandler
 			{
 				if(mc.currentScreen == null)
 				{
-					mc.displayGuiScreen(new GuiChatLoggerOptionMenu(this.config));
+					mc.displayGuiScreen(new GuiChatLoggerOptionMenu(this.core));
 				}
 			}
 		}

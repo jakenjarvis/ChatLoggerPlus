@@ -26,7 +26,7 @@ import javax.script.ScriptEngineManager;
 import com.tojc.minecraft.mod.ChatLogger.SpecialLogWriter.FileOperationCompletedEvent;
 import com.tojc.minecraft.mod.ChatLogger.SpecialLogWriter.FileOperationCompletedListener;
 import com.tojc.minecraft.mod.ChatLogger.Plugin.PluginManager;
-import com.tojc.minecraft.mod.ChatLogger.Plugin.PluginOrder;
+import com.tojc.minecraft.mod.ChatLogger.Plugin.PluginOrderManager;
 import com.tojc.minecraft.mod.log.DebugLog;
 
 import net.minecraft.client.Minecraft;

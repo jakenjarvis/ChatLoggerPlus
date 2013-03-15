@@ -62,7 +62,7 @@ public class HandlerAndEventListener implements IConnectionHandler, IChatListene
 		NetworkRegistry.instance().registerConnectionHandler(this);
 
 		// KeyBinding
-		KeyBindingRegistry.registerKeyBinding(new ChatLoggerKeyHandler(this.core.getConfig()));
+		KeyBindingRegistry.registerKeyBinding(new ChatLoggerKeyHandler(this.core));
 
 		// etc. @ForgeSubscribe
 		MinecraftForge.EVENT_BUS.register(this);

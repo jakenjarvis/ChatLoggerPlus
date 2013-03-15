@@ -19,6 +19,7 @@ import javax.script.ScriptEngineManager;
 
 import com.tojc.minecraft.mod.ChatLogger.ChatLoggerConfiguration;
 import com.tojc.minecraft.mod.ChatLogger.PluginDirectoryNameManager;
+import com.tojc.minecraft.mod.ChatLogger.Plugin.Order.PluginOrderKey;
 import com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.PluginInterface;
 import com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.PluginSettings;
 import com.tojc.minecraft.mod.Exception.PluginScriptRuntimeException;
@@ -41,7 +42,7 @@ public class PluginManager
 	private List<ScriptEngineFactory> factorys = null;
 	private List<PluginInformation> plugins = null;
 
-	private PluginOrder pluginOrder = null;
+	private PluginOrderManager pluginOrderManager = null;
 
 	public PluginManager(ChatLoggerConfiguration config)
 	{
@@ -71,7 +72,7 @@ public class PluginManager
 	        }
 		}
 
-		this.pluginOrder = new PluginOrder(this.config);
+		this.pluginOrderManager = new PluginOrderManager(this.config);
 	}
 
 	public void load()
@@ -115,18 +116,18 @@ public class PluginManager
 					}
 				}
 
-				this.pluginOrder.load();
+				this.pluginOrderManager.loadSetting();
 				// for test
 				//this.pluginOrder.getPluginChatLogOrder().getOrderKey().add(this.plugins.get(0).getPluginFile().toString());
 				//this.pluginOrder.getPluginChatLogOrder().getOrderKey().add(this.plugins.get(1).getPluginFile().toString());
 				//this.pluginOrder.getPluginChatLogOrder().getOrderKey().add(this.plugins.get(2).getPluginFile().toString());
 				//this.pluginOrder.getPluginChatLogOrder().getOrderKey().add(this.plugins.get(3).getPluginFile().toString());
 
-				//this.pluginOrder.getPluginChatLogOrder().getOrderKey().add(this.plugins.get(0).getPluginKey());
+				this.pluginOrderManager.getPluginScreenOrderController().getPluginOrderKey().add(new PluginOrderKey(this.plugins.get(0).getPluginKey(), PluginState.Enabled));
 
 				// for test
-				this.pluginOrder.save();
-				this.pluginOrder.createMapping(this.plugins);
+				this.pluginOrderManager.saveSetting();
+				this.pluginOrderManager.createMapping(this.plugins);
 
 				this.status = PluginManagerStatus.Loaded;
 				break;
@@ -156,9 +157,9 @@ public class PluginManager
 		}
 	}
 
-	public PluginOrder getPluginOrder()
+	public PluginOrderManager getPluginOrderManager()
 	{
-		return this.pluginOrder;
+		return this.pluginOrderManager;
 	}
 
 	public PluginInformation findPluginList(File pluginfile)

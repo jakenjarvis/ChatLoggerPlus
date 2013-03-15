@@ -1,6 +1,13 @@
 package com.tojc.minecraft.mod.ChatLogger.gui;
 
+import java.util.Map;
+import java.util.TreeMap;
+
 import com.tojc.minecraft.mod.ChatLogger.ChatLoggerConfiguration;
+import com.tojc.minecraft.mod.ChatLogger.ChatLoggerCore;
+import com.tojc.minecraft.mod.ChatLogger.Plugin.Order.PluginOrderController;
+import com.tojc.minecraft.mod.ChatLogger.Plugin.Order.PluginOrderStatus;
+import com.tojc.minecraft.mod.ChatLogger.Plugin.Type.PluginType;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -15,30 +22,33 @@ public class GuiChatLoggerPluginSortMenu extends GuiScreen implements GuiChatLog
     protected String screenTitle = "";
 
     private final GuiScreen parentScreen;
-    private ChatLoggerConfiguration config = null;
+    private ChatLoggerCore core = null;
+    private PluginType type = null;
 
     private GuiChatLoggerPluginScrollPanel scrollPanel = null;
 
-	public GuiChatLoggerPluginSortMenu(GuiScreen par1GuiScreen, ChatLoggerConfiguration config)
+	public GuiChatLoggerPluginSortMenu(GuiScreen par1GuiScreen, ChatLoggerCore core, PluginType type)
 	{
     	super();
         this.parentScreen = par1GuiScreen;
-		this.config = config;
+		this.core = core;
+		this.type = type;
 	}
 
 	@Override
 	public void initGui()
 	{
-        this.scrollPanel = new GuiChatLoggerPluginScrollPanel(this, this.config, this, this.mc, this.width, this.height, 16, (this.height - 70) + 4, 37);
+		PluginOrderController controller = this.core.getPluginManager().getPluginOrderManager().getPluginOrderController(this.type);
+		TreeMap<Integer, PluginOrderStatus> mapPlugins = controller.getOrderTreeMap();
+
+        this.scrollPanel = new GuiChatLoggerPluginScrollPanel(this, this.type, mapPlugins, this, this.mc, this.width, this.height, 16, (this.height - 70) + 4, 32);
         StringTranslate var1 = StringTranslate.getInstance();
 
 		this.buttonList.add(new GuiButton(200, this.width / 2 - 100, this.height -28, var1.translateKey("gui.done")));
 
-        this.scrollPanel.registerScrollButtons(buttonList, 7, 8);
+        this.scrollPanel.registerScrollButtons(this.buttonList, 7, 8);
 
-        // TODO:
-        this.screenTitle = "";
-
+        this.screenTitle = this.type.getName() + " Plugin";
 	}
 
 	@Override
@@ -63,7 +73,8 @@ public class GuiChatLoggerPluginSortMenu extends GuiScreen implements GuiChatLog
 	{
         this.drawDefaultBackground();
         this.scrollPanel.drawScreen(par1, par2, par3);
-        this.drawCenteredString(this.fontRenderer, this.screenTitle, this.width / 2, 15, 0xffffff);
+        this.drawCenteredString(this.fontRenderer, this.screenTitle, this.width / 2, 4, 0xffffff);
+
         super.drawScreen(par1, par2, par3);
 	}
 
@@ -110,7 +121,7 @@ public class GuiChatLoggerPluginSortMenu extends GuiScreen implements GuiChatLog
 	}
 
 	@Override
-	public void onElementClicked(int index)
+	public void onElementClicked(int index, PluginOrderStatus plugin)
 	{
 	}
 

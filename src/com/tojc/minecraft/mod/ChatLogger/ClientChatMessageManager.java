@@ -30,10 +30,10 @@ public class ClientChatMessageManager
 		this.messageOutputScreenAfter = new ArrayList<String>();
 		this.messageOutputChatLogAfter = new ArrayList<String>();
 
-		this.messageOutputScreen = this.pluginManager.getPluginOrder().getPluginScreenOrder()
+		this.messageOutputScreen = this.pluginManager.getPluginOrderManager().getPluginScreenOrderController()
 				.fireOnChatMessage(this.messageOriginal, this.messageOutputScreenAfter);
 
-		this.messageOutputChatLog = this.pluginManager.getPluginOrder().getPluginChatLogOrder()
+		this.messageOutputChatLog = this.pluginManager.getPluginOrderManager().getPluginChatLogOrderController()
 				.fireOnChatMessage(this.messageOriginal, this.messageOutputChatLogAfter);
 
 		// TODO: 特定ユーザのカラー表示:ユーザー名を判定して、発言部分に指定色を塗る。

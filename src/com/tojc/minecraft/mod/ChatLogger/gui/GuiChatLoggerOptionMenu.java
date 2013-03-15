@@ -1,6 +1,8 @@
 package com.tojc.minecraft.mod.ChatLogger.gui;
 
 import com.tojc.minecraft.mod.ChatLogger.ChatLoggerConfiguration;
+import com.tojc.minecraft.mod.ChatLogger.ChatLoggerCore;
+import com.tojc.minecraft.mod.ChatLogger.Plugin.Type.PluginType;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -13,12 +15,13 @@ import net.minecraft.util.StringTranslate;
 public class GuiChatLoggerOptionMenu extends GuiScreen
 {
     protected String screenTitle = "ChatLoggerPlus settings";
-	private ChatLoggerConfiguration config = null;
 
-    public GuiChatLoggerOptionMenu(ChatLoggerConfiguration config)
+    private ChatLoggerCore core = null;
+
+    public GuiChatLoggerOptionMenu(ChatLoggerCore core)
     {
     	super();
-		this.config = config;
+    	this.core = core;
     }
 
 	@Override
@@ -44,11 +47,13 @@ public class GuiChatLoggerOptionMenu extends GuiScreen
 					break;
 
 				case 101:
-					this.mc.displayGuiScreen(new GuiChatLoggerPluginSortMenu(this, this.config));
+					GuiChatLoggerPluginSortMenu screenmenu = new GuiChatLoggerPluginSortMenu(this, this.core, PluginType.Screen);
+					this.mc.displayGuiScreen(screenmenu);
 					break;
 
 				case 102:
-					this.mc.displayGuiScreen(new GuiChatLoggerPluginSortMenu(this, this.config));
+					GuiChatLoggerPluginSortMenu chatlog = new GuiChatLoggerPluginSortMenu(this, this.core, PluginType.ChatLog);
+					this.mc.displayGuiScreen(chatlog);
 					break;
 
 				case 200:
