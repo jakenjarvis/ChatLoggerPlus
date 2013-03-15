@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.UndeclaredThrowableException;
+import java.net.URI;
 import java.security.PrivilegedActionException;
 
 import javax.script.Invocable;
@@ -22,6 +23,8 @@ import com.tojc.minecraft.mod.log.DebugLog;
 public class PluginInformation implements PluginInterface
 {
 	private File pluginFile = null;
+	private File pluginBaseDir = null;
+	private String pluginKey = "";
 	private int interfaceVersion = 0;
 
 	private PluginInterface plugin = null;
@@ -32,15 +35,40 @@ public class PluginInformation implements PluginInterface
 	private String description = "";
 	private String auther = "";
 
-	public PluginInformation(File pluginFile, int interfaceVersion)
+	public PluginInformation(File pluginBaseDir, File pluginFile, int interfaceVersion)
 	{
 		this.pluginFile = pluginFile;
+
+		this.pluginBaseDir = pluginBaseDir;
+		this.pluginKey = makePluginKey();
 		this.interfaceVersion = interfaceVersion;
+	}
+
+	private String makePluginKey()
+	{
+		String result = "";
+		if((this.pluginFile != null) && (this.pluginFile.length() >= 1))
+		{
+			URI uri = this.pluginBaseDir.toURI().relativize(this.pluginFile.toURI());
+			File file = new File(uri.toString());
+			result = file.toString();
+		}
+		return result;
 	}
 
 	public File getPluginFile()
 	{
 		return this.pluginFile;
+	}
+
+	public File getPluginBaseDir()
+	{
+		return this.pluginBaseDir;
+	}
+
+	public String getPluginKey()
+	{
+		return this.pluginKey;
 	}
 
 	public int getInterfaceVersion()
@@ -251,5 +279,4 @@ public class PluginInformation implements PluginInterface
     	}
 		return result;
     }
-
 }

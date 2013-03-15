@@ -10,27 +10,35 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.util.StringTranslate;
 
 @SideOnly(Side.CLIENT)
-public class GuiChatLoggerOptionMenu extends GuiScreen
+public class GuiChatLoggerPluginSortMenu extends GuiScreen implements GuiChatLoggerPluginScrollPanel.OnElementClickedListener
 {
-    protected String screenTitle = "ChatLoggerPlus settings";
-	private ChatLoggerConfiguration config = null;
+    protected String screenTitle = "";
 
-    public GuiChatLoggerOptionMenu(ChatLoggerConfiguration config)
-    {
+    private final GuiScreen parentScreen;
+    private ChatLoggerConfiguration config = null;
+
+    private GuiChatLoggerPluginScrollPanel scrollPanel = null;
+
+	public GuiChatLoggerPluginSortMenu(GuiScreen par1GuiScreen, ChatLoggerConfiguration config)
+	{
     	super();
+        this.parentScreen = par1GuiScreen;
 		this.config = config;
-    }
+	}
 
 	@Override
 	public void initGui()
 	{
+        this.scrollPanel = new GuiChatLoggerPluginScrollPanel(this, this.config, this, this.mc, this.width, this.height, 16, (this.height - 70) + 4, 37);
         StringTranslate var1 = StringTranslate.getInstance();
 
-        this.buttonList.clear();
-		this.buttonList.add(new GuiButton(101, this.width / 2 - 152, this.height / 6 + 96 - 6, 150, 20, "Screen Plugin"));
-		this.buttonList.add(new GuiButton(102, this.width / 2 +   2, this.height / 6 + 96 - 6, 150, 20, "ChatLog Plugin"));
+		this.buttonList.add(new GuiButton(200, this.width / 2 - 100, this.height -28, var1.translateKey("gui.done")));
 
-		this.buttonList.add(new GuiButton(200, this.width / 2 - 100, this.height / 6 + 168, var1.translateKey("gui.done")));
+        this.scrollPanel.registerScrollButtons(buttonList, 7, 8);
+
+        // TODO:
+        this.screenTitle = "";
+
 	}
 
 	@Override
@@ -43,18 +51,8 @@ public class GuiChatLoggerOptionMenu extends GuiScreen
 				case 0:
 					break;
 
-				case 101:
-					this.mc.displayGuiScreen(new GuiChatLoggerPluginSortMenu(this, this.config));
-					break;
-
-				case 102:
-					this.mc.displayGuiScreen(new GuiChatLoggerPluginSortMenu(this, this.config));
-					break;
-
 				case 200:
-	                this.mc.displayGuiScreen(null);
-	                this.mc.setIngameFocus();
-	                this.mc.sndManager.resumeAllSounds();
+		            this.mc.displayGuiScreen(this.parentScreen);
 					break;
 			}
 		}
@@ -64,6 +62,7 @@ public class GuiChatLoggerOptionMenu extends GuiScreen
 	public void drawScreen(int par1, int par2, float par3)
 	{
         this.drawDefaultBackground();
+        this.scrollPanel.drawScreen(par1, par2, par3);
         this.drawCenteredString(this.fontRenderer, this.screenTitle, this.width / 2, 15, 0xffffff);
         super.drawScreen(par1, par2, par3);
 	}
@@ -108,6 +107,11 @@ public class GuiChatLoggerOptionMenu extends GuiScreen
 	public void onGuiClosed()
 	{
 		super.onGuiClosed();
+	}
+
+	@Override
+	public void onElementClicked(int index)
+	{
 	}
 
 }

@@ -121,6 +121,9 @@ public class PluginManager
 				//this.pluginOrder.getPluginChatLogOrder().getOrderKey().add(this.plugins.get(1).getPluginFile().toString());
 				//this.pluginOrder.getPluginChatLogOrder().getOrderKey().add(this.plugins.get(2).getPluginFile().toString());
 				//this.pluginOrder.getPluginChatLogOrder().getOrderKey().add(this.plugins.get(3).getPluginFile().toString());
+
+				//this.pluginOrder.getPluginChatLogOrder().getOrderKey().add(this.plugins.get(0).getPluginKey());
+
 				// for test
 				this.pluginOrder.save();
 				this.pluginOrder.createMapping(this.plugins);
@@ -266,7 +269,7 @@ public class PluginManager
 			PluginInterface plugin = inv.getInterface(pluginObject, com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.PluginInterface.class);
 			if(plugin != null)
 			{
-				result = new PluginInformation(pluginfile, 1);
+				result = new PluginInformation(this.pluginDir, pluginfile, 1);
 				result.setPlugin(plugin);
 				result.setName(name);
 				result.setVersion(version);
@@ -315,8 +318,5 @@ public class PluginManager
 		}
 		return result;
 	}
-
-
-
 
 }

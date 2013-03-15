@@ -23,12 +23,12 @@ public class ConfigurationPropertyArrayString extends ConfigurationPropertyTypeB
 	@Override
 	protected List<String> onGet()
 	{
-		return Arrays.asList(this.property.valueList);
+		return Arrays.asList(this.property.getStringList());
 	}
 
 	@Override
 	protected void onSet(List<String> value)
 	{
-		this.property.valueList = value.toArray(new String[value.size()]);
+		this.property.set(value.toArray(new String[value.size()]));
 	}
 }
