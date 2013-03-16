@@ -7,9 +7,12 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import com.tojc.minecraft.mod.ChatLogger.ChatLoggerConfiguration;
 import com.tojc.minecraft.mod.ChatLogger.Plugin.Order.PluginOrderController;
+import com.tojc.minecraft.mod.ChatLogger.Plugin.Order.PluginOrderKey;
+import com.tojc.minecraft.mod.ChatLogger.Plugin.Order.PluginOrderStatus;
 import com.tojc.minecraft.mod.ChatLogger.Plugin.Type.PluginType;
 import com.tojc.minecraft.mod.Configuration.ConfigurationPropertyArrayString;
 import com.tojc.minecraft.mod.Crypto.SimpleEncryption;
@@ -17,6 +20,7 @@ import com.tojc.minecraft.mod.log.DebugLog;
 
 public class PluginOrderManager
 {
+	private List<PluginInformation> plugins = null;
 	private Map<String, Object> pluginStack = null;
 	private Map<PluginType, PluginOrderController> pluginControllers = null;
 
@@ -33,6 +37,15 @@ public class PluginOrderManager
 		}
 	}
 
+	public List<PluginInformation> getPlugins()
+	{
+		return this.plugins;
+	}
+	public void setPlugins(List<PluginInformation> plugins)
+	{
+		this.plugins = plugins;
+	}
+
 	public Map<String, Object> getPluginStack()
 	{
 		return this.pluginStack;
@@ -43,17 +56,18 @@ public class PluginOrderManager
 		return this.masterMapping;
 	}
 
-	public void createMapping(List<PluginInformation> plugins)
+	public void createMapping()
 	{
 		this.masterMapping = new HashMap<String, PluginInformation>();
-		for(PluginInformation info : plugins)
+		for(PluginInformation info : this.plugins)
 		{
 			this.masterMapping.put(info.getPluginKey(), info);
 		}
 
 		for(Map.Entry<PluginType, PluginOrderController> entry : this.pluginControllers.entrySet())
 		{
-			entry.getValue().createMapping(this.masterMapping);
+			entry.getValue().setMasterMapping(this.masterMapping);
+			entry.getValue().createMapping();
 		}
 	}
 
@@ -86,6 +100,20 @@ public class PluginOrderManager
 	public PluginOrderController getPluginChatLogOrderController()
 	{
 		return this.pluginControllers.get(PluginType.ChatLog);
+	}
+
+	public TreeMap<Integer, PluginOrderStatus> getMasterTreeMap()
+	{
+		TreeMap<Integer, PluginOrderStatus> result = new TreeMap<Integer, PluginOrderStatus>();
+		int index = 0;
+		for(Map.Entry<String, PluginInformation> entry : this.masterMapping.entrySet())
+		{
+			PluginOrderKey key = new PluginOrderKey(entry.getKey(), PluginState.Enabled);
+			PluginOrderStatus status = new PluginOrderStatus(null, key, entry.getValue());
+			result.put(index, status);
+			index++;
+		}
+		return result;
 	}
 
 }

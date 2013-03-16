@@ -46,6 +46,11 @@ public class GuiChatLoggerPluginScrollPanel extends GuiSlot
         this.mc = mc;
 	}
 
+	public TreeMap<Integer, PluginOrderStatus> getMapPlugins()
+	{
+		return this.mapPlugins;
+	}
+
 	@Override
 	protected int getSize()
 	{
@@ -60,13 +65,17 @@ public class GuiChatLoggerPluginScrollPanel extends GuiSlot
         	this.selected = i;
         	DebugLog.info("elementClicked: %d", i);
 
-    		if(this.selected != -1)
-    		{
-            	if(this.listener != null)
-            	{
+        	if(this.listener != null)
+        	{
+        		if(this.selected != -1)
+        		{
             		this.listener.onElementClicked(this.selected, this.mapPlugins.get(this.selected));
-            	}
-    		}
+        		}
+        		else
+        		{
+            		this.listener.onElementClicked(this.selected, null);
+        		}
+        	}
         }
 	}
 
@@ -79,7 +88,7 @@ public class GuiChatLoggerPluginScrollPanel extends GuiSlot
 	@Override
 	protected void drawBackground()
 	{
-        //this.parentScreen.drawDefaultBackground();
+        this.parentScreen.drawDefaultBackground();
 	}
 
 	@Override
@@ -129,4 +138,5 @@ public class GuiChatLoggerPluginScrollPanel extends GuiSlot
         this.parentScreen.drawString(this.mc.fontRenderer, pluginPath, xPosition + 5, yPosition + 10, 0xFFFFFFFF);
         this.parentScreen.drawString(this.mc.fontRenderer, pluginState, xPosition + 5, yPosition + 20, 0xFFFFFFFF);
 	}
+
 }

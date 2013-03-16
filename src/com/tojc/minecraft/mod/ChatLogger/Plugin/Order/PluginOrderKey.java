@@ -1,10 +1,40 @@
 package com.tojc.minecraft.mod.ChatLogger.Plugin.Order;
 
 import com.tojc.minecraft.mod.ChatLogger.Plugin.PluginState;
+import com.tojc.minecraft.mod.Crypto.SimpleEncryption;
 
 public class PluginOrderKey
 {
 	private static String SEPARATOR = ";";
+	private static final String ENCKEY = "ChatLogger";
+
+	private static String convertStringToInternalFormat(String item)
+	{
+		String result = "";
+		try
+		{
+			result = SimpleEncryption.encrypt(ENCKEY, item);
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	private static String convertInternalFormatToString(String internalFormat)
+	{
+		String result = null;
+		try
+		{
+			result = SimpleEncryption.decrypt(ENCKEY, internalFormat);
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		return result;
+	}
 
 	private String key = "";
 	private PluginState state = null;
@@ -26,7 +56,8 @@ public class PluginOrderKey
 
 	public PluginOrderKey set(String savekey)
 	{
-		String[] tokens = savekey.split(SEPARATOR);
+		String deckey = PluginOrderKey.convertInternalFormatToString(savekey);
+		String[] tokens = deckey.split(SEPARATOR);
 		if(tokens.length == 2)
 		{
 			this.key = tokens[0];
@@ -34,7 +65,7 @@ public class PluginOrderKey
 		}
 		else
 		{
-			this.key = savekey;
+			this.key = deckey;
 			this.state = PluginState.Disabled;
 		}
 		return this;
@@ -68,6 +99,11 @@ public class PluginOrderKey
 	public void setState(PluginState state)
 	{
 		this.state = state;
+	}
+
+	public String makeEncOrderKeyString()
+	{
+        return PluginOrderKey.convertStringToInternalFormat(this.makeOrderKeyString());
 	}
 
 	@Override

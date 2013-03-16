@@ -123,11 +123,12 @@ public class PluginManager
 				//this.pluginOrder.getPluginChatLogOrder().getOrderKey().add(this.plugins.get(2).getPluginFile().toString());
 				//this.pluginOrder.getPluginChatLogOrder().getOrderKey().add(this.plugins.get(3).getPluginFile().toString());
 
-				this.pluginOrderManager.getPluginScreenOrderController().getPluginOrderKey().add(new PluginOrderKey(this.plugins.get(0).getPluginKey(), PluginState.Enabled));
+				//this.pluginOrderManager.getPluginScreenOrderController().getPluginOrderKey().add(new PluginOrderKey(this.plugins.get(0).getPluginKey(), PluginState.Enabled));
 
 				// for test
-				this.pluginOrderManager.saveSetting();
-				this.pluginOrderManager.createMapping(this.plugins);
+				//this.pluginOrderManager.saveSetting();
+				this.pluginOrderManager.setPlugins(this.plugins);
+				this.pluginOrderManager.createMapping();
 
 				this.status = PluginManagerStatus.Loaded;
 				break;

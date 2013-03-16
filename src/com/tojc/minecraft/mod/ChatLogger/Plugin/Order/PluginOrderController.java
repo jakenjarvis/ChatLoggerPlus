@@ -1,6 +1,7 @@
 package com.tojc.minecraft.mod.ChatLogger.Plugin.Order;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,11 +11,13 @@ import com.tojc.minecraft.mod.ChatLogger.ChatLoggerConfiguration;
 import com.tojc.minecraft.mod.ChatLogger.Plugin.ChatMessageImpl;
 import com.tojc.minecraft.mod.ChatLogger.Plugin.PluginInformation;
 import com.tojc.minecraft.mod.ChatLogger.Plugin.Type.PluginType;
+import com.tojc.minecraft.mod.Crypto.SimpleEncryption;
 import com.tojc.minecraft.mod.log.DebugLog;
 
 public class PluginOrderController
 {
 	private ChatLoggerConfiguration config = null;
+	private Map<String, PluginInformation> masterMapping = null;
 	private PluginType type = null;
 
 	private Map<String, Object> pluginStack = null;
@@ -30,6 +33,15 @@ public class PluginOrderController
 		this.mapping = new HashMap<String, PluginOrderStatus>();
 	}
 
+	public Map<String, PluginInformation> getMasterMapping()
+	{
+		return this.masterMapping;
+	}
+	public void setMasterMapping(Map<String, PluginInformation> masterMapping)
+	{
+		this.masterMapping = masterMapping;
+	}
+
 	public List<PluginOrderKey> getPluginOrderKey()
 	{
 		return this.orderKeys;
@@ -40,11 +52,11 @@ public class PluginOrderController
 		return this.mapping;
 	}
 
-	public void createMapping(Map<String, PluginInformation> masterMapping)
+	public void createMapping()
 	{
 		for(PluginOrderKey item : this.orderKeys)
 		{
-			PluginInformation plugin = masterMapping.get(item.getKey());
+			PluginInformation plugin = this.masterMapping.get(item.getKey());
 			PluginOrderStatus status = new PluginOrderStatus(this.type, item, plugin);
 			this.mapping.put(status.getPluginOrderKey().getKey(), status);
 		}
@@ -70,7 +82,7 @@ public class PluginOrderController
 			PluginOrderStatus status = this.mapping.get(item.getKey());
 			if(status != null)
 			{
-				array.add(status.getPluginOrderKey().toString());
+				array.add(status.getPluginOrderKey().makeEncOrderKeyString());
 			}
 		}
 		this.type.getIndividual().getConfigurationProperty(this.config).set(array);
@@ -150,6 +162,107 @@ public class PluginOrderController
 			index++;
 		}
 		return result;
+	}
+
+	public void updateOrderTreeMap(TreeMap<Integer, PluginOrderStatus> mapPlugins)
+	{
+		int index = 0;
+		mapPlugins.clear();
+		for(PluginOrderKey item : this.orderKeys)
+		{
+			PluginOrderStatus status = this.mapping.get(item.getKey());
+			mapPlugins.put(index, status);
+			index++;
+		}
+	}
+
+	public int findPluginOrderKeyIndex(PluginOrderKey targetKey)
+	{
+		int result = -1;
+		String key = targetKey.getKey();
+		for(PluginOrderKey item : this.orderKeys)
+		{
+			DebugLog.info("findPluginOrderKeyIndex() key=%s, item.getKey()=%s", key, item.getKey());
+			if(item.getKey().equals(key))
+			{
+				result = this.orderKeys.indexOf(item);
+				DebugLog.info("findPluginOrderKeyIndex() key=%s, item.getKey()=%s, result: %d", key, item.getKey(), result);
+				break;
+			}
+		}
+		return result;
+	}
+
+
+	public void executeOrderUp(PluginOrderStatus plugin)
+	{
+		if(plugin != null)
+		{
+			int findKey = this.findPluginOrderKeyIndex(plugin.getPluginOrderKey());
+			if(findKey != -1)
+			{
+				if(findKey >= 1)
+				{
+					Collections.swap(this.orderKeys, findKey, findKey - 1);
+				}
+			}
+		}
+	}
+
+	public void executeOrderDown(PluginOrderStatus plugin)
+	{
+		if(plugin != null)
+		{
+			int findKey = this.findPluginOrderKeyIndex(plugin.getPluginOrderKey());
+			if(findKey != -1)
+			{
+				if(findKey < this.orderKeys.size() - 1)
+				{
+					Collections.swap(this.orderKeys, findKey, findKey + 1);
+				}
+			}
+		}
+	}
+
+	public void executeAdd(PluginOrderStatus plugin)
+	{
+		if(plugin != null)
+		{
+			int findKey = this.findPluginOrderKeyIndex(plugin.getPluginOrderKey());
+			DebugLog.info("executeAdd() findKey: %d", findKey);
+			if(findKey == -1)
+			{
+				if(!plugin.isError())
+				{
+					this.orderKeys.add(plugin.getPluginOrderKey());
+					this.createMapping();
+				}
+			}
+		}
+	}
+
+	public void executeDelete(PluginOrderStatus plugin)
+	{
+		if(plugin != null)
+		{
+			int findKey = this.findPluginOrderKeyIndex(plugin.getPluginOrderKey());
+			if(findKey != -1)
+			{
+				this.orderKeys.remove(findKey);
+			}
+		}
+	}
+
+	public void executeStateToggle(PluginOrderStatus plugin)
+	{
+		if(plugin != null)
+		{
+			PluginOrderStatus target = this.mapping.get(plugin.getPluginOrderKey().getKey());
+			if(target != null)
+			{
+				target.setEnabled(!target.isEnabled());
+			}
+		}
 	}
 
 }
