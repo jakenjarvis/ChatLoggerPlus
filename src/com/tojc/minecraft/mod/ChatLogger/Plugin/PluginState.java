@@ -2,10 +2,9 @@ package com.tojc.minecraft.mod.ChatLogger.Plugin;
 
 public enum PluginState
 {
-	Disabled(		false,	"Disabled",			"Plug-in is disabled."),
-	Enabled(		true,	"Enabled",			"Plug-in is enabled."),
-	ErrorMissing(	false,	"ErrorMissing",		"Plug-in is missing."),
-	ErrorBug(		false,	"ErrorBug",			"Found a bug in the plug-in.");
+	Disabled(	false,	"Disabled",			"Plug-in is disabled."),
+	Enabled(	true,	"Enabled",			"Plug-in is enabled."),
+	Error(		false,	"Error",			"Found a problem in the plug-in.");
 
 	private PluginState(boolean code, String name, String description)
 	{

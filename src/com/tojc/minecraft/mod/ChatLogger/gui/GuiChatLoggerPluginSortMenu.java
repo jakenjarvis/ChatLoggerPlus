@@ -16,12 +16,13 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StringTranslate;
 
 @SideOnly(Side.CLIENT)
 public class GuiChatLoggerPluginSortMenu extends GuiScreen
 	implements
-		GuiChatLoggerPluginScrollPanel.OnElementClickedListener,
+		GuiChatLoggerPluginScrollPanelBase.OnElementClickedListener,
 		GuiChatLoggerPluginSelect.OnPluginSelectedListener
 {
     protected String screenTitle = "";
@@ -30,10 +31,12 @@ public class GuiChatLoggerPluginSortMenu extends GuiScreen
     private ChatLoggerCore core = null;
     private PluginType type = null;
 
-    private GuiChatLoggerPluginScrollPanel scrollPanel = null;
+    private GuiChatLoggerPluginScrollPanelBase scrollPanel = null;
 
     private PluginOrderController controller = null;
     private PluginOrderStatus selectPlugin = null;
+
+    private String orderCheckMessage = "";
 
 	public GuiChatLoggerPluginSortMenu(GuiScreen par1GuiScreen, ChatLoggerCore core, PluginType type)
 	{
@@ -44,6 +47,8 @@ public class GuiChatLoggerPluginSortMenu extends GuiScreen
 
 		this.controller = this.core.getPluginManager().getPluginOrderManager().getPluginOrderController(this.type);
 		this.selectPlugin = null;
+
+		this.orderCheckMessage = "";
 	}
 
 	@Override
@@ -53,7 +58,7 @@ public class GuiChatLoggerPluginSortMenu extends GuiScreen
 
 		TreeMap<Integer, PluginOrderStatus> mapPlugins = this.controller.getOrderTreeMap();
 
-        this.scrollPanel = new GuiChatLoggerPluginScrollPanel(this, this.type, mapPlugins, this, this.mc, this.width, this.height, 16, (this.height - 70) + 4, 32);
+        this.scrollPanel = new GuiChatLoggerPluginSortMenuScrollPanel(this, this.type, mapPlugins, this, this.mc);
         StringTranslate var1 = StringTranslate.getInstance();
 
         this.buttonList.clear();
@@ -75,26 +80,32 @@ public class GuiChatLoggerPluginSortMenu extends GuiScreen
 	@Override
 	protected void actionPerformed(GuiButton par1GuiButton)
 	{
+		boolean exec = false;
 		if(par1GuiButton.enabled)
 		{
 			switch(par1GuiButton.id)
 			{
 				case 100:	// Up
-			    	this.controller.executeOrderUp(this.selectPlugin);
-					this.controller.saveSetting();
-					this.updateScrollPanel();
+					exec = this.controller.executeOrderUp(this.selectPlugin);
+					if(exec)
+					{
+						this.scrollPanel.setSelected(this.scrollPanel.getSelected() - 1);
+					}
+					this.updateScrollPanel(exec);
 					break;
 
 				case 101:	// Down
-			    	this.controller.executeOrderDown(this.selectPlugin);
-					this.controller.saveSetting();
-					this.updateScrollPanel();
+					exec = this.controller.executeOrderDown(this.selectPlugin);
+					if(exec)
+					{
+						this.scrollPanel.setSelected(this.scrollPanel.getSelected() + 1);
+					}
+					this.updateScrollPanel(exec);
 					break;
 
 				case 102:	// Delete
-			    	this.controller.executeDelete(this.selectPlugin);
-					this.controller.saveSetting();
-					this.updateScrollPanel();
+					exec = this.controller.executeDelete(this.selectPlugin);
+					this.updateScrollPanel(exec);
 					break;
 
 				case 103:	// Add
@@ -103,9 +114,8 @@ public class GuiChatLoggerPluginSortMenu extends GuiScreen
 					break;
 
 				case 104:	// Enabled/Disabled
-			    	this.controller.executeStateToggle(this.selectPlugin);
-					this.controller.saveSetting();
-					this.updateScrollPanel();
+					exec = this.controller.executeStateToggle(this.selectPlugin);
+					this.updateScrollPanel(exec);
 					break;
 
 				case 200:
@@ -127,15 +137,21 @@ public class GuiChatLoggerPluginSortMenu extends GuiScreen
 	{
     	DebugLog.info("onPluginSelected : %s", plugin.getPluginOrderKey().toString());
 
-    	this.controller.executeAdd(plugin);
-		this.controller.saveSetting();
-		this.updateScrollPanel();
+		boolean exec = this.controller.executeAdd(plugin);
+		this.updateScrollPanel(exec);
 	}
 
-	public void updateScrollPanel()
+	public void updateScrollPanel(boolean exec)
 	{
-		TreeMap<Integer, PluginOrderStatus> mapPlugins = this.scrollPanel.getMapPlugins();
-		this.controller.updateOrderTreeMap(mapPlugins);
+		if(exec)
+		{
+			this.controller.saveSetting();
+
+			TreeMap<Integer, PluginOrderStatus> mapPlugins = this.scrollPanel.getMapPlugins();
+			this.controller.updateOrderTreeMap(mapPlugins);
+
+			this.orderCheckMessage = EnumChatFormatting.DARK_RED + this.controller.makeOrderCheckMessage();
+		}
 	}
 
 
@@ -148,6 +164,8 @@ public class GuiChatLoggerPluginSortMenu extends GuiScreen
         this.drawCenteredString(this.fontRenderer, this.screenTitle, this.width / 2, 4, 0xffffff);
 
         super.drawScreen(par1, par2, par3);
+
+        this.drawCenteredString(this.fontRenderer, this.orderCheckMessage, this.width / 2, this.height - 70, 0xFFFFFFFF);
 	}
 
 	@Override

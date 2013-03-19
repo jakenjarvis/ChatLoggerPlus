@@ -18,7 +18,7 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.util.StringTranslate;
 
 @SideOnly(Side.CLIENT)
-public class GuiChatLoggerPluginSelect extends GuiScreen implements GuiChatLoggerPluginScrollPanel.OnElementClickedListener
+public class GuiChatLoggerPluginSelect extends GuiScreen implements GuiChatLoggerPluginScrollPanelBase.OnElementClickedListener
 {
 	public interface OnPluginSelectedListener
 	{
@@ -32,7 +32,7 @@ public class GuiChatLoggerPluginSelect extends GuiScreen implements GuiChatLogge
     private PluginType type = null;
     private OnPluginSelectedListener listener = null;
 
-    private GuiChatLoggerPluginScrollPanel scrollPanel = null;
+    private GuiChatLoggerPluginScrollPanelBase scrollPanel = null;
 
     private PluginOrderStatus resultPlugin = null;
 
@@ -52,7 +52,7 @@ public class GuiChatLoggerPluginSelect extends GuiScreen implements GuiChatLogge
 	{
 		TreeMap<Integer, PluginOrderStatus> mapPlugins = this.core.getPluginManager().getPluginOrderManager().getMasterTreeMap();
 
-        this.scrollPanel = new GuiChatLoggerPluginScrollPanel(this, this.type, mapPlugins, this, this.mc, this.width, this.height, 16, (this.height - 40) + 4, 32);
+        this.scrollPanel = new GuiChatLoggerPluginSelectScrollPanel(this, this.type, mapPlugins, this, this.mc);
         StringTranslate var1 = StringTranslate.getInstance();
 
 		this.buttonList.add(new GuiButton(  0, this.width / 2 -  90 - 10, this.height -28,  90, 20, var1.translateKey("gui.cancel")));

@@ -2,6 +2,7 @@ package com.tojc.minecraft.mod.ChatLogger.Plugin.Order;
 
 import com.tojc.minecraft.mod.ChatLogger.Plugin.PluginState;
 import com.tojc.minecraft.mod.Crypto.SimpleEncryption;
+import com.tojc.minecraft.mod.log.DebugLog;
 
 public class PluginOrderKey
 {
@@ -103,7 +104,7 @@ public class PluginOrderKey
 
 	public String makeEncOrderKeyString()
 	{
-        return PluginOrderKey.convertStringToInternalFormat(this.makeOrderKeyString());
+		return PluginOrderKey.convertStringToInternalFormat(this.makeOrderKeyString());
 	}
 
 	@Override

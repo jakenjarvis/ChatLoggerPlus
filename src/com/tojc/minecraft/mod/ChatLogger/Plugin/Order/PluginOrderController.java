@@ -88,10 +88,12 @@ public class PluginOrderController
 		this.type.getIndividual().getConfigurationProperty(this.config).set(array);
 	}
 
-	public boolean checkOrder()
+	public String makeOrderCheckMessage()
 	{
-		boolean result = true;
-		List<String> stack = new ArrayList<String>();
+		String result = "";
+		boolean error = false;
+		List<String> stackWrite = new ArrayList<String>();
+
 		for(PluginOrderKey item : this.orderKeys)
 		{
 			PluginOrderStatus status = this.mapping.get(item.getKey());
@@ -100,13 +102,18 @@ public class PluginOrderController
 				for(String write : status.getPlugin().getSettings().getWriteStack())
 				{
 					// 重複する登録は認めない
-					if(stack.contains(write))
+					if(stackWrite.contains(write))
 					{
-						result = false;
+						error = true;
+						result = "Write permission is duplicated: " + write;
 						break;
 					}
+					else
+					{
+						stackWrite.add(write);
+					}
 				}
-				if(!result)
+				if(error)
 				{
 					break;
 				}
@@ -114,13 +121,14 @@ public class PluginOrderController
 				for(String read : status.getPlugin().getSettings().getReadStack())
 				{
 					// 上位に登録が無ければ認めない
-					if(!stack.contains(read))
+					if(!stackWrite.contains(read))
 					{
-						result = false;
+						error = true;
+						result = "Write permission is necessary before read permission: " + read;
 						break;
 					}
 				}
-				if(!result)
+				if(error)
 				{
 					break;
 				}
@@ -139,13 +147,14 @@ public class PluginOrderController
 			PluginOrderStatus status = this.mapping.get(item.getKey());
 			if(status.isEnabled())
 			{
+				DebugLog.info("onChatMessage() call: %s", item.toString());
 				result.setSettings(status.getPlugin().getSettings());
 				result.setPluginStack(this.pluginStack);
 				status.getPlugin().onChatMessage(result);
 			}
 			else
 			{
-				DebugLog.info("onChatMessage() not call: %s", item);
+				DebugLog.info("onChatMessage() not call: %s", item.toString());
 			}
 		}
 		return result;
@@ -182,11 +191,9 @@ public class PluginOrderController
 		String key = targetKey.getKey();
 		for(PluginOrderKey item : this.orderKeys)
 		{
-			DebugLog.info("findPluginOrderKeyIndex() key=%s, item.getKey()=%s", key, item.getKey());
 			if(item.getKey().equals(key))
 			{
 				result = this.orderKeys.indexOf(item);
-				DebugLog.info("findPluginOrderKeyIndex() key=%s, item.getKey()=%s, result: %d", key, item.getKey(), result);
 				break;
 			}
 		}
@@ -194,8 +201,9 @@ public class PluginOrderController
 	}
 
 
-	public void executeOrderUp(PluginOrderStatus plugin)
+	public boolean executeOrderUp(PluginOrderStatus plugin)
 	{
+		boolean result = false;
 		if(plugin != null)
 		{
 			int findKey = this.findPluginOrderKeyIndex(plugin.getPluginOrderKey());
@@ -204,13 +212,16 @@ public class PluginOrderController
 				if(findKey >= 1)
 				{
 					Collections.swap(this.orderKeys, findKey, findKey - 1);
+					result = true;
 				}
 			}
 		}
+		return result;
 	}
 
-	public void executeOrderDown(PluginOrderStatus plugin)
+	public boolean executeOrderDown(PluginOrderStatus plugin)
 	{
+		boolean result = false;
 		if(plugin != null)
 		{
 			int findKey = this.findPluginOrderKeyIndex(plugin.getPluginOrderKey());
@@ -219,13 +230,16 @@ public class PluginOrderController
 				if(findKey < this.orderKeys.size() - 1)
 				{
 					Collections.swap(this.orderKeys, findKey, findKey + 1);
+					result = true;
 				}
 			}
 		}
+		return result;
 	}
 
-	public void executeAdd(PluginOrderStatus plugin)
+	public boolean executeAdd(PluginOrderStatus plugin)
 	{
+		boolean result = false;
 		if(plugin != null)
 		{
 			int findKey = this.findPluginOrderKeyIndex(plugin.getPluginOrderKey());
@@ -236,33 +250,41 @@ public class PluginOrderController
 				{
 					this.orderKeys.add(plugin.getPluginOrderKey());
 					this.createMapping();
+					result = true;
 				}
 			}
 		}
+		return result;
 	}
 
-	public void executeDelete(PluginOrderStatus plugin)
+	public boolean executeDelete(PluginOrderStatus plugin)
 	{
+		boolean result = false;
 		if(plugin != null)
 		{
 			int findKey = this.findPluginOrderKeyIndex(plugin.getPluginOrderKey());
 			if(findKey != -1)
 			{
 				this.orderKeys.remove(findKey);
+				result = true;
 			}
 		}
+		return result;
 	}
 
-	public void executeStateToggle(PluginOrderStatus plugin)
+	public boolean executeStateToggle(PluginOrderStatus plugin)
 	{
+		boolean result = false;
 		if(plugin != null)
 		{
 			PluginOrderStatus target = this.mapping.get(plugin.getPluginOrderKey().getKey());
 			if(target != null)
 			{
 				target.setEnabled(!target.isEnabled());
+				result = true;
 			}
 		}
+		return result;
 	}
 
 }

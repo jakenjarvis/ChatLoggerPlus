@@ -4,8 +4,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.UndeclaredThrowableException;
 import java.net.URI;
+import java.net.URLDecoder;
 import java.security.PrivilegedActionException;
 
 import javax.script.Invocable;
@@ -49,9 +51,18 @@ public class PluginInformation implements PluginInterface
 		String result = "";
 		if((this.pluginFile != null) && (this.pluginFile.length() >= 1))
 		{
-			URI uri = this.pluginBaseDir.toURI().relativize(this.pluginFile.toURI());
-			File file = new File(uri.toString());
-			result = file.toString();
+			try
+			{
+				//相対パス化
+				URI uri = this.pluginBaseDir.toURI().relativize(this.pluginFile.toURI());
+				//File file = new File(uri.toString());
+				File file = new File(URLDecoder.decode(uri.toString() , "UTF-8"));
+				result = file.toString();
+			}
+			catch (UnsupportedEncodingException e)
+			{
+				e.printStackTrace();
+			}
 		}
 		return result;
 	}

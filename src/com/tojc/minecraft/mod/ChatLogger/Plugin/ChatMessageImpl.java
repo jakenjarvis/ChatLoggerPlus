@@ -115,6 +115,11 @@ public class ChatMessageImpl implements ChatMessage
 	@Override
 	public void addAfterMessage(String message)
 	{
+		if(!this.settings.getAddAfterMessage())
+		{
+			this.exception = new PluginPermissionDeniedException("Permission AddAfterMessage is required!");
+			throw this.exception;
+		}
 		this.messagesAfter.add(message);
 	}
 
