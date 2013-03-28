@@ -1,11 +1,11 @@
 // ファイル形式はUTF-8で保存すること
-
+// Please file format to UTF-8.
 importPackage(com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1);
 
-var name = "test";
-var version = "1.0";
-var description = "test script";
-var auther = "Jaken";
+var name = "plugin name";
+var version = "1.0.0";
+var description = "plugin description";
+var auther = "your name";
 
 var plugin = new PluginInterface()
 {
