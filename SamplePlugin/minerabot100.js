@@ -26,14 +26,13 @@ var plugin = new PluginInterface()
 
     onChatMessage: function(chat)
     {
-        // チャットメッセージを取得（別のプラグインで加工された可能性のあるメッセージ）
-        var chatmessage = chat.getMessage();
+        // チャットメッセージを取得（別のプラグインで加工されていない、オリジナルのメッセージ）
+        var chatmessage = chat.getMessageOriginal();
 
         // JavaのStringからJavaScriptのStringに型変換（matchを使うために）
         var message = String(chatmessage);
 
         var username = "";
-
         // サーバによってユーザー名の表示方法が異なるので注意
         var result = message.match(/^<([^>]+)>\s(.*)/);
         if(result != null)
