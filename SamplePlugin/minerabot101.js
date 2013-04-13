@@ -2,7 +2,7 @@
 importPackage(com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1);
 
 var name = "MiNeRa bot Plugin";
-var version = "1.0.0";
+var version = "1.0.1";
 var description = "Japanese chatbot";
 var auther = "Jaken";
 
@@ -18,8 +18,8 @@ var plugin = new PluginInterface()
 
         // TinySegmenter本体の生成
         segmenter = new TinySegmenter();
-        // マルコフ連鎖 連鎖数3で、オブジェクトを生成する。
-        markov = new Markov(3);
+        // マルコフ連鎖 連鎖数2で、オブジェクトを生成する。
+        markov = new Markov(2);
 
         segmenter.segment("loadさせるために、一度、適当に実行させておく。（重い）");
     },
@@ -256,14 +256,21 @@ Markov.prototype = {
         this.startkey = new Array();
     },
 
-    initWords: function()
+    createKeyArray: function(target, index, add)
     {
-        var words = new Array(this.size);
-        for (var i = 0; i < this.size; i++)
+        var result = new Array(this.size + add);
+        for(var k = 0; k < this.size + add; k++)
         {
-            words[i] = "";
+            if((index + k) > (target.length - 1))
+            {
+                result[k] = "|||"; // end mark
+            }
+            else
+            {
+                result[k] = target[index + k];
+            }
         }
-        return words;
+        return result;
     },
 
     build: function(tokens)
@@ -274,56 +281,38 @@ Markov.prototype = {
         {
             newtokens[i] = tokens[i];
         }
-        newtokens[newsize - 1] = " ";
+        newtokens[newsize - 1] = "|||"; // end mark
 
-        if(0 > newtokens.length - this.size - 1)
+        // startkey
+        var startkeyarray = this.createKeyArray(newtokens, 0, 0);
+        var key = startkeyarray.join(":::");
+        var find = false;
+        for(var i = 0; i < this.startkey.length; i++)
         {
-            var key = newtokens.join(":::");
-            var words = this.initWords();
-            for(var j = 0; j < newtokens.length; j++)
+            if(this.startkey[i] == key)
             {
-                words[j] = newtokens[j];
-            }
-            this.adddata(key, words);
-        }
-        else
-        {
-            var key = (new Array(newtokens[0], newtokens[1])).join(":::");
-            var find = false;
-            for(var i = 0; i < this.startkey.length; i++)
-            {
-                if(this.startkey[i] == key)
-                {
-                    find = true;
-                    break;
-                }
-            }
-            if(!find)
-            {
-                this.startkey.push(key);
-            }
-
-            for(var i = 0; i < newtokens.length - this.size - 1; i++)
-            {
-                // 2文字固定でキーとする。
-                key = (new Array(newtokens[i], newtokens[i + 1])).join(":::");
-                var words = this.initWords();
-                for(var j = 0; j < this.size; j++)
-                {
-                    words[j] = newtokens[i + j];
-                }
-                this.adddata(key, words);
+                find = true;
+                break;
             }
         }
-    },
-
-    adddata: function(key, words)
-    {
-        if(!this.data.hasOwnProperty(key))
+        if(!find)
         {
-            this.data[key] = new Array();
+            this.startkey.push(key);
         }
-        this.data[key].push(words);
+
+        // wordskey
+        for(var i = 0; i < newtokens.length - this.size; i++)
+        {
+            var wordskeyarray = this.createKeyArray(newtokens, i, 0);
+            key = wordskeyarray.join(":::");
+
+            var words = this.createKeyArray(newtokens, i, 1);
+            if(!this.data.hasOwnProperty(key))
+            {
+                this.data[key] = new Array();
+            }
+            this.data[key].push(words);
+        }
     },
 
     generate: function()
@@ -349,21 +338,29 @@ Markov.prototype = {
 
             if(output == "")
             {
-                for(var i = 0; i < 2; i++)
+                for(var i = 0; i < this.size; i++)
                 {
                     word = target[i];
+                    if(word == "|||")
+                    {
+                        break;
+                    }
                     output += word + delimiter;
                 }
             }
 
-            for(var i = 2; i < target.length; i++)
+            for(var i = this.size; i < target.length; i++)
             {
                 word = target[i];
+                if(word == "|||")
+                {
+                    break;
+                }
                 output += word + delimiter;
             }
 
             //文節終了チェック
-            if(word.match(/.*(\s|[.|?|!|;|。|？|！|；])$/) != null)
+            if(word.match(/.*([|||]|[.|?|!|;|。|？|！|；])$/) != null)
             {
                 if(Math.floor(Math.random() * 100) >= 10)
                 {
@@ -371,7 +368,9 @@ Markov.prototype = {
                 }
             }
 
-            key = (new Array(target[target.length - 2], target[target.length - 1])).join(":::");
+            var nextkeyarray = this.createKeyArray(target, 1, 0);
+            key = nextkeyarray.join(":::");
+
             len++;
         }
         while((word != "") && (len < maxlen));
