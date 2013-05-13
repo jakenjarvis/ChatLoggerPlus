@@ -167,6 +167,7 @@ public class SpecialLogWriter
 			this.logfilemanager.setFileBaseDate(LogFileNameManager.makeDate());
 
 			this.state = WriterState.Initialize;
+			DebugLog.info("this.state: " + this.state);
 
 			if(this.logfilemanager.isState())
 			{
@@ -197,9 +198,22 @@ public class SpecialLogWriter
 			case Initialize:
 			case ClosedAfterglow:
 				onCheckPlayerChenged();
+				break;
 
-				if(this.logfilemanager.isState())
-				{
+			case Opened:
+				break;
+			default:
+				break;
+		}
+
+		WriterState prestate = this.state;
+
+		if(this.logfilemanager.isState())
+		{
+			switch(this.state)
+			{
+				case Initialize:
+				case ClosedAfterglow:
 					try
 					{
 						this.fos = new FileOutputStream(this.logfile, true);
@@ -208,6 +222,7 @@ public class SpecialLogWriter
 						this.pw = new PrintWriter(this.bw);
 
 						this.state = WriterState.Opened;
+						DebugLog.info("this.state: " + this.state);
 
 						DebugLog.info("logger.open(logfile)");
 					}
@@ -217,7 +232,8 @@ public class SpecialLogWriter
 						e.printStackTrace();
 					}
 
-					if(this.state == WriterState.Opened)
+					// InitializeからOpenedに変化したときのみヘッダを出力する。
+					if((prestate == WriterState.Initialize) && (this.state == WriterState.Opened))
 					{
 						// ヘッダーの出力
 						this.pw.println("--------------------------------------------------------------------------------");
@@ -235,7 +251,22 @@ public class SpecialLogWriter
 
 						this.pw.println(message.toString());
 						this.pw.println("--------------------------------------------------------------------------------");
+					}
+					break;
 
+				case Opened:
+					break;
+				default:
+					break;
+			}
+
+			switch(this.state)
+			{
+				case Initialize:
+					break;
+				case Opened:
+					if(this.state == WriterState.Opened)
+					{
 						// バッファの出力
 						for(String buffermessage : this.buffer)
 						{
@@ -247,26 +278,32 @@ public class SpecialLogWriter
 
 						if(this.listener != null)
 						{
-							String filename = "";
-							try
+							// InitializeからOpenedに変化したときのみ通知する。
+							if((prestate == WriterState.Initialize) && (this.state == WriterState.Opened))
 							{
-								filename = this.logfile.getCanonicalPath();
-								FileOperationCompletedEvent e = new FileOperationCompletedEvent(this, filename);
-								this.listener.onOpenFileOperationCompleted(e);
-							}
-							catch(Exception e1)
-							{
-								DebugLog.log(Level.SEVERE, e1, "Failed to get file name.");
-								e1.printStackTrace();
+								String filename = "";
+								try
+								{
+									filename = this.logfile.getCanonicalPath();
+									FileOperationCompletedEvent e = new FileOperationCompletedEvent(this, filename);
+									this.listener.onOpenFileOperationCompleted(e);
+								}
+								catch(Exception e1)
+								{
+									DebugLog.log(Level.SEVERE, e1, "Failed to get file name.");
+									e1.printStackTrace();
+								}
 							}
 						}
 					}
-				}
-				break;
+					break;
+				case ClosedAfterglow:
+					break;
+				default:
+					// 無視する
+					break;
+			}
 
-			default:
-				// 無視する
-				break;
 		}
 	}
 
@@ -305,12 +342,39 @@ public class SpecialLogWriter
 				break;
 
 			case ClosedAfterglow:
-				// 毎回書き込むたびに、open/closeする。
-				this.open();
-				this.write(output);
-				this.close();
+				// minecraftforge-src-1.5.2-7.8.0.684にて、ネザーなどのワールド移動の時、
+				// onWorldEvent_Unload()より先にonWorldEvent_Load()が発生し、Openedに戻すタイミングが無いことを確認。
+				// writeのタイミングでPlayerNameが正しく取得できる場合は、Openedに戻すことにする。
 
-				onCheckPlayerChenged();
+				boolean execute = false;
+				String newPlayerName = getPlayerName();
+				// クローズ後は、名前が取得できなくなった時点で終了。
+				// それ以降の出力は、Initializeでバッファに出力され、openしないなら破棄される。
+				if((newPlayerName == null) || (newPlayerName.length() == 0))
+				{
+					execute = true;
+				}
+				else if(!newPlayerName.equals(this.logfilemanager.getPlayerName()))
+				{
+					execute = true;
+				}
+
+				if(execute)
+				{
+					// 毎回書き込むたびに、open/closeする。
+					this.open();
+					this.write(output);
+					this.close();
+
+					onCheckPlayerChenged();
+				}
+				else
+				{
+					// ワールド移動のみで、ログアウトしていないと判断
+					this.open();
+					this.write(output);
+					// closeしない
+				}
 				break;
 
 			default:
@@ -350,6 +414,7 @@ public class SpecialLogWriter
 
 			case Opened:
 				this.state = WriterState.ClosedAfterglow;
+				DebugLog.info("this.state: " + this.state);
 
 				prudent_close(this.pw);
 				prudent_close(this.bw);
