@@ -29,6 +29,7 @@ import net.minecraft.network.packet.NetHandler;
 import net.minecraft.network.packet.Packet1Login;
 import net.minecraft.network.packet.Packet3Chat;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.ChatMessageComponent;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.CommandEvent;
@@ -78,11 +79,19 @@ public class HandlerAndEventListener implements IConnectionHandler, IChatListene
 	{
 		// MEMO:「/」から始まるコマンドは、ここは呼び出されない。
 		DebugLog.info("clientChat: " + message.message);
-		ClientChatMessageManager chatmanager = new ClientChatMessageManager(this.core.getConfig(), message.message);
+
+		ChatMessageComponent component = ChatMessageComponent.func_111078_c(message.message);
+		String target = component.func_111068_a(true);
+		//DebugLog.info("    target = " + target);
+
+		ClientChatMessageManager chatmanager = new ClientChatMessageManager(this.core.getConfig(), target);
 
 		this.core.onWrite(chatmanager.outputChatLog());
 
-		message.message = chatmanager.outputScreen();
+		//TODO: 画面出力部分は保留
+		//message.message = chatmanager.outputScreen();
+
+		message.message = component.func_111062_i();
 		return message;
 	}
 
@@ -108,6 +117,17 @@ public class HandlerAndEventListener implements IConnectionHandler, IChatListene
 		// MEMO:「/」から始まるコマンドは、ここは呼び出されない。
 		//DebugLog.info("onClientChatReceivedEvent: " + event.message);
 		//this.core.onWrite(event.message);
+
+		// 表示処理を制御するため、 net.minecraft.client.multiplayer.NetClientHandler クラスの handleChat の処理を全てここで行う。
+
+		//Minecraft.getMinecraft().ingameGUI.getChatGUI().printChatMessage("test 1");
+		if(event.message != null)
+		{
+			Minecraft.getMinecraft().ingameGUI.getChatGUI().printChatMessage(ChatMessageComponent.func_111078_c(event.message).func_111068_a(true));
+		}
+		//Minecraft.getMinecraft().ingameGUI.getChatGUI().printChatMessage("test 2");
+
+		event.message = null;
 	}
 
 	@ForgeSubscribe
