@@ -129,7 +129,7 @@ public class LogFileNameManager
 	private String getDefaultLogFileFullPathFileName()
 	{
 		String replaceDefaultLogFile = replaceSymbol(this.config.getDefaultReplaceLogFileFullPathFileName().get());
-		String result = new File(Minecraft.getMinecraftDir().toString(), replaceDefaultLogFile).getPath();
+		String result = new File(Minecraft.getMinecraft().mcDataDir.toString(), replaceDefaultLogFile).getPath();
 		return result;
 	}
 

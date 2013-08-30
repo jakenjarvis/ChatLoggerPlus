@@ -218,6 +218,7 @@ public class CurrentScreenMonitor implements ITickHandler
 		// extends GuiScreen(fml)
 		GuiModList("GuiModList", cpw.mods.fml.client.GuiModList.class),
 		GuiModsMissingForServer("GuiModsMissingForServer", cpw.mods.fml.client.GuiModsMissingForServer.class),
+		GuiSortingProblem("GuiSortingProblem", cpw.mods.fml.client.GuiSortingProblem.class),
 
 		// extends GuiScreen
 		GuiAchievements("GuiAchievements", net.minecraft.client.gui.achievement.GuiAchievements.class),
@@ -240,33 +241,43 @@ public class CurrentScreenMonitor implements ITickHandler
 		GuiMemoryErrorScreen("GuiMemoryErrorScreen", net.minecraft.client.gui.GuiMemoryErrorScreen.class),
 		GuiMultiplayer("GuiMultiplayer", net.minecraft.client.gui.GuiMultiplayer.class),
 		GuiOptions("GuiOptions", net.minecraft.client.gui.GuiOptions.class),
-		GuiProgress("GuiProgress", net.minecraft.client.gui.GuiProgress.class),
+		//GuiProgress("GuiProgress", net.minecraft.client.gui.GuiProgress.class),
 		GuiRenameWorld("GuiRenameWorld", net.minecraft.client.gui.GuiRenameWorld.class),
 		GuiScreen("GuiScreen", net.minecraft.client.gui.GuiScreen.class),
 		GuiScreenAddServer("GuiScreenAddServer", net.minecraft.client.gui.GuiScreenAddServer.class),
+		GuiScreenBackup("GuiScreenBackup", net.minecraft.client.gui.mco.GuiScreenBackup.class),
+		//GuiScreenBackupSelectionList("GuiScreenBackupSelectionList", net.minecraft.client.gui.mco.GuiScreenBackupSelectionList.class),
 		GuiScreenBook("GuiScreenBook", net.minecraft.client.gui.GuiScreenBook.class),
+		GuiScreenClientOutdated("GuiScreenClientOutdated", net.minecraft.client.mco.GuiScreenClientOutdated.class),
 		GuiScreenConfigureWorld("GuiScreenConfigureWorld", net.minecraft.client.gui.GuiScreenConfigureWorld.class),
-		GuiScreenCreateOnlineWorld("GuiScreenCreateOnlineWorld", net.minecraft.client.gui.GuiScreenCreateOnlineWorld.class),
+		GuiScreenConfirmation("GuiScreenConfirmation", net.minecraft.client.gui.GuiScreenConfirmation.class),
 		GuiScreenDemo("GuiScreenDemo", net.minecraft.client.gui.GuiScreenDemo.class),
 		GuiScreenDisconnectedOnline("GuiScreenDisconnectedOnline", net.minecraft.client.gui.GuiScreenDisconnectedOnline.class),
 		GuiScreenEditOnlineWorld("GuiScreenEditOnlineWorld", net.minecraft.client.gui.GuiScreenEditOnlineWorld.class),
 		GuiScreenInvite("GuiScreenInvite", net.minecraft.client.gui.GuiScreenInvite.class),
 		GuiScreenLongRunningTask("GuiScreenLongRunningTask", net.minecraft.client.gui.GuiScreenLongRunningTask.class),
+		GuiScreenMcoWorldTemplate("GuiScreenMcoWorldTemplate", net.minecraft.client.gui.mco.GuiScreenMcoWorldTemplate.class),
+		//GuiScreenMcoWorldTemplateSelectionList("GuiScreenMcoWorldTemplateSelectionList", net.minecraft.client.gui.mco.GuiScreenMcoWorldTemplateSelectionList.class),
 		GuiScreenOnlineServers("GuiScreenOnlineServers", net.minecraft.client.gui.GuiScreenOnlineServers.class),
-		GuiScreenResetWorld("GuiScreenResetWorld", net.minecraft.client.gui.GuiScreenResetWorld.class),
+		GuiScreenPendingInvitation("GuiScreenPendingInvitation", net.minecraft.client.gui.mco.GuiScreenPendingInvitation.class),
 		GuiScreenSelectLocation("GuiScreenSelectLocation", net.minecraft.client.gui.GuiScreenSelectLocation.class),
 		GuiScreenServerList("GuiScreenServerList", net.minecraft.client.gui.GuiScreenServerList.class),
 		GuiScreenSubscription("GuiScreenSubscription", net.minecraft.client.gui.GuiScreenSubscription.class),
+		GuiScreenTemporaryResourcePackSelect("GuiScreenTemporaryResourcePackSelect", net.minecraft.client.resources.GuiScreenTemporaryResourcePackSelect.class),
 		GuiSelectWorld("GuiSelectWorld", net.minecraft.client.gui.GuiSelectWorld.class),
 		GuiShareToLan("GuiShareToLan", net.minecraft.client.gui.GuiShareToLan.class),
+		//GuiSlotOnlineServerList("GuiSlotOnlineServerList", net.minecraft.client.gui.GuiSlotOnlineServerList.class),
 		GuiSnooper("GuiSnooper", net.minecraft.client.gui.GuiSnooper.class),
 		GuiStats("GuiStats", net.minecraft.client.gui.achievement.GuiStats.class),
-		GuiTexturePacks("GuiTexturePacks", net.minecraft.client.texturepacks.GuiTexturePacks.class),
+		//GuiTexturePacks("GuiTexturePacks", net.minecraft.client.texturepacks.GuiTexturePacks.class),
 		GuiVideoSettings("GuiVideoSettings", net.minecraft.client.gui.GuiVideoSettings.class),
 		GuiWinGame("GuiWinGame", net.minecraft.client.gui.GuiWinGame.class),
 		GuiYesNo("GuiYesNo", net.minecraft.client.gui.GuiYesNo.class),
 		//NetClientWebTextures("NetClientWebTextures", net.minecraft.client.multiplayer.NetClientWebTextures.class),
 		ScreenChatOptions("ScreenChatOptions", net.minecraft.client.gui.ScreenChatOptions.class),
+
+		// extends GuiScreenSelectLocation
+		//GuiScreenPendingInvitationList("GuiScreenPendingInvitationList", net.minecraft.client.gui.mco.GuiScreenPendingInvitationList.class),
 
 		// extends GuiContainer
 		GuiBeacon("GuiBeacon", net.minecraft.client.gui.inventory.GuiBeacon.class),
@@ -291,10 +302,16 @@ public class CurrentScreenMonitor implements ITickHandler
 		// extends GuiYesNo
 		GuiConfirmOpenLink("GuiConfirmOpenLink", net.minecraft.client.gui.GuiConfirmOpenLink.class),
 		GuiIdMismatchScreen("GuiIdMismatchScreen", cpw.mods.fml.client.GuiIdMismatchScreen.class),
-		GuiScreenConfirmation("GuiScreenConfirmation", net.minecraft.client.gui.GuiScreenConfirmation.class),
+		//GuiScreenConfirmation("GuiScreenConfirmation", net.minecraft.client.gui.GuiScreenConfirmation.class),
 
 		// extends GuiConfirmOpenLink
 		//GuiChatConfirmLink("GuiChatConfirmLink", net.minecraft.client.gui.GuiChatConfirmLink.class),
+
+		// extends ScreenWithCallback
+		ScreenWithCallback("ScreenWithCallback", net.minecraft.client.gui.mco.ScreenWithCallback.class),
+		//GuiScreenCreateOnlineWorld("GuiScreenCreateOnlineWorld", net.minecraft.client.gui.GuiScreenCreateOnlineWorld.class),
+		//GuiScreenResetWorld("GuiScreenResetWorld", net.minecraft.client.gui.GuiScreenResetWorld.class),
+
 
 		// extends GuiScreen(super) ※特殊な扱い（他のMODで追加されたGuiScreenを疑似判定する）
 		UnknownExtendsGuiScreen("UnknownExtendsGuiScreen", net.minecraft.client.gui.GuiScreen.class),
