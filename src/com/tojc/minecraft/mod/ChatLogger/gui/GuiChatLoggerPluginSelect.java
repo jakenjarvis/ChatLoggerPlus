@@ -15,6 +15,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.util.StringTranslate;
 
 @SideOnly(Side.CLIENT)
@@ -53,12 +54,11 @@ public class GuiChatLoggerPluginSelect extends GuiScreen implements GuiChatLogge
 		TreeMap<Integer, PluginOrderStatus> mapPlugins = this.core.getPluginManager().getPluginOrderManager().getMasterTreeMap();
 
         this.scrollPanel = new GuiChatLoggerPluginSelectScrollPanel(this, this.type, mapPlugins, this, this.mc);
-        StringTranslate var1 = StringTranslate.getInstance();
 
-		this.buttonList.add(new GuiButton(  0, this.width / 2 -  90 - 10, this.height -28,  90, 20, var1.translateKey("gui.cancel")));
-		this.buttonList.add(new GuiButton(200, this.width / 2 -   0 + 10, this.height -28,  90, 20, var1.translateKey("gui.done")));
+		this.buttonList.add(new GuiButton(  0, this.width / 2 -  90 - 10, this.height -28,  90, 20, I18n.func_135053_a("gui.cancel")));
+		this.buttonList.add(new GuiButton(200, this.width / 2 -   0 + 10, this.height -28,  90, 20, I18n.func_135053_a("gui.done")));
 
-        this.scrollPanel.registerScrollButtons(this.buttonList, 7, 8);
+        this.scrollPanel.registerScrollButtons(7, 8);
 
         this.screenTitle = "Select Plugin (" + this.type.getName() + ")";
 	}

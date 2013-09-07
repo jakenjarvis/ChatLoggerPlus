@@ -9,6 +9,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.util.StringTranslate;
 
 @SideOnly(Side.CLIENT)
@@ -27,13 +28,11 @@ public class GuiChatLoggerOptionMenu extends GuiScreen
 	@Override
 	public void initGui()
 	{
-        StringTranslate var1 = StringTranslate.getInstance();
-
         this.buttonList.clear();
 		this.buttonList.add(new GuiButton(101, this.width / 2 - 152, this.height / 6 + 96 - 6, 150, 20, "Screen Plugin"));
 		this.buttonList.add(new GuiButton(102, this.width / 2 +   2, this.height / 6 + 96 - 6, 150, 20, "ChatLog Plugin"));
 
-		this.buttonList.add(new GuiButton(200, this.width / 2 - 100, this.height / 6 + 168, var1.translateKey("gui.done")));
+		this.buttonList.add(new GuiButton(200, this.width / 2 - 100, this.height / 6 + 168, I18n.func_135053_a("gui.done")));
 	}
 
 	@Override

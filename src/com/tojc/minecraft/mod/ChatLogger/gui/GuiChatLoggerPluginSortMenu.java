@@ -16,6 +16,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StringTranslate;
 
@@ -59,20 +60,19 @@ public class GuiChatLoggerPluginSortMenu extends GuiScreen
 		TreeMap<Integer, PluginOrderStatus> mapPlugins = this.controller.getOrderTreeMap();
 
         this.scrollPanel = new GuiChatLoggerPluginSortMenuScrollPanel(this, this.type, mapPlugins, this, this.mc);
-        StringTranslate var1 = StringTranslate.getInstance();
 
         this.buttonList.clear();
-		this.buttonList.add(new GuiButton(100, this.width / 2 +  50, this.height -63,  50, 16, var1.translateKey("gui.up")));
-		this.buttonList.add(new GuiButton(101, this.width / 2 +  50, this.height -46,  50, 16, var1.translateKey("gui.down")));
+		this.buttonList.add(new GuiButton(100, this.width / 2 +  50, this.height -63,  50, 16, I18n.func_135053_a("gui.up")));
+		this.buttonList.add(new GuiButton(101, this.width / 2 +  50, this.height -46,  50, 16, I18n.func_135053_a("gui.down")));
 
 		this.buttonList.add(new GuiButton(102,          0 +  0 + 15, this.height -58,  90, 20, "Delete"));
 		this.buttonList.add(new GuiButton(103, this.width - 90 - 15, this.height -58,  90, 20, "Add"));
 
 		this.buttonList.add(new GuiButton(104, this.width / 2 - 100, this.height -58, 100, 20, "Enabled/Disabled"));
 
-		this.buttonList.add(new GuiButton(200, this.width / 2 - 100, this.height -28, var1.translateKey("gui.done")));
+		this.buttonList.add(new GuiButton(200, this.width / 2 - 100, this.height -28, I18n.func_135053_a("gui.done")));
 
-        this.scrollPanel.registerScrollButtons(this.buttonList, 7, 8);
+        this.scrollPanel.registerScrollButtons(7, 8);
 
         this.screenTitle = this.type.getName() + " Plugin";
 	}
