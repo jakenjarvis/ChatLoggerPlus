@@ -119,15 +119,17 @@ public class HandlerAndEventListener implements IConnectionHandler, IChatListene
 		//this.core.onWrite(event.message);
 
 		// 表示処理を制御するため、 net.minecraft.client.multiplayer.NetClientHandler クラスの handleChat の処理を全てここで行う。
+		// 実際に行う際は、event.setCanceled(true);を検討し、本当に表示を消す場合のみ行うこと。
+		// 全メッセージを横取りすると、他のMODが文字列を扱えなくなる。
 
 		//Minecraft.getMinecraft().ingameGUI.getChatGUI().printChatMessage("test 1");
-		if(event.message != null)
-		{
-			Minecraft.getMinecraft().ingameGUI.getChatGUI().printChatMessage(ChatMessageComponent.func_111078_c(event.message).func_111068_a(true));
-		}
+		//if(event.message != null)
+		//{
+		//	Minecraft.getMinecraft().ingameGUI.getChatGUI().printChatMessage(ChatMessageComponent.func_111078_c(event.message).func_111068_a(true));
+		//}
 		//Minecraft.getMinecraft().ingameGUI.getChatGUI().printChatMessage("test 2");
 
-		event.message = null;
+		//event.message = null;
 	}
 
 	@ForgeSubscribe
