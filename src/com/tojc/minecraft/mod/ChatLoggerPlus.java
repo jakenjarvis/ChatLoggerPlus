@@ -24,6 +24,7 @@ import com.tojc.minecraft.mod.ChatLogger.ChatLoggerCore;
 
 import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.Mod;
+import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
@@ -33,23 +34,23 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 public class ChatLoggerPlus
 {
 	@Instance("com.tojc.minecraft.mod.ChatLoggerPlus")
-	public static ChatLoggerPlus instance;
+	protected static ChatLoggerPlus instance;
 
 	private ChatLoggerCore core = new ChatLoggerCore();
 
-	@Mod.PreInit
+	@EventHandler
 	public void onPreInit(FMLPreInitializationEvent event)
 	{
 		this.core.onPreInit(event);
 	}
 
-	@Mod.Init
+	@EventHandler
 	public void onInit(FMLInitializationEvent event)
 	{
 		this.core.onInit(event);
 	}
 
-	@Mod.PostInit
+	@EventHandler
 	public void onPostInit(FMLPostInitializationEvent event)
 	{
 		this.core.onPostInit(event);
