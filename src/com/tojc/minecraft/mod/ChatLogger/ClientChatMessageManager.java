@@ -20,12 +20,12 @@ public class ClientChatMessageManager
 	private List<String> messageOutputScreenAfter = null;
 	private List<String> messageOutputChatLogAfter = null;
 
-	public ClientChatMessageManager(ChatLoggerCore core, String servername, String worldname, String original, String playername, String playermessage)
+	public ClientChatMessageManager(ChatLoggerCore core, ChatMessageImpl chatMessage)
 	{
 		this.config = core.getConfig();
 		this.pluginManager = core.getPluginManager();
 
-		this.messageOriginal = new ChatMessageImpl(servername, worldname, playermessage);
+		this.messageOriginal = chatMessage;
 
 		this.messageOutputScreenAfter = new ArrayList<String>();
 		this.messageOutputChatLogAfter = new ArrayList<String>();
@@ -35,16 +35,6 @@ public class ClientChatMessageManager
 
 		this.messageOutputChatLog = this.pluginManager.getPluginOrderManager().getPluginChatLogOrderController()
 				.fireOnChatMessage(this.messageOriginal, this.messageOutputChatLogAfter);
-
-		// TODO: 特定ユーザのカラー表示:ユーザー名を判定して、発言部分に指定色を塗る。
-		// TODO: 特定ユーザのNG:ユーザー名を判定して、発言全体を削除する。
-		// TODO: 特定ワードのNG:指定されたワードを、指定した文字で塗りつぶす。
-		// TODO: 特定条件を切っ掛けに何かActionする。
-		// TODO: 特定条件を切っ掛けに何か発言する。（ローカル、世界、固定文、リストランダム、コマンド実行）
-		// TODO: サーバによって、条件を変えたい。（ユーザー名の検出方法など）
-
-		// 判定：サーバ名、ワールド名、ユーザー名、正規表現（グループ指定）、キーワードリスト
-		// 動作：置換、削除、外部CMD実行、発言
 	}
 
 	private String replaceFillColorCode(String message)

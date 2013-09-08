@@ -20,6 +20,7 @@ package com.tojc.minecraft.mod.ChatLogger;
 
 import com.tojc.minecraft.mod.ChatLogger.CurrentScreenMonitor.CurrentScreenChangedEvent;
 import com.tojc.minecraft.mod.ChatLogger.CurrentScreenMonitor.CurrentScreenChangedListener;
+import com.tojc.minecraft.mod.ChatLogger.Plugin.ChatMessageImpl;
 import com.tojc.minecraft.mod.log.DebugLog;
 
 import net.minecraft.client.Minecraft;
@@ -130,12 +131,16 @@ public class HandlerAndEventListener implements IConnectionHandler, IChatListene
 		String targetPlayerMessage = wrapperOriginalComponent.getPlayerMessageFromChatTypeText();
 		if(targetPlayerMessage == null)
 		{
+			// chat.type.text以外は、targetPlayerName=nullかつ、targetPlayerMessage=全文とする。
 			targetPlayerMessage = wrapperOriginalComponent.func_111068_a(true);
 		}
 		DebugLog.info("    targetPlayerName    = " + targetPlayerName);
 		DebugLog.info("    targetPlayerMessage = " + targetPlayerMessage);
 
-		ClientChatMessageManager chatmanager = new ClientChatMessageManager(this.core, this.servername, this.worldname, event.message, targetPlayerName, targetPlayerMessage);
+		// チャットメッセージのスクリプトによる加工
+		ClientChatMessageManager chatmanager = new ClientChatMessageManager(
+				this.core,
+				new ChatMessageImpl(this.servername, this.worldname, event.message, targetPlayerName, targetPlayerMessage));
 
 		// ChatLog
 		String chatlogmessage = chatmanager.outputChatLog();
@@ -144,6 +149,7 @@ public class HandlerAndEventListener implements IConnectionHandler, IChatListene
 		ChatMessageComponent chatLogComponent = wrapperOriginalComponent.replaceChatTypeText(chatlogmessage);
 		if(chatLogComponent != null)
 		{
+			// 結合したメッセージを出力対象とする。
 			chatlogmessage = chatLogComponent.func_111068_a(true);
 		}
 

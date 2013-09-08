@@ -15,6 +15,9 @@ public class ChatMessageImpl implements ChatMessage
 	private String servername = "";
 	private String worldname = "";
 
+	private String originalJson = "";
+
+	private String playerName = null;
 	private String messageOriginal = "";
 	private String message = "";
 
@@ -24,27 +27,34 @@ public class ChatMessageImpl implements ChatMessage
 
 	public static ChatMessageImpl clone(ChatMessageImpl src)
 	{
-		return new ChatMessageImpl(src.settings, src.servername, src.worldname, src.messageOriginal, src.message, src.messagesAfter);
+		return new ChatMessageImpl(src.settings, src.servername, src.worldname, src.originalJson, src.playerName, src.messageOriginal, src.message, src.messagesAfter);
 	}
 
 	public static ChatMessageImpl clone(ChatMessage ifsrc)
 	{
 		ChatMessageImpl src = (ChatMessageImpl)ifsrc;
-		return new ChatMessageImpl(src.settings, src.servername, src.worldname, src.messageOriginal, src.message, src.messagesAfter);
+		return new ChatMessageImpl(src.settings, src.servername, src.worldname, src.originalJson, src.playerName, src.messageOriginal, src.message, src.messagesAfter);
 	}
 
-	public ChatMessageImpl(String servername, String worldname, String message)
+	public ChatMessageImpl(String servername, String worldname, String originalJson, String playername, String message)
 	{
-		this(null, servername, worldname, message, message, null);
+		this(null, servername, worldname, originalJson, playername, message, message, null);
 	}
 
-	private ChatMessageImpl(PluginSettingsImpl settings, String servername, String worldname, String messageOriginal, String message, List<String> messagesAfter)
+	private ChatMessageImpl(PluginSettingsImpl settings, String servername, String worldname, String originalJson, String playername, String messageOriginal, String message, List<String> messagesAfter)
 	{
 		this.settings = settings;
 
 		this.servername = new String(servername);
 		this.worldname = new String(worldname);
 
+		this.originalJson = new String(originalJson);
+
+		this.playerName = null;
+		if(playername != null)
+		{
+			this.playerName = new String(playername);
+		}
 		this.messageOriginal = new String(messageOriginal);
 		this.message = new String(message);
 
@@ -93,6 +103,18 @@ public class ChatMessageImpl implements ChatMessage
 	public String getWorldName()
 	{
 		return this.worldname;
+	}
+
+	@Override
+	public String getOriginalJsonString()
+	{
+		return this.originalJson;
+	}
+
+	@Override
+	public String getPlayerName()
+	{
+		return this.playerName;
 	}
 
 	@Override
@@ -152,5 +174,4 @@ public class ChatMessageImpl implements ChatMessage
 
 		return result;
 	}
-
 }
