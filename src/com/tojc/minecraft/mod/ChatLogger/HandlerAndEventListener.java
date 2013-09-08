@@ -86,29 +86,7 @@ public class HandlerAndEventListener implements IConnectionHandler, IChatListene
 	public Packet3Chat clientChat(NetHandler handler, Packet3Chat message)
 	{
 		// MEMO:「/」から始まるコマンドは、ここは呼び出されない。
-		DebugLog.info("clientChat: " + message.message);
-
-		ChatMessageComponent component = ChatMessageComponent.func_111078_c(message.message);
-		String target = component.func_111068_a(true);
-		//DebugLog.info("    target = " + target);
-
-		ClientChatMessageManager chatmanager = new ClientChatMessageManager(this.core, this.servername, this.worldname, target);
-		message.message = component.func_111062_i();
-
-		//TODO: 画面出力部分は保留
-		//message.message = chatmanager.outputScreen();
-		//// TODO: 直前に吐いてしまう。タイミング悪すぎる
-		//for(String output : chatmanager.outputScreenAfterMessages())
-		//{
-		//	this.core.sendLocalChatMessage(output);
-		//}
-
-		this.core.onWrite(chatmanager.outputChatLog());
-		for(String output : chatmanager.outputChatLogAfterMessages())
-		{
-			this.core.onWrite(output);
-		}
-
+		//DebugLog.info("clientChat: " + message.message);
 		return message;
 	}
 
@@ -128,25 +106,104 @@ public class HandlerAndEventListener implements IConnectionHandler, IChatListene
 		this.core.onWrite(commandline.toString().trim());
 	}
 
+	// MEMO:
+	// {"translate":"chat.type.text","using":["Player387","aaaaa"]}
+
+	// {"color":"dark_green","translate":"commands.help.header","using":["1","4"]}
+	// §2--- ヘルプページの §21 ／ §24 ページを表示(/help <ページ番号>) ---
+
+	// {"translate":"commands.clear.usage"}
+	// /clear <プレイヤー> [アイテム] [データ]
+
+	// {"color":"green","translate":"commands.help.footer"}
+	// §aヒント：タブキーを押すとコマンドやオプションが自動補完されます
+
 	@ForgeSubscribe
 	public void onClientChatReceivedEvent(ClientChatReceivedEvent event)
 	{
 		// MEMO:「/」から始まるコマンドは、ここは呼び出されない。
-		//DebugLog.info("onClientChatReceivedEvent: " + event.message);
-		//this.core.onWrite(event.message);
+		DebugLog.info("onClientChatReceivedEvent: " + event.message);
 
-		// 表示処理を制御するため、 net.minecraft.client.multiplayer.NetClientHandler クラスの handleChat の処理を全てここで行う。
-		// 実際に行う際は、event.setCanceled(true);を検討し、本当に表示を消す場合のみ行うこと。
-		// 全メッセージを横取りすると、他のMODが文字列を扱えなくなる。
+		ChatMessageComponentWrapper wrapperOriginalComponent = new ChatMessageComponentWrapper(ChatMessageComponent.func_111078_c(event.message));
+		//String target = component.func_111068_a(true);
+		String targetPlayerName = wrapperOriginalComponent.getPlayerNameFromChatTypeText();
+		String targetPlayerMessage = wrapperOriginalComponent.getPlayerMessageFromChatTypeText();
+		if(targetPlayerMessage == null)
+		{
+			targetPlayerMessage = wrapperOriginalComponent.func_111068_a(true);
+		}
+		DebugLog.info("    targetPlayerName    = " + targetPlayerName);
+		DebugLog.info("    targetPlayerMessage = " + targetPlayerMessage);
 
-		//Minecraft.getMinecraft().ingameGUI.getChatGUI().printChatMessage("test 1");
-		//if(event.message != null)
-		//{
-		//	Minecraft.getMinecraft().ingameGUI.getChatGUI().printChatMessage(ChatMessageComponent.func_111078_c(event.message).func_111068_a(true));
-		//}
-		//Minecraft.getMinecraft().ingameGUI.getChatGUI().printChatMessage("test 2");
+		ClientChatMessageManager chatmanager = new ClientChatMessageManager(this.core, this.servername, this.worldname, event.message, targetPlayerName, targetPlayerMessage);
 
-		//event.message = null;
+		// ChatLog
+		String chatlogmessage = chatmanager.outputChatLog();
+
+		// プレイヤー名とメッセージの結合
+		ChatMessageComponent chatLogComponent = wrapperOriginalComponent.replaceChatTypeText(chatlogmessage);
+		if(chatLogComponent != null)
+		{
+			chatlogmessage = chatLogComponent.func_111068_a(true);
+		}
+
+		this.core.onWrite(chatlogmessage);
+		// 追加メッセージ
+		for(String output : chatmanager.outputChatLogAfterMessages())
+		{
+			this.core.onWrite(output);
+		}
+
+		// Screen
+		// TODO: このScreenケースをChatLogに出力したい、という要望があるかも。
+		String screenmessage = chatmanager.outputScreen();
+		if(screenmessage != null)
+		{
+			ChatMessageComponent screenComponent = wrapperOriginalComponent.replaceChatTypeText(screenmessage);
+			if(screenComponent != null)
+			{
+				event.message = screenComponent.func_111062_i();
+			}
+			else
+			{
+				// chat.type.text以外の時にnullになる。
+				// 未加工メッセージ（仕様とする）
+				// 画面に出力するシステム系の文字は、加工結果を反映させない。（させるようにするのは大変）
+				// これとは対照的に、ChatLog側は加工できるように考慮する。
+			}
+		}
+		else
+		{
+			//メッセージ自体の削除はnullとする。他のMODにも処理させない。
+			event.message = null;
+		}
+
+		int aftercount = chatmanager.outputScreenAfterMessages().size();
+		if(aftercount >= 1)
+		{
+			// 追加メッセージが存在する場合は、このメッセージをForgeに処理させない。
+			// （そうしなければ、メッセージの後ろに出力できない）
+
+			// event.message = null;で全メッセージを横取りすると、他のMODが文字列を扱えなくなるので注意。
+			event.setCanceled(true);
+
+			// 表示処理を制御するため、 net.minecraft.client.multiplayer.NetClientHandler クラスの handleChat の処理を全てここで行う。
+			if(event.message != null)
+			{
+				//Minecraft.getMinecraft().ingameGUI.getChatGUI().printChatMessage(ChatMessageComponent.func_111078_c(event.message).func_111068_a(true));
+				this.core.sendLocalChatMessage(ChatMessageComponent.func_111078_c(event.message).func_111068_a(true));
+			}
+
+			// 追加メッセージ
+			for(String output : chatmanager.outputScreenAfterMessages())
+			{
+				if(output != null)
+				{
+					DebugLog.info("    screen after = " + output);
+					this.core.sendLocalChatMessage(output);
+				}
+			}
+		}
 	}
 
 	@ForgeSubscribe

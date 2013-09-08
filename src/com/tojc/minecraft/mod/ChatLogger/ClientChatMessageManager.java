@@ -20,12 +20,12 @@ public class ClientChatMessageManager
 	private List<String> messageOutputScreenAfter = null;
 	private List<String> messageOutputChatLogAfter = null;
 
-	public ClientChatMessageManager(ChatLoggerCore core, String servername, String worldname, String message)
+	public ClientChatMessageManager(ChatLoggerCore core, String servername, String worldname, String original, String playername, String playermessage)
 	{
 		this.config = core.getConfig();
 		this.pluginManager = core.getPluginManager();
 
-		this.messageOriginal = new ChatMessageImpl(servername, worldname, message);
+		this.messageOriginal = new ChatMessageImpl(servername, worldname, playermessage);
 
 		this.messageOutputScreenAfter = new ArrayList<String>();
 		this.messageOutputChatLogAfter = new ArrayList<String>();

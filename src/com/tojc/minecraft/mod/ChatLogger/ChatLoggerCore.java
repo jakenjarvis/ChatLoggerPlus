@@ -116,8 +116,8 @@ public class ChatLoggerCore implements FileOperationCompletedListener
 	{
 		if(this.config.getChatLoggerEnabled().get())
 		{
-			this.sendLocalChatMessage("§aChatLoggerPlus: Logging start.");
-			this.sendLocalChatMessage("§aChatLoggerPlus: " + e.getFileName());
+			this.sendLocalChatMessage("§aChatLoggerPlus: §rLogging start.");
+			this.sendLocalChatMessage("§aChatLoggerPlus: §r" + e.getFileName());
 		}
 	}
 
