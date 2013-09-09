@@ -63,8 +63,11 @@ public class HandlerAndEventListener implements IConnectionHandler, IChatListene
 		// connectionReceived, connectionOpened, connectionClosed
 		NetworkRegistry.instance().registerConnectionHandler(this);
 
-		// KeyBinding
-		KeyBindingRegistry.registerKeyBinding(new ChatLoggerKeyHandler(this.core));
+		if(this.core.getConfig().getPluginScriptsEnabled().get())
+		{
+			// KeyBinding
+			KeyBindingRegistry.registerKeyBinding(new ChatLoggerKeyHandler(this.core));
+		}
 
 		// etc. @ForgeSubscribe
 		MinecraftForge.EVENT_BUS.register(this);
@@ -137,7 +140,7 @@ public class HandlerAndEventListener implements IConnectionHandler, IChatListene
 		DebugLog.info("    targetPlayerName    = " + targetPlayerName);
 		DebugLog.info("    targetPlayerMessage = " + targetPlayerMessage);
 
-		// チャットメッセージのスクリプトによる加工
+		// チャットメッセージの加工
 		ClientChatMessageManager chatmanager = new ClientChatMessageManager(
 				this.core,
 				new ChatMessageImpl(this.servername, this.worldname, event.message, targetPlayerName, targetPlayerMessage));

@@ -29,8 +29,12 @@ public class GuiChatLoggerOptionMenu extends GuiScreen
 	public void initGui()
 	{
         this.buttonList.clear();
-		this.buttonList.add(new GuiButton(101, this.width / 2 - 152, this.height / 6 + 96 - 6, 150, 20, "Screen Plugin"));
-		this.buttonList.add(new GuiButton(102, this.width / 2 +   2, this.height / 6 + 96 - 6, 150, 20, "ChatLog Plugin"));
+
+		if(this.core.getConfig().getPluginScriptsEnabled().get())
+		{
+	        this.buttonList.add(new GuiButton(101, this.width / 2 - 152, this.height / 6 + 96 - 6, 150, 20, "Screen Plugin"));
+			this.buttonList.add(new GuiButton(102, this.width / 2 +   2, this.height / 6 + 96 - 6, 150, 20, "ChatLog Plugin"));
+		}
 
 		this.buttonList.add(new GuiButton(200, this.width / 2 - 100, this.height / 6 + 168, I18n.func_135053_a("gui.done")));
 	}

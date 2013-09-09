@@ -30,21 +30,31 @@ public class ClientChatMessageManager
 		this.messageOutputScreenAfter = new ArrayList<String>();
 		this.messageOutputChatLogAfter = new ArrayList<String>();
 
-		this.messageOutputScreen = this.pluginManager.getPluginOrderManager().getPluginScreenOrderController()
-				.fireOnChatMessage(this.messageOriginal, this.messageOutputScreenAfter);
+		if(this.config.getPluginScriptsEnabled().get())
+		{
+			this.messageOutputScreen = this.pluginManager.getPluginOrderManager().getPluginScreenOrderController()
+					.fireOnChatMessage(this.messageOriginal, this.messageOutputScreenAfter);
 
-		this.messageOutputChatLog = this.pluginManager.getPluginOrderManager().getPluginChatLogOrderController()
-				.fireOnChatMessage(this.messageOriginal, this.messageOutputChatLogAfter);
+			this.messageOutputChatLog = this.pluginManager.getPluginOrderManager().getPluginChatLogOrderController()
+					.fireOnChatMessage(this.messageOriginal, this.messageOutputChatLogAfter);
+		}
+		else
+		{
+			this.messageOutputScreen = ChatMessageImpl.clone(chatMessage);
+			this.messageOutputChatLog = ChatMessageImpl.clone(chatMessage);
+
+			// フォーマットコードの削除
+			this.messageOutputChatLog.setMessage(this.replaceFillFormattingCodes(this.messageOutputChatLog.getMessage()));
+		}
 	}
 
-	private String replaceFillColorCode(String message)
+	private String replaceFillFormattingCodes(String message)
 	{
-		// カラーコードの削除
 		String result = message;
-		if(this.config.getFillColorCodeEnabled().get())
+		if(this.config.getFillFormattingCodesEnabled().get())
 		{
-			String regex = this.config.getFillColorCodeRegex().get();
-			String replace = this.config.getFillColorCodeReplace().get();
+			String regex = this.config.getFillFormattingCodesRegex().get();
+			String replace = this.config.getFillFormattingCodesReplace().get();
 			result = result.replaceAll(regex, replace);
 		}
 		return result;

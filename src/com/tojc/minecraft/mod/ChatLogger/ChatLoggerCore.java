@@ -61,8 +61,10 @@ public class ChatLoggerCore implements FileOperationCompletedListener
 
 		if(this.config.getChatLoggerEnabled().get())
 		{
-			this.pluginManager = new PluginManager(this.config);
-
+			if(this.config.getPluginScriptsEnabled().get())
+			{
+				this.pluginManager = new PluginManager(this.config);
+			}
 			this.listener = new HandlerAndEventListener(this);
 			this.writer = new SpecialLogWriter(this.config, this);
 		}
@@ -83,7 +85,11 @@ public class ChatLoggerCore implements FileOperationCompletedListener
 		if(this.config.getChatLoggerEnabled().get())
 		{
 			this.writer.setWorldName(worldname);
-			this.pluginManager.load();
+
+			if(this.config.getPluginScriptsEnabled().get())
+			{
+				this.pluginManager.load();
+			}
 		}
 	}
 
@@ -91,7 +97,10 @@ public class ChatLoggerCore implements FileOperationCompletedListener
 	{
 		if(this.config.getChatLoggerEnabled().get())
 		{
-			this.pluginManager.unload();
+			if(this.config.getPluginScriptsEnabled().get())
+			{
+				this.pluginManager.unload();
+			}
 		}
 	}
 
