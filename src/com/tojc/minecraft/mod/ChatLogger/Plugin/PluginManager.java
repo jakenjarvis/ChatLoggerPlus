@@ -10,9 +10,11 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.script.Bindings;
 import javax.script.Compilable;
 import javax.script.CompiledScript;
 import javax.script.Invocable;
+import javax.script.ScriptContext;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineFactory;
 import javax.script.ScriptEngineManager;
@@ -206,6 +208,9 @@ public class PluginManager
 		ScriptEngine engine = this.manager.getEngineByExtension(extension);
 		if(engine != null)
 		{
+			Bindings bindings = engine.getBindings(ScriptContext.ENGINE_SCOPE);
+			bindings.put("debug", new PluginDebugObject());
+
 			PluginInformation plugin = findPluginList(pluginfile);
 			if(plugin == null)
 			{
