@@ -2,9 +2,9 @@
 // Please file format to UTF-8.
 importPackage(com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1);
 
-var name = "ReplaceThree";
+var name = "FormattingCodesRemover";
 var version = "1.0.1";
-var description = "sample plugin";
+var description = "Remove the Formatting codes.";
 var auther = "Jaken";
 
 var plugin = new PluginInterface()
@@ -27,8 +27,8 @@ var plugin = new PluginInterface()
             // JavaのStringからJavaScriptのStringに型変換（replaceを使うために）
             var message = String(chatmessage);
 
-            // 文字列3を置換する。
-            var newmessage = message.replace(/3/g, '§aAho§r');
+            // フォーマットコードを削除する。
+            var newmessage = message.replace(/§[0-9a-fk-or]/g, "");
 
             // 編集したメッセージをセット。
             // これを呼び出すためには、MessageModificationのパーミッションが必要。

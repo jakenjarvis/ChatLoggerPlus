@@ -1,7 +1,7 @@
 // ファイル形式はUTF-8で保存すること
 importPackage(com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1);
 
-var name = "MiNeRa bot Plugin";
+var name = "MiNeRa bot";
 var version = "1.0.1";
 var description = "Japanese chatbot";
 var auther = "Jaken";

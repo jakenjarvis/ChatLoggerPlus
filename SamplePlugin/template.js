@@ -9,18 +9,18 @@ var auther = "your name";
 
 var plugin = new PluginInterface()
 {
-	onInitialize: function(settings)
-	{
-		println("onInitialize");
-	},
+    onInitialize: function(settings)
+    {
+        debug.log(name, "onInitialize");
+    },
 
-	onChatMessage: function(chat)
-	{
-		println("onChatMessage");
-	},
+    onChatMessage: function(chat)
+    {
+        debug.log(name, "onChatMessage");
+    },
 
-	onFinalize: function()
-	{
-		println("onFinalize");
-	},
+    onFinalize: function()
+    {
+        debug.log(name, "onFinalize");
+    },
 };
