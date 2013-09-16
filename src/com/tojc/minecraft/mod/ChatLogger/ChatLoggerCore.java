@@ -55,9 +55,10 @@ public class ChatLoggerCore implements FileOperationCompletedListener
 
 	public void onPreInit(FMLPreInitializationEvent event)
 	{
-		DebugLog.info("onPreInit");
+		DebugLog.trace("onPreInit");
 
 		this.config = new ChatLoggerConfiguration(event.getSuggestedConfigurationFile());
+		DebugLog.loadConfig(this.config);
 
 		if(this.config.getChatLoggerEnabled().get())
 		{
@@ -72,12 +73,12 @@ public class ChatLoggerCore implements FileOperationCompletedListener
 
 	public void onInit(FMLInitializationEvent event)
 	{
-		DebugLog.info("onInit");
+		DebugLog.trace("onInit");
 	}
 
 	public void onPostInit(FMLPostInitializationEvent event)
 	{
-		DebugLog.info("onPostInit");
+		DebugLog.trace("onPostInit");
 	}
 
 	public void onWorldLoad(String worldname)

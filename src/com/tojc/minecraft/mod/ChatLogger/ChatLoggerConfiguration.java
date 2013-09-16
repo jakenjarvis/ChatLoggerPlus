@@ -36,12 +36,14 @@ public class ChatLoggerConfiguration
 	private final static String CATEGORY_ABSOLUTE_PATH = "absolutepath";
 	private final static String CATEGORY_PLUGIN_SETTINGS = "pluginsettings";
 	private final static String CATEGORY_PLUGIN_SCRIPTS_DISABLED_GENERAL = "pluginscriptsdisabledgeneral";
+	private final static String CATEGORY_OUTPUT_OF_DEBUG_LOG = "outputofdebuglog";
 
 	private Configuration config = null;
 
 	private ConfigurationPropertyBoolean chatLoggerEnabled = null;
 	private ConfigurationPropertyBoolean pluginScriptsEnabled = null;
 	private ConfigurationPropertyString formatDateTime = null;
+
 	private ConfigurationPropertyBoolean fillFormattingCodesEnabled = null;
 	private ConfigurationPropertyString fillFormattingCodesRegex = null;
 	private ConfigurationPropertyString fillFormattingCodesReplace = null;
@@ -55,6 +57,16 @@ public class ChatLoggerConfiguration
 	private ConfigurationPropertyString defaultPluginDirectoryName = null;
 	private ConfigurationPropertyArrayString pluginOrderToScreen = null;
 	private ConfigurationPropertyArrayString pluginOrderToChatLog = null;
+
+	private ConfigurationPropertyBoolean outputLoggingError = null;
+	private ConfigurationPropertyBoolean outputLoggingWarning = null;
+	private ConfigurationPropertyBoolean outputLoggingTrace = null;
+	private ConfigurationPropertyBoolean outputLoggingScript = null;
+	private ConfigurationPropertyBoolean outputLoggingMessageOriginal = null;
+	private ConfigurationPropertyBoolean outputLoggingMessageDuringChatLog = null;
+	private ConfigurationPropertyBoolean outputLoggingMessageDuringScreen = null;
+	private ConfigurationPropertyBoolean outputLoggingMessageLastChatLog = null;
+	private ConfigurationPropertyBoolean outputLoggingMessageLastScreen = null;
 
 	public ChatLoggerConfiguration(File file)
 	{
@@ -81,6 +93,16 @@ public class ChatLoggerConfiguration
 		this.pluginOrderToScreen = new ConfigurationPropertyArrayString(this.config);
 		this.pluginOrderToChatLog = new ConfigurationPropertyArrayString(this.config);
 
+		this.outputLoggingError = new ConfigurationPropertyBoolean(this.config);
+		this.outputLoggingWarning = new ConfigurationPropertyBoolean(this.config);
+		this.outputLoggingTrace = new ConfigurationPropertyBoolean(this.config);
+		this.outputLoggingScript = new ConfigurationPropertyBoolean(this.config);
+		this.outputLoggingMessageOriginal = new ConfigurationPropertyBoolean(this.config);
+		this.outputLoggingMessageDuringChatLog = new ConfigurationPropertyBoolean(this.config);
+		this.outputLoggingMessageDuringScreen = new ConfigurationPropertyBoolean(this.config);
+		this.outputLoggingMessageLastChatLog = new ConfigurationPropertyBoolean(this.config);
+		this.outputLoggingMessageLastScreen = new ConfigurationPropertyBoolean(this.config);
+
 		// initialize
 
 		// CATEGORY_GENERAL
@@ -105,6 +127,17 @@ public class ChatLoggerConfiguration
 		this.defaultPluginDirectoryName.initialize(CATEGORY_PLUGIN_SETTINGS, "DefaultPluginDirectoryName", "ChatLoggerPlusPlugins", null);
 		this.pluginOrderToScreen.initialize(CATEGORY_PLUGIN_SETTINGS, "PluginOrderToScreen", new ArrayList<String>(), "Please do not modify.");
 		this.pluginOrderToChatLog.initialize(CATEGORY_PLUGIN_SETTINGS, "PluginOrderToChatLog", new ArrayList<String>(), "Please do not modify.");
+
+		// CATEGORY_OUTPUT_OF_DEBUG_LOG
+		this.outputLoggingError.initialize(CATEGORY_OUTPUT_OF_DEBUG_LOG, "OutputLoggingError", true, null);
+		this.outputLoggingWarning.initialize(CATEGORY_OUTPUT_OF_DEBUG_LOG, "OutputLoggingWarning", true, null);
+		this.outputLoggingTrace.initialize(CATEGORY_OUTPUT_OF_DEBUG_LOG, "OutputLoggingTrace", false, null);
+		this.outputLoggingScript.initialize(CATEGORY_OUTPUT_OF_DEBUG_LOG, "OutputLoggingScript", false, null);
+		this.outputLoggingMessageOriginal.initialize(CATEGORY_OUTPUT_OF_DEBUG_LOG, "OutputLoggingMessageOriginal", false, null);
+		this.outputLoggingMessageDuringChatLog.initialize(CATEGORY_OUTPUT_OF_DEBUG_LOG, "OutputLoggingMessageDuringChatLog", false, null);
+		this.outputLoggingMessageDuringScreen.initialize(CATEGORY_OUTPUT_OF_DEBUG_LOG, "OutputLoggingMessageDuringScreen", false, null);
+		this.outputLoggingMessageLastChatLog.initialize(CATEGORY_OUTPUT_OF_DEBUG_LOG, "OutputLoggingMessageLastChatLog", false, null);
+		this.outputLoggingMessageLastScreen.initialize(CATEGORY_OUTPUT_OF_DEBUG_LOG, "OutputLoggingMessageLastScreen", false, null);
 
 		this.config.save();
 	}
@@ -172,6 +205,51 @@ public class ChatLoggerConfiguration
 	public ConfigurationPropertyArrayString getPluginOrderToChatLog()
 	{
 		return this.pluginOrderToChatLog;
+	}
+
+	public ConfigurationPropertyBoolean getOutputLoggingError()
+	{
+		return this.outputLoggingError;
+	}
+
+	public ConfigurationPropertyBoolean getOutputLoggingWarning()
+	{
+		return this.outputLoggingWarning;
+	}
+
+	public ConfigurationPropertyBoolean getOutputLoggingTrace()
+	{
+		return this.outputLoggingTrace;
+	}
+
+	public ConfigurationPropertyBoolean getOutputLoggingScript()
+	{
+		return this.outputLoggingScript;
+	}
+
+	public ConfigurationPropertyBoolean getOutputLoggingMessageOriginal()
+	{
+		return this.outputLoggingMessageOriginal;
+	}
+
+	public ConfigurationPropertyBoolean getOutputLoggingMessageDuringChatLog()
+	{
+		return this.outputLoggingMessageDuringChatLog;
+	}
+
+	public ConfigurationPropertyBoolean getOutputLoggingMessageDuringScreen()
+	{
+		return this.outputLoggingMessageDuringScreen;
+	}
+
+	public ConfigurationPropertyBoolean getOutputLoggingMessageLastChatLog()
+	{
+		return this.outputLoggingMessageLastChatLog;
+	}
+
+	public ConfigurationPropertyBoolean getOutputLoggingMessageLastScreen()
+	{
+		return this.outputLoggingMessageLastScreen;
 	}
 
 }

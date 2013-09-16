@@ -160,14 +160,14 @@ public class SpecialLogWriter
 
 		if(execute)
 		{
-			DebugLog.info("logger.onCheckPlayerChenged(true)");
+			DebugLog.trace("logger.onCheckPlayerChenged(true)");
 
 			// プレイヤーが変わったら、ログファイルも変更する。
 			this.logfilemanager.setPlayerName(newPlayerName);
 			this.logfilemanager.setFileBaseDate(LogFileNameManager.makeDate());
 
 			this.state = WriterState.Initialize;
-			DebugLog.info("this.state: " + this.state);
+			DebugLog.trace("this.state: " + this.state);
 
 			if(this.logfilemanager.isState())
 			{
@@ -222,13 +222,13 @@ public class SpecialLogWriter
 						this.pw = new PrintWriter(this.bw);
 
 						this.state = WriterState.Opened;
-						DebugLog.info("this.state: " + this.state);
+						DebugLog.trace("this.state: " + this.state);
 
-						DebugLog.info("logger.open(logfile)");
+						DebugLog.trace("logger.open(logfile)");
 					}
 					catch(Exception e)
 					{
-						DebugLog.log(Level.SEVERE, e, "Failed to open the chat log file.");
+						DebugLog.error(e, "Failed to open the chat log file.");
 						e.printStackTrace();
 					}
 
@@ -290,7 +290,7 @@ public class SpecialLogWriter
 								}
 								catch(Exception e1)
 								{
-									DebugLog.log(Level.SEVERE, e1, "Failed to get file name.");
+									DebugLog.error(e1, "Failed to get file name.");
 									e1.printStackTrace();
 								}
 							}
@@ -331,7 +331,7 @@ public class SpecialLogWriter
 			switch(this.state)
 			{
 				case Initialize:
-					DebugLog.info("logger.write(buffer): " + message.toString());
+					DebugLog.trace("logger.write(buffer): " + message.toString());
 					this.buffer.add(message.toString());
 
 					// オープンを試みる。
@@ -339,7 +339,7 @@ public class SpecialLogWriter
 					break;
 
 				case Opened:
-					DebugLog.info("logger.write(logfile): " + message.toString());
+					DebugLog.trace("logger.write(logfile): " + message.toString());
 					println_write(message.toString());
 					break;
 
@@ -393,7 +393,7 @@ public class SpecialLogWriter
 				if(this.isflush)
 				{
 					this.pw.flush();
-					DebugLog.info("logger.flush()");
+					DebugLog.trace("logger.flush()");
 
 					this.isflush = false;
 				}
@@ -417,13 +417,13 @@ public class SpecialLogWriter
 
 			case Opened:
 				this.state = WriterState.ClosedAfterglow;
-				DebugLog.info("this.state: " + this.state);
+				DebugLog.trace("this.state: " + this.state);
 
 				prudent_close(this.pw);
 				prudent_close(this.bw);
 				prudent_close(this.osw);
 				prudent_close(this.fos);
-				DebugLog.info("logger.close()");
+				DebugLog.trace("logger.close()");
 				this.isflush = false;
 
 				if(this.listener != null)
@@ -437,7 +437,7 @@ public class SpecialLogWriter
 					}
 					catch(Exception e1)
 					{
-						DebugLog.log(Level.SEVERE, e1, "Failed to get file name.");
+						DebugLog.error(e1, "Failed to get file name.");
 						e1.printStackTrace();
 					}
 				}
@@ -462,7 +462,7 @@ public class SpecialLogWriter
 		}
 		catch(Exception e)
 		{
-			DebugLog.log(Level.SEVERE, e, "Failed to close the chat log file.");
+			DebugLog.error(e, "Failed to close the chat log file.");
 			e.printStackTrace();
 		}
 		finally

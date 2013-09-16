@@ -82,7 +82,7 @@ public class HandlerAndEventListener implements IConnectionHandler, IChatListene
 		// MEMO:一番最初に呼ばれ、<プレイヤー名>の文字が付く前の値が取得できる。
 		// マルチサーバへ接続した場合は、クライアント側はこのイベントが発生しない。
 		//「/」から始まるコマンドは、ここは呼び出されない。
-		DebugLog.info("serverChat: " + message.message);
+		DebugLog.trace("serverChat: " + message.message);
 		return message;
 	}
 
@@ -126,7 +126,7 @@ public class HandlerAndEventListener implements IConnectionHandler, IChatListene
 	public void onClientChatReceivedEvent(ClientChatReceivedEvent event)
 	{
 		// MEMO:「/」から始まるコマンドは、ここは呼び出されない。
-		DebugLog.info("onClientChatReceivedEvent: " + event.message);
+		DebugLog.message_original("onClientChatReceivedEvent: " + event.message);
 
 		ChatMessageComponentWrapper wrapperOriginalComponent = new ChatMessageComponentWrapper(ChatMessageComponent.func_111078_c(event.message));
 		//String target = component.func_111068_a(true);
@@ -137,8 +137,8 @@ public class HandlerAndEventListener implements IConnectionHandler, IChatListene
 			// chat.type.text以外は、targetPlayerName=nullかつ、targetPlayerMessage=全文とする。
 			targetPlayerMessage = wrapperOriginalComponent.func_111068_a(true);
 		}
-		DebugLog.info("    targetPlayerName    = " + targetPlayerName);
-		DebugLog.info("    targetPlayerMessage = " + targetPlayerMessage);
+		DebugLog.trace("    targetPlayerName    = " + targetPlayerName);
+		DebugLog.trace("    targetPlayerMessage = " + targetPlayerMessage);
 
 		// チャットメッセージの加工
 		ClientChatMessageManager chatmanager = new ClientChatMessageManager(
@@ -156,10 +156,12 @@ public class HandlerAndEventListener implements IConnectionHandler, IChatListene
 			chatlogmessage = chatLogComponent.func_111068_a(true);
 		}
 
+		DebugLog.message_last_chatlog(chatlogmessage);
 		this.core.onWrite(chatlogmessage);
 		// 追加メッセージ
 		for(String output : chatmanager.outputChatLogAfterMessages())
 		{
+			DebugLog.message_last_chatlog(output);
 			this.core.onWrite(output);
 		}
 
@@ -200,7 +202,14 @@ public class HandlerAndEventListener implements IConnectionHandler, IChatListene
 			if(event.message != null)
 			{
 				//Minecraft.getMinecraft().ingameGUI.getChatGUI().printChatMessage(ChatMessageComponent.func_111078_c(event.message).func_111068_a(true));
-				this.core.sendLocalChatMessage(ChatMessageComponent.func_111078_c(event.message).func_111068_a(true));
+				String output = ChatMessageComponent.func_111078_c(event.message).func_111068_a(true);
+
+				DebugLog.message_last_screen(output);
+				this.core.sendLocalChatMessage(output);
+			}
+			else
+			{
+				DebugLog.message_last_screen("<DELETE>");
 			}
 
 			// 追加メッセージ
@@ -208,9 +217,28 @@ public class HandlerAndEventListener implements IConnectionHandler, IChatListene
 			{
 				if(output != null)
 				{
-					DebugLog.info("    screen after = " + output);
+					DebugLog.message_last_screen(output);
 					this.core.sendLocalChatMessage(output);
 				}
+			}
+		}
+		else
+		{
+			if(event.message != null)
+			{
+				final String target = event.message;
+				DebugLog.message_last_screen(new DebugLog.StringFunction()
+				{
+					@Override
+					public String generate()
+					{
+						return ChatMessageComponent.func_111078_c(target).func_111068_a(true);
+					}
+				});
+			}
+			else
+			{
+				DebugLog.message_last_screen("<DELETE>");
 			}
 		}
 	}
@@ -218,8 +246,8 @@ public class HandlerAndEventListener implements IConnectionHandler, IChatListene
 	@ForgeSubscribe
 	public void onWorldEvent_Load(WorldEvent.Load event)
 	{
-		DebugLog.info("onWorldEvent_Load()");
-		DebugLog.info("getWorldName() : " + event.world.getWorldInfo().getWorldName());
+		DebugLog.trace("onWorldEvent_Load()");
+		DebugLog.trace("getWorldName() : " + event.world.getWorldInfo().getWorldName());
 
 		String name = event.world.getWorldInfo().getWorldName();
 		if(!name.equals("MpServer"))
@@ -234,14 +262,14 @@ public class HandlerAndEventListener implements IConnectionHandler, IChatListene
 	@ForgeSubscribe
 	public void onWorldEvent_Save(WorldEvent.Save event)
 	{
-		DebugLog.info("onWorldEvent_Save()");
+		DebugLog.trace("onWorldEvent_Save()");
 		this.core.onFlush();
 	}
 
 	@ForgeSubscribe
 	public void onWorldEvent_Unload(WorldEvent.Unload event)
 	{
-		DebugLog.info("onWorldEvent_Unload()");
+		DebugLog.trace("onWorldEvent_Unload()");
 		this.core.onWorldUnload(this.worldname);
 		this.core.onClose();
 	}
@@ -261,7 +289,7 @@ public class HandlerAndEventListener implements IConnectionHandler, IChatListene
 	public void connectionOpened(NetHandler netClientHandler, String server, int port, INetworkManager manager)
 	{
 		this.servername = server + "-" + port;
-		DebugLog.info("connectionOpened A: " + this.servername);
+		DebugLog.trace("connectionOpened A: " + this.servername);
 
 		this.core.onServerConnection(this.servername);
 	}
@@ -270,7 +298,7 @@ public class HandlerAndEventListener implements IConnectionHandler, IChatListene
 	public void connectionOpened(NetHandler netClientHandler, MinecraftServer server, INetworkManager manager)
 	{
 		this.servername = "LocalServer";
-		DebugLog.info("connectionOpened B: " + server.getServerHostname() + ":" + server.getServerPort() + ": " + server.getWorldName());
+		DebugLog.trace("connectionOpened B: " + server.getServerHostname() + ":" + server.getServerPort() + ": " + server.getWorldName());
 
 		this.core.onServerConnection(this.servername);
 	}
@@ -283,21 +311,21 @@ public class HandlerAndEventListener implements IConnectionHandler, IChatListene
 		//（チャット発言の度にconnectionClosedされる。呼出し元が複数個所に追加されている）
 
 		// MEMO: minecraftforge-src-1.4.6-6.5.0.467にて、直った？この先も不安なので、WorldEventを使うことにする。
-		DebugLog.info("connectionClosed");
+		DebugLog.trace("connectionClosed");
 		//this.core.onClose();
 	}
 
 	@Override
 	public void clientLoggedIn(NetHandler clientHandler, INetworkManager manager, Packet1Login login)
 	{
-		DebugLog.info("clientLoggedIn");
+		DebugLog.trace("clientLoggedIn");
 		//this.core.onOpen();
 	}
 
 	@Override
 	public void onCurrentScreenChanged(CurrentScreenChangedEvent e)
 	{
-		DebugLog.info("onCurrentScreenChanged : "
+		DebugLog.trace("onCurrentScreenChanged : "
 				+ e.getPreviousScreenType().toString()
 				+ " -> "
 				+ e.getCurrentScreenType().toString()

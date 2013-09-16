@@ -61,14 +61,14 @@ public class PluginManager
 		this.factorys = this.manager.getEngineFactories();
 		for(ScriptEngineFactory factory : this.factorys)
 		{
-			DebugLog.info("ScriptEngine: %s %s, %s %s",
+			DebugLog.trace("ScriptEngine: %s %s, %s %s",
 					factory.getEngineName(),
 					factory.getEngineVersion(),
 					factory.getLanguageName(),
 					factory.getLanguageVersion());
 			for(String extension : factory.getExtensions())
 			{
-				DebugLog.info("Valid Extension: " + extension);
+				DebugLog.trace("Valid Extension: " + extension);
 	        }
 		}
 
@@ -111,7 +111,7 @@ public class PluginManager
 					else
 					{
 						//invalidation(Plug-in file is not found. or load error.)
-						DebugLog.info("Plug-in file is not found. or load error. : %s", plugin.getPluginFile().toString());
+						DebugLog.warning("Plug-in file is not found. or load error. : %s", plugin.getPluginFile().toString());
 						plugin.setPlugin(null);
 					}
 				}
@@ -209,7 +209,7 @@ public class PluginManager
 			PluginInformation plugin = findPluginList(pluginfile);
 			if(plugin == null)
 			{
-				DebugLog.info("find new plugin: %s", pluginfile.getName());
+				DebugLog.trace("find new plugin: %s", pluginfile.getName());
 				plugin = loadPlugin(pluginfile, engine);
 				if(plugin != null)
 				{
@@ -218,7 +218,7 @@ public class PluginManager
 			}
 			else
 			{
-				DebugLog.info("find known plugin: %s", pluginfile.getName());
+				DebugLog.trace("find known plugin: %s", pluginfile.getName());
 				PluginInformation loadplugin = loadPlugin(pluginfile, engine);
 				if(loadplugin != null)
 				{
@@ -288,7 +288,7 @@ public class PluginManager
 		{
 			result = null;
 			PluginScriptRuntimeException ex = new PluginScriptRuntimeException(e);
-			DebugLog.info("[%s].loadPlugin() Exception : %s", pluginfile.getName(), ex.toString());
+			DebugLog.error(e, "[%s].loadPlugin() Exception : %s", pluginfile.getName(), ex.toString());
 			if(reader != null)
 			{
 				try

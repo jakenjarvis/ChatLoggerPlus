@@ -33,7 +33,7 @@ public abstract class ConfigurationPropertyTypeBase<T>
 		}
 		catch(Exception e)
 		{
-			DebugLog.log(Level.SEVERE, e, "Failed to read the configuration file. : " + category + " -> " + key);
+			DebugLog.error(e, "Failed to read the configuration file. : " + category + " -> " + key);
 		}
 
 		if((comment != null) && (comment.length() >= 1))

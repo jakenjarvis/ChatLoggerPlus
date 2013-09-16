@@ -147,14 +147,28 @@ public class PluginOrderController
 			PluginOrderStatus status = this.mapping.get(item.getKey());
 			if(status.isEnabled())
 			{
-				DebugLog.info("onChatMessage() call: %s", item.toString());
+				DebugLog.trace("onChatMessage() call: %s", item.toString());
 				result.setSettings(status.getPlugin().getSettings());
 				result.setPluginStack(this.pluginStack);
 				status.getPlugin().onChatMessage(result);
+
+				switch(this.type)
+				{
+					case ChatLog:
+						DebugLog.message_during_chatlog(result.getMessage() + " / {" + item.getKey() + "}");
+						break;
+
+					case Screen:
+						DebugLog.message_during_screen(result.getMessage() + " / {" + item.getKey() + "}");
+						break;
+
+					default:
+						break;
+				}
 			}
 			else
 			{
-				DebugLog.info("onChatMessage() not call: %s", item.toString());
+				DebugLog.trace("onChatMessage() not call: %s", item.toString());
 			}
 		}
 		return result;
@@ -243,7 +257,7 @@ public class PluginOrderController
 		if(plugin != null)
 		{
 			int findKey = this.findPluginOrderKeyIndex(plugin.getPluginOrderKey());
-			DebugLog.info("executeAdd() findKey: %d", findKey);
+			DebugLog.trace("executeAdd() findKey: %d", findKey);
 			if(findKey == -1)
 			{
 				if(!plugin.isError())

@@ -169,7 +169,7 @@ public class ChatMessageImpl implements ChatMessage
 		result = this.pluginStack.get(keyname);
 		if(result == null)
 		{
-			DebugLog.info("Warning: readStack() will return null. not found key: %s", keyname);
+			DebugLog.warning("readStack() will return null. not found key: %s", keyname);
 		}
 
 		return result;

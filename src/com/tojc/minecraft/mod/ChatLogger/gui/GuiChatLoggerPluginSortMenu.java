@@ -55,7 +55,7 @@ public class GuiChatLoggerPluginSortMenu extends GuiScreen
 	@Override
 	public void initGui()
 	{
-    	DebugLog.info("GuiChatLoggerPluginSortMenu.initGui()");
+    	DebugLog.trace("GuiChatLoggerPluginSortMenu.initGui()");
 
 		TreeMap<Integer, PluginOrderStatus> mapPlugins = this.controller.getOrderTreeMap();
 
@@ -135,7 +135,7 @@ public class GuiChatLoggerPluginSortMenu extends GuiScreen
 	@Override
 	public void onPluginSelected(PluginOrderStatus plugin)
 	{
-    	DebugLog.info("onPluginSelected : %s", plugin.getPluginOrderKey().toString());
+    	DebugLog.trace("onPluginSelected : %s", plugin.getPluginOrderKey().toString());
 
 		boolean exec = this.controller.executeAdd(plugin);
 		this.updateScrollPanel(exec);

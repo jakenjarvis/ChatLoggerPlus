@@ -164,7 +164,7 @@ public class PluginInformation implements PluginInterface
 			catch(Exception e)
 			{
 				Exception ex = makePluginScriptRuntimeException(e, this.pluginFile);
-				DebugLog.info("[%s].onInitialize() Exception : %s", this.getName(), ex.toString());
+				DebugLog.error(e, "[%s].onInitialize() Exception : %s", this.getName(), ex.toString());
 				this.setPlugin(null);
 			}
 		}
@@ -204,7 +204,7 @@ public class PluginInformation implements PluginInterface
 				{
 					ex = makePluginScriptRuntimeException(e, this.pluginFile);
 				}
-				DebugLog.info("[%s].onChatMessage() Exception : %s", this.getName(), ex.toString());
+				DebugLog.error(e, "[%s].onChatMessage() Exception : %s", this.getName(), ex.toString());
 				// 例外時は強制的に元に戻す。
 				chat.setMessage(backup.getMessage());
 				this.setPlugin(null);
@@ -224,7 +224,7 @@ public class PluginInformation implements PluginInterface
 			catch(Exception e)
 			{
 				Exception ex = makePluginScriptRuntimeException(e, this.pluginFile);
-				DebugLog.info("[%s].onFinalize() Exception : %s", this.getName(), ex.toString());
+				DebugLog.error(e, "[%s].onFinalize() Exception : %s", this.getName(), ex.toString());
 				this.setPlugin(null);
 			}
 		}
