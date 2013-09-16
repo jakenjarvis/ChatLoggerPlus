@@ -56,8 +56,10 @@ public class ChatMessageImpl implements ChatMessage
 			this.playerName = new String(playername);
 		}
 		this.messageOriginal = new String(messageOriginal);
-		this.message = new String(message);
-
+		if(message != null)
+		{
+			this.message = new String(message);
+		}
 		this.messagesAfter = messagesAfter;
 	}
 
