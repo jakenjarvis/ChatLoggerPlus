@@ -23,8 +23,6 @@ import java.io.File;
 import javax.script.ScriptEngineFactory;
 import javax.script.ScriptEngineManager;
 
-import com.tojc.minecraft.mod.ChatLogger.SpecialLogWriter.FileOperationCompletedEvent;
-import com.tojc.minecraft.mod.ChatLogger.SpecialLogWriter.FileOperationCompletedListener;
 import com.tojc.minecraft.mod.ChatLogger.Plugin.PluginManager;
 import com.tojc.minecraft.mod.ChatLogger.Plugin.PluginOrderManager;
 import com.tojc.minecraft.mod.log.DebugLog;
@@ -35,7 +33,7 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 
-public class ChatLoggerCore implements FileOperationCompletedListener
+public class ChatLoggerCore
 {
 	private ChatLoggerConfiguration config = null;
 	private PluginManager pluginManager = null;
@@ -67,7 +65,7 @@ public class ChatLoggerCore implements FileOperationCompletedListener
 				this.pluginManager = new PluginManager(this.config);
 			}
 			this.listener = new HandlerAndEventListener(this);
-			this.writer = new SpecialLogWriter(this.config, this);
+			this.writer = new SpecialLogWriter(this);
 		}
 	}
 
@@ -121,16 +119,6 @@ public class ChatLoggerCore implements FileOperationCompletedListener
 		}
 	}
 
-	@Override
-	public void onOpenFileOperationCompleted(FileOperationCompletedEvent e)
-	{
-		if(this.config.getChatLoggerEnabled().get())
-		{
-			this.sendLocalChatMessage("§aChatLoggerPlus: §rLogging start.");
-			this.sendLocalChatMessage("§aChatLoggerPlus: §r" + e.getFileName());
-		}
-	}
-
 	public void onWrite(String message)
 	{
 		if(this.config.getChatLoggerEnabled().get())
@@ -155,9 +143,16 @@ public class ChatLoggerCore implements FileOperationCompletedListener
 		}
 	}
 
-	@Override
-	public void onCloseFileOperationCompleted(FileOperationCompletedEvent e)
+
+	public String getPlayerName()
 	{
+		String result = null;
+		Minecraft mc = Minecraft.getMinecraft();
+		if((mc != null) && (mc.thePlayer != null))
+		{
+			result = mc.thePlayer.getEntityName();
+		}
+		return result;
 	}
 
 	public void sendLocalChatMessage(String message)

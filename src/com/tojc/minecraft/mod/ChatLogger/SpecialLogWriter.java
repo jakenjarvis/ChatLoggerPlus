@@ -18,122 +18,78 @@
  */
 package com.tojc.minecraft.mod.ChatLogger;
 
-import java.io.BufferedWriter;
-import java.io.Closeable;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.EventListener;
-import java.util.EventObject;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.logging.Level;
 
+import com.tojc.minecraft.mod.ChatLogger.Writer.ChatLogTextWriter;
+import com.tojc.minecraft.mod.ChatLogger.Writer.WriterOperationInterface;
+import com.tojc.minecraft.mod.ChatLogger.Writer.WriterStatusController;
 import com.tojc.minecraft.mod.log.DebugLog;
 
 import net.minecraft.client.Minecraft;
 
-public class SpecialLogWriter
+public class SpecialLogWriter implements WriterOperationInterface
 {
-	private ChatLoggerConfiguration config = null;
-	private FileOperationCompletedListener listener = null;
+	private ChatLoggerCore core = null;
 
-	private LogFileNameManager logfilemanager = null;
+	private ChatLogTextWriter writer = null;
+	private WriterStatusController controller = null;
 
-	private WriterState state = WriterState.Initialize;
+	private SimpleDateFormat datetimeformat = null;
 
-	private File logfile = null;
-
-	private PrintWriter pw = null;
-	private BufferedWriter bw = null;
-	private OutputStreamWriter osw = null;
-	private FileOutputStream fos = null;
-
-	private SimpleDateFormat datetimeformat;
-
-	private List<String> buffer = new LinkedList<String>();
-
-	private int output_count = 0;
-	private boolean isflush = false;
-
-	private enum WriterState
+	public SpecialLogWriter(ChatLoggerCore core)
 	{
-		// 初期化中の状態：bufferへ蓄積してファイルには出力しない。
-		// プレイヤー名やサーバ名など、ファイル名作成に必要な情報が取得できるまでの間は、この状態を維持する。
-		Initialize,
+		this.core = core;
+		this.writer = new ChatLogTextWriter(this.core.getConfig());
+		this.controller = new WriterStatusController(this.writer, this);
 
-		// ファイルオープン中の状態：Writerに書き込んで、たまにflushする。
-		// BufferedWriterでバッファリングしているが、定期的にflushしてディスクに書くタイミングを与える。
-		// これにより、MCが突然死した場合も、ある程度のログ内容は保証したい。
-		Opened,
-
-		// ファイルクローズ後の状態	：ユーザー名が変更されるまでは、直接ファイルに書き込む。
-		// 通信のタイミングによって、サーバ切断後のメッセージが来た場合の対処を考慮している（未検証）
-		// また、プレイヤー名やサーバ名など、ファイル名作成に必要な情報がそろっている事が条件
-		// プレイヤー名等が取得できなくなったor変更された時点で、Initialize状態へ移行する。
-		ClosedAfterglow
+		this.datetimeformat = new SimpleDateFormat(this.core.getConfig().getFormatDateTime().get());
 	}
 
-	public interface FileOperationCompletedListener extends EventListener
+	public void setServerName(String servername)
 	{
-		public void onOpenFileOperationCompleted(FileOperationCompletedEvent e);
-		public void onCloseFileOperationCompleted(FileOperationCompletedEvent e);
+		this.writer.getLogFileNameManager().setServerName(servername);
 	}
 
-	public class FileOperationCompletedEvent extends EventObject
+	public void setWorldName(String worldname)
 	{
-		private String filename;
-
-		public FileOperationCompletedEvent(Object source, String filename)
-		{
-			super(source);
-			this.filename = filename;
-		}
-
-		public String getFileName()
-		{
-			return this.filename;
-		}
+		this.writer.getLogFileNameManager().setWorldName(worldname);
 	}
 
-	public SpecialLogWriter(ChatLoggerConfiguration config, FileOperationCompletedListener listener)
+	public void open()
 	{
-		this.config = config;
-		this.listener = listener;
-		this.logfilemanager = new LogFileNameManager(this.config);
-		this.datetimeformat = new SimpleDateFormat(this.config.getFormatDateTime().get());
-		this.buffer.clear();
+		this.controller.open();
 	}
 
-	private String getPlayerName()
+	public void write(String output)
 	{
-		String result = null;
-		Minecraft mc = Minecraft.getMinecraft();
-		if((mc != null) && (mc.thePlayer != null))
-		{
-			result = mc.thePlayer.getEntityName();
-		}
-		return result;
+		this.controller.write(output);
 	}
 
-	private void onCheckPlayerChenged()
+	public void flush()
 	{
-		boolean execute = false;
-		String newPlayerName = getPlayerName();
+		this.controller.flush();
+	}
 
-		switch(this.state)
+	public void close()
+	{
+		this.controller.close();
+	}
+
+	@Override
+	public boolean hasPlayerChanged()
+	{
+		boolean result = false;
+		String newPlayerName = this.core.getPlayerName();
+
+		switch(this.controller.getState())
 		{
 			case Initialize:
 				// 初期化中は、無効な名前は除外する。
 				if((newPlayerName != null) && (newPlayerName.length() >= 1)
-					&& (!newPlayerName.equals(this.logfilemanager.getPlayerName())))
+					&& (!newPlayerName.equals(this.writer.getLogFileNameManager().getPlayerName())))
 				{
-					execute = true;
+					result = true;
 				}
 				break;
 
@@ -146,353 +102,75 @@ public class SpecialLogWriter
 				// それ以降の出力は、Initializeでバッファに出力され、openしないなら破棄される。
 				if((newPlayerName == null) || (newPlayerName.length() == 0))
 				{
-					execute = true;
+					result = true;
 				}
-				else if(!newPlayerName.equals(this.logfilemanager.getPlayerName()))
+				else if(!newPlayerName.equals(this.writer.getLogFileNameManager().getPlayerName()))
 				{
-					execute = true;
+					result = true;
 				}
 				break;
 
 			default:
 				break;
 		}
+		return result;
+	}
 
-		if(execute)
+	@Override
+	public void onPlayerChenged()
+	{
+		DebugLog.trace("logger.onPlayerChenged()");
+		String newPlayerName = this.core.getPlayerName();
+
+		// プレイヤーが変わったら、ログファイルも変更する。
+		this.writer.getLogFileNameManager().setPlayerName(newPlayerName);
+		this.writer.getLogFileNameManager().setFileBaseDate(LogFileNameManager.makeDate());
+	}
+
+	@Override
+	public void onHeaderOutputTiming()
+	{
+		// ヘッダーの出力
+		this.writer.onWriteLowLevel("--------------------------------------------------------------------------------");
+
+		StringBuffer message = new StringBuffer();
+		message.append(datetimeformat.format(this.writer.getLogFileNameManager().getFileBaseDate()));
+		message.append(" : ");
+		message.append("ChatLoggerPlus Logging start. (");
+		message.append(this.writer.getLogFileNameManager().getServerName());
+		message.append(" - ");
+		message.append(this.writer.getLogFileNameManager().getWorldName());
+		message.append(" - ");
+		message.append(this.writer.getLogFileNameManager().getPlayerName());
+		message.append(")");
+
+		this.writer.onWriteLowLevel(message.toString());
+		this.writer.onWriteLowLevel("--------------------------------------------------------------------------------");
+	}
+
+	@Override
+	public void onOpenFileOperationCompleted()
+	{
+		if(this.core.getConfig().getChatLoggerEnabled().get())
 		{
-			DebugLog.trace("logger.onCheckPlayerChenged(true)");
-
-			// プレイヤーが変わったら、ログファイルも変更する。
-			this.logfilemanager.setPlayerName(newPlayerName);
-			this.logfilemanager.setFileBaseDate(LogFileNameManager.makeDate());
-
-			this.state = WriterState.Initialize;
-			DebugLog.trace("this.state: " + this.state);
-
-			if(this.logfilemanager.isState())
+			String filename;
+			try
 			{
-				this.logfile = this.logfilemanager.getFullPathLogFile();
-				File dir = this.logfile.getParentFile();
-				if(!dir.exists())
-				{
-					dir.mkdirs();
-				}
+				filename = this.writer.getLogFileNameManager().getFullPathLogFile().getCanonicalPath();
 			}
-		}
-	}
-
-	public void setServerName(String servername)
-	{
-		this.logfilemanager.setServerName(servername);
-	}
-
-	public void setWorldName(String worldname)
-	{
-		this.logfilemanager.setWorldName(worldname);
-	}
-
-	public void open()
-	{
-		switch(this.state)
-		{
-			case Initialize:
-			case ClosedAfterglow:
-				onCheckPlayerChenged();
-				break;
-
-			case Opened:
-				break;
-			default:
-				break;
-		}
-
-		WriterState prestate = this.state;
-
-		if(this.logfilemanager.isState())
-		{
-			switch(this.state)
+			catch (Exception e)
 			{
-				case Initialize:
-				case ClosedAfterglow:
-					try
-					{
-						this.fos = new FileOutputStream(this.logfile, true);
-						this.osw = new OutputStreamWriter(this.fos, "UTF-8");
-						this.bw = new BufferedWriter(this.osw);
-						this.pw = new PrintWriter(this.bw);
-
-						this.state = WriterState.Opened;
-						DebugLog.trace("this.state: " + this.state);
-
-						DebugLog.trace("logger.open(logfile)");
-					}
-					catch(Exception e)
-					{
-						DebugLog.error(e, "Failed to open the chat log file.");
-						e.printStackTrace();
-					}
-
-					// InitializeからOpenedに変化したときのみヘッダを出力する。
-					if((prestate == WriterState.Initialize) && (this.state == WriterState.Opened))
-					{
-						// ヘッダーの出力
-						this.pw.println("--------------------------------------------------------------------------------");
-
-						StringBuffer message = new StringBuffer();
-						message.append(datetimeformat.format(this.logfilemanager.getFileBaseDate()));
-						message.append(" : ");
-						message.append("ChatLoggerPlus Logging start. (");
-						message.append(this.logfilemanager.getServerName());
-						message.append(" - ");
-						message.append(this.logfilemanager.getWorldName());
-						message.append(" - ");
-						message.append(this.logfilemanager.getPlayerName());
-						message.append(")");
-
-						this.pw.println(message.toString());
-						this.pw.println("--------------------------------------------------------------------------------");
-					}
-					break;
-
-				case Opened:
-					break;
-				default:
-					break;
+				filename = "";
 			}
 
-			switch(this.state)
-			{
-				case Initialize:
-					break;
-				case Opened:
-					if(this.state == WriterState.Opened)
-					{
-						// バッファの出力
-						for(String buffermessage : this.buffer)
-						{
-							this.println_write(buffermessage);
-						}
-						this.pw.flush();
-
-						this.buffer.clear();
-
-						if(this.listener != null)
-						{
-							// InitializeからOpenedに変化したときのみ通知する。
-							if((prestate == WriterState.Initialize) && (this.state == WriterState.Opened))
-							{
-								String filename = "";
-								try
-								{
-									filename = this.logfile.getCanonicalPath();
-									FileOperationCompletedEvent e = new FileOperationCompletedEvent(this, filename);
-									this.listener.onOpenFileOperationCompleted(e);
-								}
-								catch(Exception e1)
-								{
-									DebugLog.error(e1, "Failed to get file name.");
-									e1.printStackTrace();
-								}
-							}
-						}
-					}
-					break;
-				case ClosedAfterglow:
-					break;
-				default:
-					// 無視する
-					break;
-			}
-
-		}
-	}
-
-	private void println_write(String message)
-	{
-		this.pw.println(message);
-
-		this.isflush = true;
-		this.output_count = (this.output_count >= Integer.MAX_VALUE) ? 0 : this.output_count + 1;
-		if((this.output_count % 10) == 0)
-		{
-			this.flush();
-		}
-	}
-
-	public void write(String output)
-	{
-		if(output != null)
-		{
-			StringBuffer message = new StringBuffer();
-			message.append(datetimeformat.format(LogFileNameManager.makeDate()));
-			message.append(" : ");
-			message.append(output);
-
-			switch(this.state)
-			{
-				case Initialize:
-					DebugLog.trace("logger.write(buffer): " + message.toString());
-					this.buffer.add(message.toString());
-
-					// オープンを試みる。
-					this.open();
-					break;
-
-				case Opened:
-					DebugLog.trace("logger.write(logfile): " + message.toString());
-					println_write(message.toString());
-					break;
-
-				case ClosedAfterglow:
-					// minecraftforge-src-1.5.2-7.8.0.684にて、ネザーなどのワールド移動の時、
-					// onWorldEvent_Unload()より先にonWorldEvent_Load()が発生し、Openedに戻すタイミングが無いことを確認。
-					// writeのタイミングでPlayerNameが正しく取得できる場合は、Openedに戻すことにする。
-
-					boolean execute = false;
-					String newPlayerName = getPlayerName();
-					// クローズ後は、名前が取得できなくなった時点で終了。
-					// それ以降の出力は、Initializeでバッファに出力され、openしないなら破棄される。
-					if((newPlayerName == null) || (newPlayerName.length() == 0))
-					{
-						execute = true;
-					}
-					else if(!newPlayerName.equals(this.logfilemanager.getPlayerName()))
-					{
-						execute = true;
-					}
-
-					if(execute)
-					{
-						// 毎回書き込むたびに、open/closeする。
-						this.open();
-						this.write(output);
-						this.close();
-
-						onCheckPlayerChenged();
-					}
-					else
-					{
-						// ワールド移動のみで、ログアウトしていないと判断
-						this.open();
-						this.write(output);
-						// closeしない
-					}
-					break;
-
-				default:
-					break;
-			}
-		}
-	}
-
-	public void flush()
-	{
-		switch(this.state)
-		{
-			case Opened:
-				if(this.isflush)
-				{
-					this.pw.flush();
-					DebugLog.trace("logger.flush()");
-
-					this.isflush = false;
-				}
-				break;
-
-			case ClosedAfterglow:
-				onCheckPlayerChenged();
-				break;
-
-			default:
-				break;
-		}
-	}
-
-	public void close()
-	{
-		switch(this.state)
-		{
-			case Initialize:
-				break;
-
-			case Opened:
-				this.state = WriterState.ClosedAfterglow;
-				DebugLog.trace("this.state: " + this.state);
-
-				prudent_close(this.pw);
-				prudent_close(this.bw);
-				prudent_close(this.osw);
-				prudent_close(this.fos);
-				DebugLog.trace("logger.close()");
-				this.isflush = false;
-
-				if(this.listener != null)
-				{
-					String filename = "";
-					try
-					{
-						filename = this.logfile.getCanonicalPath();
-						FileOperationCompletedEvent e = new FileOperationCompletedEvent(this, filename);
-						this.listener.onCloseFileOperationCompleted(e);
-					}
-					catch(Exception e1)
-					{
-						DebugLog.error(e1, "Failed to get file name.");
-						e1.printStackTrace();
-					}
-				}
-				break;
-
-			case ClosedAfterglow:
-				break;
-
-			default:
-				break;
-		}
-	}
-
-	private void prudent_close(Closeable object)
-	{
-		try
-		{
-			if(object != null)
-			{
-				object.close();
-			}
-		}
-		catch(Exception e)
-		{
-			DebugLog.error(e, "Failed to close the chat log file.");
-			e.printStackTrace();
-		}
-		finally
-		{
-			object = null;
+			this.core.sendLocalChatMessage("§aChatLoggerPlus: §rLogging start.");
+			this.core.sendLocalChatMessage("§aChatLoggerPlus: §r" + filename);
 		}
 	}
 
 	@Override
-	protected void finalize() throws Throwable
+	public void onCloseFileOperationCompleted()
 	{
-		try
-		{
-			super.finalize();
-		}
-		finally
-		{
-			dispose();
-		}
 	}
 
-	private boolean disposed = false;
-	private void dispose()
-	{
-		if(!disposed)
-		{
-			// finalizeでcloseが走ることは期待しないが、GCの時に片づけられるように、念のため呼び出しておく。
-			// 通常は、エラーで閉じるタイミングを失ったとしても、JVMによって閉じられるはず。
-			this.close();
-			disposed = true;
-		}
-	}
 }
