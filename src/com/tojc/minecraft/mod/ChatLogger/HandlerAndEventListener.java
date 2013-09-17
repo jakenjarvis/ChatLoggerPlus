@@ -128,117 +128,120 @@ public class HandlerAndEventListener implements IConnectionHandler, IChatListene
 		// MEMO:「/」から始まるコマンドは、ここは呼び出されない。
 		DebugLog.message_original("onClientChatReceivedEvent: " + event.message);
 
-		ChatMessageComponentWrapper wrapperOriginalComponent = new ChatMessageComponentWrapper(ChatMessageComponent.func_111078_c(event.message));
-		//String target = component.func_111068_a(true);
-		String targetPlayerName = wrapperOriginalComponent.getPlayerNameFromChatTypeText();
-		String targetPlayerMessage = wrapperOriginalComponent.getPlayerMessageFromChatTypeText();
-		if(targetPlayerMessage == null)
+		if(event.message != null)
 		{
-			// chat.type.text以外は、targetPlayerName=nullかつ、targetPlayerMessage=全文とする。
-			targetPlayerMessage = wrapperOriginalComponent.func_111068_a(true);
-		}
-		DebugLog.trace("    targetPlayerName    = " + targetPlayerName);
-		DebugLog.trace("    targetPlayerMessage = " + targetPlayerMessage);
-
-		// チャットメッセージの加工
-		ClientChatMessageManager chatmanager = new ClientChatMessageManager(
-				this.core,
-				new ChatMessageImpl(this.servername, this.worldname, event.message, targetPlayerName, targetPlayerMessage));
-
-		// ChatLog
-		String chatlogmessage = chatmanager.outputChatLog();
-
-		// プレイヤー名とメッセージの結合
-		ChatMessageComponent chatLogComponent = wrapperOriginalComponent.replaceChatTypeText(chatlogmessage);
-		if(chatLogComponent != null)
-		{
-			// 結合したメッセージを出力対象とする。
-			chatlogmessage = chatLogComponent.func_111068_a(true);
-		}
-
-		DebugLog.message_last_chatlog(chatlogmessage);
-		this.core.onWrite(chatlogmessage);
-		// 追加メッセージ
-		for(String output : chatmanager.outputChatLogAfterMessages())
-		{
-			DebugLog.message_last_chatlog(output);
-			this.core.onWrite(output);
-		}
-
-		// Screen
-		// TODO: このScreenケースをChatLogに出力したい、という要望があるかも。
-		String screenmessage = chatmanager.outputScreen();
-		if(screenmessage != null)
-		{
-			ChatMessageComponent screenComponent = wrapperOriginalComponent.replaceChatTypeText(screenmessage);
-			if(screenComponent != null)
+			ChatMessageComponentWrapper wrapperOriginalComponent = new ChatMessageComponentWrapper(ChatMessageComponent.func_111078_c(event.message));
+			//String target = component.func_111068_a(true);
+			String targetPlayerName = wrapperOriginalComponent.getPlayerNameFromChatTypeText();
+			String targetPlayerMessage = wrapperOriginalComponent.getPlayerMessageFromChatTypeText();
+			if(targetPlayerMessage == null)
 			{
-				event.message = screenComponent.func_111062_i();
+				// chat.type.text以外は、targetPlayerName=nullかつ、targetPlayerMessage=全文とする。
+				targetPlayerMessage = wrapperOriginalComponent.func_111068_a(true);
 			}
-			else
+			DebugLog.trace("    targetPlayerName    = " + targetPlayerName);
+			DebugLog.trace("    targetPlayerMessage = " + targetPlayerMessage);
+
+			// チャットメッセージの加工
+			ClientChatMessageManager chatmanager = new ClientChatMessageManager(
+					this.core,
+					new ChatMessageImpl(this.servername, this.worldname, event.message, targetPlayerName, targetPlayerMessage));
+
+			// ChatLog
+			String chatlogmessage = chatmanager.outputChatLog();
+
+			// プレイヤー名とメッセージの結合
+			ChatMessageComponent chatLogComponent = wrapperOriginalComponent.replaceChatTypeText(chatlogmessage);
+			if(chatLogComponent != null)
 			{
-				// chat.type.text以外の時にnullになる。
-				// 未加工メッセージ（仕様とする）
-				// 画面に出力するシステム系の文字は、加工結果を反映させない。（させるようにするのは大変）
-				// これとは対照的に、ChatLog側は加工できるように考慮する。
-			}
-		}
-		else
-		{
-			//メッセージ自体の削除はnullとする。他のMODにも処理させない。
-			event.message = null;
-		}
-
-		int aftercount = chatmanager.outputScreenAfterMessages().size();
-		if(aftercount >= 1)
-		{
-			// 追加メッセージが存在する場合は、このメッセージをForgeに処理させない。
-			// （そうしなければ、メッセージの後ろに出力できない）
-
-			// event.message = null;で全メッセージを横取りすると、他のMODが文字列を扱えなくなるので注意。
-			event.setCanceled(true);
-
-			// 表示処理を制御するため、 net.minecraft.client.multiplayer.NetClientHandler クラスの handleChat の処理を全てここで行う。
-			if(event.message != null)
-			{
-				//Minecraft.getMinecraft().ingameGUI.getChatGUI().printChatMessage(ChatMessageComponent.func_111078_c(event.message).func_111068_a(true));
-				String output = ChatMessageComponent.func_111078_c(event.message).func_111068_a(true);
-
-				DebugLog.message_last_screen(output);
-				this.core.sendLocalChatMessage(output);
-			}
-			else
-			{
-				DebugLog.message_last_screen("<DELETE>");
+				// 結合したメッセージを出力対象とする。
+				chatlogmessage = chatLogComponent.func_111068_a(true);
 			}
 
+			DebugLog.message_last_chatlog(chatlogmessage);
+			this.core.onWrite(chatlogmessage);
 			// 追加メッセージ
-			for(String output : chatmanager.outputScreenAfterMessages())
+			for(String output : chatmanager.outputChatLogAfterMessages())
 			{
-				if(output != null)
+				DebugLog.message_last_chatlog(output);
+				this.core.onWrite(output);
+			}
+
+			// Screen
+			// TODO: このScreenケースをChatLogに出力したい、という要望があるかも。
+			String screenmessage = chatmanager.outputScreen();
+			if(screenmessage != null)
+			{
+				ChatMessageComponent screenComponent = wrapperOriginalComponent.replaceChatTypeText(screenmessage);
+				if(screenComponent != null)
 				{
+					event.message = screenComponent.func_111062_i();
+				}
+				else
+				{
+					// chat.type.text以外の時にnullになる。
+					// 未加工メッセージ（仕様とする）
+					// 画面に出力するシステム系の文字は、加工結果を反映させない。（させるようにするのは大変）
+					// これとは対照的に、ChatLog側は加工できるように考慮する。
+				}
+			}
+			else
+			{
+				//メッセージ自体の削除はnullとする。他のMODにも処理させない。
+				event.message = null;
+			}
+
+			int aftercount = chatmanager.outputScreenAfterMessages().size();
+			if(aftercount >= 1)
+			{
+				// 追加メッセージが存在する場合は、このメッセージをForgeに処理させない。
+				// （そうしなければ、メッセージの後ろに出力できない）
+
+				// event.message = null;で全メッセージを横取りすると、他のMODが文字列を扱えなくなるので注意。
+				event.setCanceled(true);
+
+				// 表示処理を制御するため、 net.minecraft.client.multiplayer.NetClientHandler クラスの handleChat の処理を全てここで行う。
+				if(event.message != null)
+				{
+					//Minecraft.getMinecraft().ingameGUI.getChatGUI().printChatMessage(ChatMessageComponent.func_111078_c(event.message).func_111068_a(true));
+					String output = ChatMessageComponent.func_111078_c(event.message).func_111068_a(true);
+
 					DebugLog.message_last_screen(output);
 					this.core.sendLocalChatMessage(output);
 				}
-			}
-		}
-		else
-		{
-			if(event.message != null)
-			{
-				final String target = event.message;
-				DebugLog.message_last_screen(new DebugLog.StringFunction()
+				else
 				{
-					@Override
-					public String generate()
+					DebugLog.message_last_screen("<DELETE>");
+				}
+
+				// 追加メッセージ
+				for(String output : chatmanager.outputScreenAfterMessages())
+				{
+					if(output != null)
 					{
-						return ChatMessageComponent.func_111078_c(target).func_111068_a(true);
+						DebugLog.message_last_screen(output);
+						this.core.sendLocalChatMessage(output);
 					}
-				});
+				}
 			}
 			else
 			{
-				DebugLog.message_last_screen("<DELETE>");
+				if(event.message != null)
+				{
+					final String target = event.message;
+					DebugLog.message_last_screen(new DebugLog.StringFunction()
+					{
+						@Override
+						public String generate()
+						{
+							return ChatMessageComponent.func_111078_c(target).func_111068_a(true);
+						}
+					});
+				}
+				else
+				{
+					DebugLog.message_last_screen("<DELETE>");
+				}
 			}
 		}
 	}

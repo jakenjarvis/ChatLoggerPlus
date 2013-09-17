@@ -60,6 +60,10 @@ public class ChatMessageImpl implements ChatMessage
 		{
 			this.message = new String(message);
 		}
+		else
+		{
+			this.message = null;
+		}
 		this.messagesAfter = messagesAfter;
 	}
 
