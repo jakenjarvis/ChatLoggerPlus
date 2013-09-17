@@ -165,6 +165,14 @@ public class PluginOrderController
 					default:
 						break;
 				}
+
+				//MEMO: スクリプト側で削除済みメッセージを文字列操作すると文字列に変換されてしまうケースがある。
+				if((!chat.getMessageOriginal().equals(result.getMessage()))
+					&& (result.getMessage() != null)
+					&& (result.getMessage().equals("null")))
+				{
+					DebugLog.warning("This plugin was destroyed deleted messages: {" + item.getKey() + "}. Please add the check for null to the plugin.");
+				}
 			}
 			else
 			{
