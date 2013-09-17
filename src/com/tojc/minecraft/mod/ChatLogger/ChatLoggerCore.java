@@ -25,6 +25,7 @@ import javax.script.ScriptEngineManager;
 
 import com.tojc.minecraft.mod.ChatLogger.Plugin.PluginManager;
 import com.tojc.minecraft.mod.ChatLogger.Plugin.PluginOrderManager;
+import com.tojc.minecraft.mod.ChatLogger.Writer.SpecialLogWriter;
 import com.tojc.minecraft.mod.log.DebugLog;
 
 import net.minecraft.client.Minecraft;

@@ -29,7 +29,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.tojc.minecraft.mod.ChatLogger.ChatLoggerConfiguration;
-import com.tojc.minecraft.mod.ChatLogger.LogFileNameManager;
 import com.tojc.minecraft.mod.ChatLogger.Writer.WriterStatusController.WriterState;
 import com.tojc.minecraft.mod.log.DebugLog;
 

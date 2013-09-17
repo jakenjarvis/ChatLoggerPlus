@@ -18,7 +18,6 @@
  */
 package com.tojc.minecraft.mod.ChatLogger.Writer;
 
-import com.tojc.minecraft.mod.ChatLogger.LogFileNameManager;
 
 public interface WriterInterface
 {
