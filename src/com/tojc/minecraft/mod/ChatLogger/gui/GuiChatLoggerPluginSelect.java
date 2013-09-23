@@ -55,8 +55,8 @@ public class GuiChatLoggerPluginSelect extends GuiScreen implements GuiChatLogge
 
         this.scrollPanel = new GuiChatLoggerPluginSelectScrollPanel(this, this.type, mapPlugins, this, this.mc);
 
-		this.buttonList.add(new GuiButton(  0, this.width / 2 -  90 - 10, this.height -28,  90, 20, I18n.func_135053_a("gui.cancel")));
-		this.buttonList.add(new GuiButton(200, this.width / 2 -   0 + 10, this.height -28,  90, 20, I18n.func_135053_a("gui.done")));
+		this.buttonList.add(new GuiButton(  0, this.width / 2 -  90 - 10, this.height -28,  90, 20, I18n.getString("gui.cancel")));
+		this.buttonList.add(new GuiButton(200, this.width / 2 -   0 + 10, this.height -28,  90, 20, I18n.getString("gui.done")));
 
         this.scrollPanel.registerScrollButtons(7, 8);
 

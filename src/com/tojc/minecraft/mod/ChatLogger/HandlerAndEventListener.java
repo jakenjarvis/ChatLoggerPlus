@@ -130,14 +130,14 @@ public class HandlerAndEventListener implements IConnectionHandler, IChatListene
 
 		if(event.message != null)
 		{
-			ChatMessageComponentWrapper wrapperOriginalComponent = new ChatMessageComponentWrapper(ChatMessageComponent.func_111078_c(event.message));
+			ChatMessageComponentWrapper wrapperOriginalComponent = new ChatMessageComponentWrapper(ChatMessageComponent.createFromJson(event.message));
 			//String target = component.func_111068_a(true);
 			String targetPlayerName = wrapperOriginalComponent.getPlayerNameFromChatTypeText();
 			String targetPlayerMessage = wrapperOriginalComponent.getPlayerMessageFromChatTypeText();
 			if(targetPlayerMessage == null)
 			{
 				// chat.type.text以外は、targetPlayerName=nullかつ、targetPlayerMessage=全文とする。
-				targetPlayerMessage = wrapperOriginalComponent.func_111068_a(true);
+				targetPlayerMessage = wrapperOriginalComponent.toStringWithFormatting(true);
 			}
 			DebugLog.trace("    targetPlayerName    = " + targetPlayerName);
 			DebugLog.trace("    targetPlayerMessage = " + targetPlayerMessage);
@@ -155,7 +155,7 @@ public class HandlerAndEventListener implements IConnectionHandler, IChatListene
 			if(chatLogComponent != null)
 			{
 				// 結合したメッセージを出力対象とする。
-				chatlogmessage = chatLogComponent.func_111068_a(true);
+				chatlogmessage = chatLogComponent.toStringWithFormatting(true);
 			}
 
 			DebugLog.message_last_chatlog(chatlogmessage);
@@ -175,7 +175,7 @@ public class HandlerAndEventListener implements IConnectionHandler, IChatListene
 				ChatMessageComponent screenComponent = wrapperOriginalComponent.replaceChatTypeText(screenmessage);
 				if(screenComponent != null)
 				{
-					event.message = screenComponent.func_111062_i();
+					event.message = screenComponent.toJson();
 				}
 				else
 				{
@@ -204,7 +204,7 @@ public class HandlerAndEventListener implements IConnectionHandler, IChatListene
 				if(event.message != null)
 				{
 					//Minecraft.getMinecraft().ingameGUI.getChatGUI().printChatMessage(ChatMessageComponent.func_111078_c(event.message).func_111068_a(true));
-					String output = ChatMessageComponent.func_111078_c(event.message).func_111068_a(true);
+					String output = ChatMessageComponent.createFromJson(event.message).toStringWithFormatting(true);
 
 					DebugLog.message_last_screen(output);
 					this.core.sendLocalChatMessage(output);
@@ -234,7 +234,7 @@ public class HandlerAndEventListener implements IConnectionHandler, IChatListene
 						@Override
 						public String generate()
 						{
-							return ChatMessageComponent.func_111078_c(target).func_111068_a(true);
+							return ChatMessageComponent.createFromJson(target).toStringWithFormatting(true);
 						}
 					});
 				}

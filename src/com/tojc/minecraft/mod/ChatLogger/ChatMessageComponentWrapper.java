@@ -24,7 +24,7 @@ public class ChatMessageComponentWrapper extends ChatMessageComponent
 	public boolean isChatTypeText()
 	{
 		boolean result = false;
-		String typename = this.func_111074_g();
+		String typename = this.getTranslationKey();
 		if((typename != null) && typename.equalsIgnoreCase("chat.type.text"))
 		{
 			result = true;
@@ -37,7 +37,7 @@ public class ChatMessageComponentWrapper extends ChatMessageComponent
 		String result = null;
 		if(this.isChatTypeText())
 		{
-			List item = this.func_111069_h();
+			List item = this.getSubComponents();
 			if(item.size() == 2)
 			{
 				result = ((Object)item.get(0)).toString();
@@ -51,7 +51,7 @@ public class ChatMessageComponentWrapper extends ChatMessageComponent
 		String result = null;
 		if(this.isChatTypeText())
 		{
-			List item = this.func_111069_h();
+			List item = this.getSubComponents();
 			if(item.size() == 2)
 			{
 				result = ((Object)item.get(1)).toString();
@@ -63,17 +63,17 @@ public class ChatMessageComponentWrapper extends ChatMessageComponent
 	public ChatMessageComponent replaceChatTypeText(String text)
 	{
 		ChatMessageComponent result = null;
-		String typename = this.func_111074_g();
+		String typename = this.getTranslationKey();
 		String playername = null;
 		//String playermessage = null;
 		if((typename != null) && typename.equalsIgnoreCase("chat.type.text"))
 		{
-			List item = this.func_111069_h();
+			List item = this.getSubComponents();
 			if(item.size() == 2)
 			{
 				playername = ((Object)item.get(0)).toString();
 				//playermessage = ((Object)item.get(1)).toString();
-				result = ChatMessageComponent.func_111082_b(typename, new Object[] {playername, text});
+				result = ChatMessageComponent.createFromTranslationWithSubstitutions(typename, new Object[] {playername, text});
 			}
 		}
 		return result;

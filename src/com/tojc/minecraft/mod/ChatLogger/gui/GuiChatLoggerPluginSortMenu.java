@@ -62,15 +62,15 @@ public class GuiChatLoggerPluginSortMenu extends GuiScreen
         this.scrollPanel = new GuiChatLoggerPluginSortMenuScrollPanel(this, this.type, mapPlugins, this, this.mc);
 
         this.buttonList.clear();
-		this.buttonList.add(new GuiButton(100, this.width / 2 +  50, this.height -63,  50, 16, I18n.func_135053_a("gui.up")));
-		this.buttonList.add(new GuiButton(101, this.width / 2 +  50, this.height -46,  50, 16, I18n.func_135053_a("gui.down")));
+		this.buttonList.add(new GuiButton(100, this.width / 2 +  50, this.height -63,  50, 16, I18n.getString("gui.up")));
+		this.buttonList.add(new GuiButton(101, this.width / 2 +  50, this.height -46,  50, 16, I18n.getString("gui.down")));
 
 		this.buttonList.add(new GuiButton(102,          0 +  0 + 15, this.height -58,  90, 20, "Delete"));
 		this.buttonList.add(new GuiButton(103, this.width - 90 - 15, this.height -58,  90, 20, "Add"));
 
 		this.buttonList.add(new GuiButton(104, this.width / 2 - 100, this.height -58, 100, 20, "Enabled/Disabled"));
 
-		this.buttonList.add(new GuiButton(200, this.width / 2 - 100, this.height -28, I18n.func_135053_a("gui.done")));
+		this.buttonList.add(new GuiButton(200, this.width / 2 - 100, this.height -28, I18n.getString("gui.done")));
 
         this.scrollPanel.registerScrollButtons(7, 8);
 
