@@ -19,7 +19,7 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.util.StringTranslate;
 
 @SideOnly(Side.CLIENT)
-public class GuiChatLoggerPluginSelect extends GuiScreen implements GuiChatLoggerPluginScrollPanelBase.OnElementClickedListener
+public class GuiChatLoggerPluginSelect extends GuiScreen implements GuiChatLoggerScrollPanelBase.OnItemClickedListener<PluginOrderStatus>
 {
 	public interface OnPluginSelectedListener
 	{
@@ -90,9 +90,9 @@ public class GuiChatLoggerPluginSelect extends GuiScreen implements GuiChatLogge
 	}
 
 	@Override
-	public void onElementClicked(int index, PluginOrderStatus plugin)
+	public void onItemClicked(int index, PluginOrderStatus item)
 	{
-		this.resultPlugin = plugin;
+		this.resultPlugin = item;
 	}
 
 	@Override
@@ -146,5 +146,4 @@ public class GuiChatLoggerPluginSelect extends GuiScreen implements GuiChatLogge
 	{
 		super.onGuiClosed();
 	}
-
 }

@@ -19,82 +19,19 @@ import net.minecraft.client.gui.GuiSlot;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.util.EnumChatFormatting;
 
-public abstract class GuiChatLoggerPluginScrollPanelBase extends GuiSlot
+public abstract class GuiChatLoggerPluginScrollPanelBase extends GuiChatLoggerScrollPanelBase<PluginOrderStatus>
 {
-	public interface OnElementClickedListener
-	{
-		void onElementClicked(int index, PluginOrderStatus plugin);
-	}
-
-    protected final GuiScreen parentScreen;
-    protected TreeMap<Integer, PluginOrderStatus> mapPlugins = null;
     protected PluginType type = null;
-    protected OnElementClickedListener listener = null;
-    protected Minecraft mc;
 
-    private int selected = -1;
-
-	public GuiChatLoggerPluginScrollPanelBase(GuiScreen par1GuiScreen, PluginType type, TreeMap<Integer, PluginOrderStatus> mapPlugins, OnElementClickedListener listener, Minecraft mc, int width, int height, int top, int bottom, int slotHeight)
+	public GuiChatLoggerPluginScrollPanelBase(GuiScreen par1GuiScreen, PluginType type, TreeMap<Integer, PluginOrderStatus> mapPlugins, OnItemClickedListener<PluginOrderStatus> listener, Minecraft mc, int width, int height, int top, int bottom, int slotHeight)
 	{
-        super(mc, width, height, top, bottom, slotHeight);
-        this.parentScreen = par1GuiScreen;
+		super(par1GuiScreen, mapPlugins, listener, mc, width, height, top, bottom, slotHeight);
 		this.type = type;
-		this.mapPlugins = mapPlugins;
-        this.listener = listener;
-        this.mc = mc;
 	}
 
-	public TreeMap<Integer, PluginOrderStatus> getMapPlugins()
-	{
-		return this.mapPlugins;
-	}
-
-	@Override
-	protected int getSize()
-	{
-		return this.mapPlugins.size();
-	}
-
-	@Override
-	protected void elementClicked(int i, boolean flag)
-	{
-        if (!flag)
-        {
-        	this.selected = i;
-        	//DebugLog.info("elementClicked: %d", i);
-
-        	if(this.listener != null)
-        	{
-        		if(this.selected != -1)
-        		{
-            		this.listener.onElementClicked(this.selected, this.mapPlugins.get(this.selected));
-        		}
-        		else
-        		{
-            		this.listener.onElementClicked(this.selected, null);
-        		}
-        	}
-        }
-	}
-
-	@Override
-	protected boolean isSelected(int par1)
-	{
-		return (this.selected == par1);
-	}
-
-	public int getSelected()
-	{
-		return this.selected;
-	}
-	public void setSelected(int selected)
-	{
-		this.selected = selected;
-	}
-
-	@Override
-	protected void drawBackground()
-	{
+    @Override
+    protected void drawBackground()
+    {
         this.parentScreen.drawDefaultBackground();
-	}
+    }
 }

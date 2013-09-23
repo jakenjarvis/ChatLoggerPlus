@@ -18,7 +18,7 @@ public class GuiChatLoggerPluginSelectScrollPanel extends GuiChatLoggerPluginScr
 			GuiScreen par1GuiScreen,
 			PluginType type,
 			TreeMap<Integer, PluginOrderStatus> mapPlugins,
-			OnElementClickedListener listener,
+			OnItemClickedListener<PluginOrderStatus> listener,
 			Minecraft mc
 			)
 	{
@@ -40,7 +40,7 @@ public class GuiChatLoggerPluginSelectScrollPanel extends GuiChatLoggerPluginScr
 		String pluginPath = "";
 		String pluginState = "";
 
-		PluginOrderStatus plugin = this.mapPlugins.get(index);
+		PluginOrderStatus plugin = this.getItems().get(index);
 		if(plugin != null)
 		{
 			String statetitlecolor = "";

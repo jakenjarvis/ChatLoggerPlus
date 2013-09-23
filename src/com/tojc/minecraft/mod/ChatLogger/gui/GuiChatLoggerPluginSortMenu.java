@@ -23,7 +23,7 @@ import net.minecraft.util.StringTranslate;
 @SideOnly(Side.CLIENT)
 public class GuiChatLoggerPluginSortMenu extends GuiScreen
 	implements
-		GuiChatLoggerPluginScrollPanelBase.OnElementClickedListener,
+		GuiChatLoggerScrollPanelBase.OnItemClickedListener<PluginOrderStatus>,
 		GuiChatLoggerPluginSelect.OnPluginSelectedListener
 {
     protected String screenTitle = "";
@@ -127,9 +127,9 @@ public class GuiChatLoggerPluginSortMenu extends GuiScreen
 	}
 
 	@Override
-	public void onElementClicked(int index, PluginOrderStatus plugin)
+	public void onItemClicked(int index, PluginOrderStatus item)
 	{
-		this.selectPlugin = plugin;
+		this.selectPlugin = item;
 	}
 
 	@Override
@@ -147,7 +147,7 @@ public class GuiChatLoggerPluginSortMenu extends GuiScreen
 		{
 			this.controller.saveSetting();
 
-			TreeMap<Integer, PluginOrderStatus> mapPlugins = this.scrollPanel.getMapPlugins();
+			TreeMap<Integer, PluginOrderStatus> mapPlugins = (TreeMap<Integer, PluginOrderStatus>)this.scrollPanel.getItems();
 			this.controller.updateOrderTreeMap(mapPlugins);
 
 			this.orderCheckMessage = EnumChatFormatting.DARK_RED + this.controller.makeOrderCheckMessage();
