@@ -21,22 +21,31 @@ package com.tojc.minecraft.mod;
 import java.util.logging.Level;
 
 import com.tojc.minecraft.mod.ChatLogger.ChatLoggerCore;
+import com.tojc.minecraft.mod.proxy.ProxyInterface;
 
 import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
+import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.network.NetworkMod;
 
 @Mod(modid = "com.tojc.minecraft.mod.ChatLoggerPlus", name = "ChatLoggerPlus")
+@NetworkMod(clientSideRequired = true, serverSideRequired = false)
 public class ChatLoggerPlus
 {
 	@Instance("com.tojc.minecraft.mod.ChatLoggerPlus")
 	protected static ChatLoggerPlus instance;
 
-	private ChatLoggerCore core = new ChatLoggerCore();
+	@SidedProxy(
+		clientSide = "com.tojc.minecraft.mod.proxy.ClientSideProxy",
+		serverSide = "com.tojc.minecraft.mod.proxy.ServerSideProxy")
+	public static ProxyInterface proxy;
+
+	private ChatLoggerCore core = new ChatLoggerCore(this);
 
 	@EventHandler
 	public void onPreInit(FMLPreInitializationEvent event)

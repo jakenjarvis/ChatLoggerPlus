@@ -23,10 +23,12 @@ import java.io.File;
 import javax.script.ScriptEngineFactory;
 import javax.script.ScriptEngineManager;
 
+import com.tojc.minecraft.mod.ChatLoggerPlus;
 import com.tojc.minecraft.mod.ChatLogger.Plugin.PluginManager;
 import com.tojc.minecraft.mod.ChatLogger.Plugin.PluginOrderManager;
 import com.tojc.minecraft.mod.ChatLogger.Writer.SpecialLogWriter;
 import com.tojc.minecraft.mod.log.DebugLog;
+import com.tojc.minecraft.mod.proxy.ProxyInterface;
 
 import net.minecraft.client.Minecraft;
 import cpw.mods.fml.common.Mod;
@@ -36,11 +38,23 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 
 public class ChatLoggerCore
 {
+	private ChatLoggerPlus parent = null;
+
 	private ChatLoggerConfiguration config = null;
 	private PluginManager pluginManager = null;
 
 	private HandlerAndEventListener listener = null;
 	private SpecialLogWriter writer = null;
+
+	public ChatLoggerCore(ChatLoggerPlus parent)
+	{
+		this.parent = parent;
+	}
+
+	public ProxyInterface getSidedProxy()
+	{
+		return this.parent.proxy;
+	}
 
 	public ChatLoggerConfiguration getConfig()
 	{
