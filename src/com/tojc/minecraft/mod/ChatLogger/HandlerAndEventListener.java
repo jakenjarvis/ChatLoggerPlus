@@ -20,7 +20,7 @@ package com.tojc.minecraft.mod.ChatLogger;
 
 import com.tojc.minecraft.mod.ChatLogger.CurrentScreenMonitor.CurrentScreenChangedEvent;
 import com.tojc.minecraft.mod.ChatLogger.CurrentScreenMonitor.CurrentScreenChangedListener;
-import com.tojc.minecraft.mod.ChatLogger.Plugin.ChatMessageImpl;
+import com.tojc.minecraft.mod.ChatLogger.Plugin.Implements.v1.ChatMessageImpl;
 import com.tojc.minecraft.mod.log.DebugLog;
 
 import net.minecraft.client.Minecraft;

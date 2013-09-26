@@ -38,7 +38,9 @@ import javax.script.ScriptEngineFactory;
 import javax.script.ScriptEngineManager;
 
 import com.tojc.minecraft.mod.ChatLogger.ChatLoggerConfiguration;
-import com.tojc.minecraft.mod.ChatLogger.PluginDirectoryNameManager;
+import com.tojc.minecraft.mod.ChatLogger.Plugin.Implements.v1.PluginDebugObject;
+import com.tojc.minecraft.mod.ChatLogger.Plugin.Implements.v1.PluginInformation;
+import com.tojc.minecraft.mod.ChatLogger.Plugin.Implements.v1.PluginSettingsImpl;
 import com.tojc.minecraft.mod.ChatLogger.Plugin.Order.PluginOrderKey;
 import com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.PluginInterface;
 import com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.PluginSettings;

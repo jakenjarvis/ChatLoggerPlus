@@ -18,16 +18,36 @@
  */
 package com.tojc.minecraft.mod.ChatLogger.Plugin;
 
-import com.tojc.minecraft.mod.log.DebugLog;
+import java.io.File;
 
-public class PluginDebugObject
+import com.tojc.minecraft.mod.ChatLogger.ChatLoggerConfiguration;
+
+import cpw.mods.fml.common.Loader;
+
+import net.minecraft.client.Minecraft;
+
+public class PluginDirectoryNameManager
 {
-	public PluginDebugObject()
+	private ChatLoggerConfiguration config = null;
+
+	public PluginDirectoryNameManager(ChatLoggerConfiguration config)
 	{
+		this.config = config;
 	}
 
-	public void log(String pluginName, String message)
+	public File getPluginDirectoryFile()
 	{
-		DebugLog.script("{" + pluginName + "}: " + message);
+		File result = null;
+		result = new File(getDefaultPluginDirectoryName());
+		return result;
 	}
+
+	private String getDefaultPluginDirectoryName()
+	{
+		String defaultPluginDirectoryName = this.config.getDefaultPluginDirectoryName().get();
+
+		String result = new File(Loader.instance().getConfigDir().toString(), defaultPluginDirectoryName).getPath();
+		return result;
+	}
+
 }

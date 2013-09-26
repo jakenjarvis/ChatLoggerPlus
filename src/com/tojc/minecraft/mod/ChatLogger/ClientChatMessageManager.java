@@ -22,8 +22,8 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.tojc.minecraft.mod.ChatLogger.Plugin.ChatMessageImpl;
 import com.tojc.minecraft.mod.ChatLogger.Plugin.PluginManager;
+import com.tojc.minecraft.mod.ChatLogger.Plugin.Implements.v1.ChatMessageImpl;
 import com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.ChatMessage;
 
 public class ClientChatMessageManager

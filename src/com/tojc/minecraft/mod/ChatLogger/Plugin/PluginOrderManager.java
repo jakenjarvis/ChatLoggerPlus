@@ -28,6 +28,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import com.tojc.minecraft.mod.ChatLogger.ChatLoggerConfiguration;
+import com.tojc.minecraft.mod.ChatLogger.Plugin.Implements.v1.PluginInformation;
 import com.tojc.minecraft.mod.ChatLogger.Plugin.Order.PluginOrderController;
 import com.tojc.minecraft.mod.ChatLogger.Plugin.Order.PluginOrderKey;
 import com.tojc.minecraft.mod.ChatLogger.Plugin.Order.PluginOrderStatus;

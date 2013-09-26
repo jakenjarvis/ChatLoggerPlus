@@ -16,36 +16,18 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.tojc.minecraft.mod.ChatLogger;
+package com.tojc.minecraft.mod.ChatLogger.Plugin.Implements.v1;
 
-import java.io.File;
+import com.tojc.minecraft.mod.log.DebugLog;
 
-import cpw.mods.fml.common.Loader;
-
-import net.minecraft.client.Minecraft;
-
-public class PluginDirectoryNameManager
+public class PluginDebugObject
 {
-	private ChatLoggerConfiguration config = null;
-
-	public PluginDirectoryNameManager(ChatLoggerConfiguration config)
+	public PluginDebugObject()
 	{
-		this.config = config;
 	}
 
-	public File getPluginDirectoryFile()
+	public void log(String pluginName, String message)
 	{
-		File result = null;
-		result = new File(getDefaultPluginDirectoryName());
-		return result;
+		DebugLog.script("{" + pluginName + "}: " + message);
 	}
-
-	private String getDefaultPluginDirectoryName()
-	{
-		String defaultPluginDirectoryName = this.config.getDefaultPluginDirectoryName().get();
-
-		String result = new File(Loader.instance().getConfigDir().toString(), defaultPluginDirectoryName).getPath();
-		return result;
-	}
-
 }

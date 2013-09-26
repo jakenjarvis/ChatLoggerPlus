@@ -20,8 +20,8 @@ package com.tojc.minecraft.mod.ChatLogger.Plugin.Order;
 
 import net.minecraft.util.EnumChatFormatting;
 
-import com.tojc.minecraft.mod.ChatLogger.Plugin.PluginInformation;
 import com.tojc.minecraft.mod.ChatLogger.Plugin.PluginState;
+import com.tojc.minecraft.mod.ChatLogger.Plugin.Implements.v1.PluginInformation;
 import com.tojc.minecraft.mod.ChatLogger.Plugin.Type.PluginType;
 
 public class PluginOrderStatus
