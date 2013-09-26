@@ -149,21 +149,18 @@ public class SpecialLogWriter implements WriterOperationInterface
 	@Override
 	public void onOpenFileOperationCompleted()
 	{
-		if(this.core.getConfig().getChatLoggerEnabled().get())
+		String filename;
+		try
 		{
-			String filename;
-			try
-			{
-				filename = this.writer.getLogFileNameManager().getFullPathLogFile().getCanonicalPath();
-			}
-			catch (Exception e)
-			{
-				filename = "";
-			}
-
-			this.core.sendLocalChatMessage("§aChatLoggerPlus: §rLogging start.");
-			this.core.sendLocalChatMessage("§aChatLoggerPlus: §r" + filename);
+			filename = this.writer.getLogFileNameManager().getFullPathLogFile().getCanonicalPath();
 		}
+		catch (Exception e)
+		{
+			filename = "";
+		}
+
+		this.core.sendLocalChatMessage("§aChatLoggerPlus: §rLogging start.");
+		this.core.sendLocalChatMessage("§aChatLoggerPlus: §r" + filename);
 	}
 
 	@Override

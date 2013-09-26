@@ -40,7 +40,6 @@ public class ChatLoggerConfiguration
 
 	private Configuration config = null;
 
-	private ConfigurationPropertyBoolean chatLoggerEnabled = null;
 	private ConfigurationPropertyBoolean pluginScriptsEnabled = null;
 	private ConfigurationPropertyString formatDateTime = null;
 
@@ -75,7 +74,6 @@ public class ChatLoggerConfiguration
 		this.config.load();
 
 		// create property
-		this.chatLoggerEnabled = new ConfigurationPropertyBoolean(this.config);
 		this.pluginScriptsEnabled = new ConfigurationPropertyBoolean(this.config);
 		this.formatDateTime = new ConfigurationPropertyString(this.config);
 
@@ -106,7 +104,6 @@ public class ChatLoggerConfiguration
 		// initialize
 
 		// CATEGORY_GENERAL
-		this.chatLoggerEnabled.initialize(Configuration.CATEGORY_GENERAL, "ChatLoggerEnabled", true, "true/false");
 		this.pluginScriptsEnabled.initialize(Configuration.CATEGORY_GENERAL, "PluginScriptsEnabled", false, "true/false");
 		this.formatDateTime.initialize(Configuration.CATEGORY_GENERAL, "FormatDateTime", "yyyy/MM/dd-HH:mm:ss", "The format of date and time on outputs to the beginning of the log.");
 
@@ -140,11 +137,6 @@ public class ChatLoggerConfiguration
 		this.outputLoggingMessageLastScreen.initialize(CATEGORY_OUTPUT_OF_DEBUG_LOG, "OutputLoggingMessageLastScreen", false, null);
 
 		this.config.save();
-	}
-
-	public ConfigurationPropertyBoolean getChatLoggerEnabled()
-	{
-		return this.chatLoggerEnabled;
 	}
 
 	public ConfigurationPropertyBoolean getPluginScriptsEnabled()

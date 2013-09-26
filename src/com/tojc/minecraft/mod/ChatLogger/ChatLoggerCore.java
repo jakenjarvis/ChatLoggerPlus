@@ -73,20 +73,19 @@ public class ChatLoggerCore
 		this.config = new ChatLoggerConfiguration(event.getSuggestedConfigurationFile());
 		DebugLog.loadConfig(this.config);
 
-		if(this.config.getChatLoggerEnabled().get())
-		{
-			if(this.config.getPluginScriptsEnabled().get())
-			{
-				this.pluginManager = new PluginManager(this.config);
-			}
-			this.listener = new HandlerAndEventListener(this);
-			this.writer = new SpecialLogWriter(this);
-		}
+		this.listener = new HandlerAndEventListener(this);
 	}
 
 	public void onInit(FMLInitializationEvent event)
 	{
 		DebugLog.trace("onInit");
+
+		this.writer = new SpecialLogWriter(this);
+
+		if(this.config.getPluginScriptsEnabled().get())
+		{
+			this.pluginManager = new PluginManager(this.config);
+		}
 	}
 
 	public void onPostInit(FMLPostInitializationEvent event)
@@ -96,66 +95,45 @@ public class ChatLoggerCore
 
 	public void onWorldLoad(String worldname)
 	{
-		if(this.config.getChatLoggerEnabled().get())
-		{
-			this.writer.setWorldName(worldname);
+		this.writer.setWorldName(worldname);
 
-			if(this.config.getPluginScriptsEnabled().get())
-			{
-				this.pluginManager.load();
-			}
+		if(this.config.getPluginScriptsEnabled().get())
+		{
+			this.pluginManager.load();
 		}
 	}
 
 	public void onWorldUnload(String worldname)
 	{
-		if(this.config.getChatLoggerEnabled().get())
+		if(this.config.getPluginScriptsEnabled().get())
 		{
-			if(this.config.getPluginScriptsEnabled().get())
-			{
-				this.pluginManager.unload();
-			}
+			this.pluginManager.unload();
 		}
 	}
 
 	public void onServerConnection(String servername)
 	{
-		if(this.config.getChatLoggerEnabled().get())
-		{
-			this.writer.setServerName(servername);
-		}
+		this.writer.setServerName(servername);
 	}
 
 	public void onOpen()
 	{
-		if(this.config.getChatLoggerEnabled().get())
-		{
-			this.writer.open();
-		}
+		this.writer.open();
 	}
 
 	public void onWrite(String message)
 	{
-		if(this.config.getChatLoggerEnabled().get())
-		{
-			this.writer.write(message);
-		}
+		this.writer.write(message);
 	}
 
 	public void onFlush()
 	{
-		if(this.config.getChatLoggerEnabled().get())
-		{
-			this.writer.flush();
-		}
+		this.writer.flush();
 	}
 
 	public void onClose()
 	{
-		if(this.config.getChatLoggerEnabled().get())
-		{
-			this.writer.close();
-		}
+		this.writer.close();
 	}
 
 
