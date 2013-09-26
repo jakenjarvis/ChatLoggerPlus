@@ -45,7 +45,7 @@ public class ChatLoggerPlus
 		serverSide = "com.tojc.minecraft.mod.proxy.ServerSideProxy")
 	public static ProxyInterface proxy;
 
-	private ChatLoggerCore core = new ChatLoggerCore(this);
+	private ChatLoggerCore core = new ChatLoggerCore();
 
 	@EventHandler
 	public void onPreInit(FMLPreInitializationEvent event)

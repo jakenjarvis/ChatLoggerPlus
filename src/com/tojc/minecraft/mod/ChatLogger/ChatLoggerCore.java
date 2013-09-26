@@ -38,22 +38,15 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 
 public class ChatLoggerCore
 {
-	private ChatLoggerPlus parent = null;
-
 	private ChatLoggerConfiguration config = null;
 	private PluginManager pluginManager = null;
 
 	private HandlerAndEventListener listener = null;
 	private SpecialLogWriter writer = null;
 
-	public ChatLoggerCore(ChatLoggerPlus parent)
-	{
-		this.parent = parent;
-	}
-
 	public ProxyInterface getSidedProxy()
 	{
-		return this.parent.proxy;
+		return ChatLoggerPlus.proxy;
 	}
 
 	public ChatLoggerConfiguration getConfig()
