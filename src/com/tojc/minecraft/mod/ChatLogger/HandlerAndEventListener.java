@@ -35,10 +35,9 @@ import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.CommandEvent;
 import net.minecraftforge.event.ForgeSubscribe;
+import net.minecraftforge.event.ServerChatEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.world.WorldEvent;
-import cpw.mods.fml.client.registry.KeyBindingRegistry;
-import cpw.mods.fml.client.registry.KeyBindingRegistry.KeyHandler;
 import cpw.mods.fml.common.network.IChatListener;
 import cpw.mods.fml.common.network.IConnectionHandler;
 import cpw.mods.fml.common.network.NetworkRegistry;
@@ -63,11 +62,8 @@ public class HandlerAndEventListener implements IConnectionHandler, IChatListene
 		// connectionReceived, connectionOpened, connectionClosed
 		NetworkRegistry.instance().registerConnectionHandler(this);
 
-		if(this.core.getConfig().getPluginScriptsEnabled().get())
-		{
-			// KeyBinding
-			KeyBindingRegistry.registerKeyBinding(new ChatLoggerKeyHandler(this.core));
-		}
+		// ProxyInterface.registerEventListener
+		this.core.getSidedProxy().registerEventListener(this.core);
 
 		// etc. @ForgeSubscribe
 		MinecraftForge.EVENT_BUS.register(this);
@@ -108,6 +104,12 @@ public class HandlerAndEventListener implements IConnectionHandler, IChatListene
 		//DebugLog.info("onCommandEvent: " + commandline.toString().trim());
 
 		this.core.onWrite(commandline.toString().trim());
+	}
+
+	@ForgeSubscribe
+	public void onServerChatEvent(ServerChatEvent event)
+	{
+		DebugLog.trace("onServerChatEvent: " + event.message);
 	}
 
 	// MEMO:
