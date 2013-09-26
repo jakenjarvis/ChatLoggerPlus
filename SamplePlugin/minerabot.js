@@ -2,7 +2,7 @@
 importPackage(com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1);
 
 var name = "MiNeRa bot";
-var version = "1.0.1";
+var version = "1.0.2";
 var description = "Japanese chatbot";
 var auther = "Jaken";
 
@@ -29,29 +29,32 @@ var plugin = new PluginInterface()
         // チャットメッセージを取得（別のプラグインで加工されていない、オリジナルのメッセージ）
         var chatmessage = chat.getMessageOriginal();
 
-        // JavaのStringからJavaScriptのStringに型変換（matchを使うために）
+        // JavaのStringからJavaScriptのStringに型変換
         var message = String(chatmessage);
 
-        var username = "";
-        // サーバによってユーザー名の表示方法が異なるので注意
-        var result = message.match(/^<([^>]+)>\s(.*)/);
-        if(result != null)
+        // ユーザー名の取得
+        var username = chat.getPlayerName();
+
+        // ユーザー名がnullの場合は、ユーザーの発言ではないので無視する（システムメッセージなどが該当する）
+        if(username != null)
         {
-            username = result[1];
-            message = result[2];
+            // チャットメッセージを分かち書き(形態素解析)
+            var segment = segmenter.segment(message);
+
+            // マルコフ連鎖配列の作成
+            markov.build(segment);
+
+            // 文章生成
+            var result = markov.generate(40, "");
+
+            // 前後の空白を取り除く（全角空白も含めて削除する）
+            result = result.replace(/(^[\s　]+)|([\s　]+$)/g, "");
+            if(result.length >= 1)
+            {
+                // 結果文字列を追加メッセージとして出力
+                chat.addAfterMessage("§6" + result + "§r");
+            }
         }
-
-        // チャットメッセージを分かち書き(形態素解析)
-        var segment = segmenter.segment(message);
-
-        // マルコフ連鎖配列の作成
-        markov.build(segment);
-
-        // 文章生成
-        var result = markov.generate(40, "");
-
-        // 結果文字列を追加メッセージとして出力
-        chat.addAfterMessage("§6" + result + "§r");
     },
 
     onFinalize: function()
