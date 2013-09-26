@@ -35,6 +35,11 @@ import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.event.FMLServerAboutToStartEvent;
+import cpw.mods.fml.common.event.FMLServerStartedEvent;
+import cpw.mods.fml.common.event.FMLServerStartingEvent;
+import cpw.mods.fml.common.event.FMLServerStoppedEvent;
+import cpw.mods.fml.common.event.FMLServerStoppingEvent;
 
 public class ChatLoggerCore
 {
@@ -85,6 +90,33 @@ public class ChatLoggerCore
 	{
 		DebugLog.trace("onPostInit");
 	}
+
+
+	public void onFMLServerAboutToStartEvent(FMLServerAboutToStartEvent event)
+    {
+		DebugLog.trace("onFMLServerAboutToStartEvent");
+    }
+
+    public void onFMLServerStartingEvent(FMLServerStartingEvent event)
+    {
+		DebugLog.trace("onFMLServerStartingEvent");
+    }
+
+    public void onFMLServerStartedEvent(FMLServerStartedEvent event)
+    {
+		DebugLog.trace("onFMLServerStartedEvent");
+    }
+
+    public void onFMLServerStoppingEvent(FMLServerStoppingEvent event)
+    {
+		DebugLog.trace("onFMLServerStoppingEvent");
+    }
+
+    public void onFMLServerStoppedEvent(FMLServerStoppedEvent event)
+    {
+		DebugLog.trace("onFMLServerStoppedEvent");
+    }
+
 
 	public void onWorldLoad(String worldname)
 	{

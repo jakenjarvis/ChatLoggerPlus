@@ -46,11 +46,11 @@ public class WriterStatusController
 		ClosedAfterglow
 	}
 
-	private WriterInterface writer = null;
+	private ChatLogTextWriter writer = null;
 	private WriterOperationInterface operation = null;
 	private WriterState state = null;
 
-	public WriterStatusController(WriterInterface writer, WriterOperationInterface operation)
+	public WriterStatusController(ChatLogTextWriter writer, WriterOperationInterface operation)
 	{
 		this.writer = writer;
 		this.operation = operation;
@@ -72,7 +72,7 @@ public class WriterStatusController
 		this.state = state;
 	}
 
-	public void open()
+	public void onOpen()
 	{
 		switch(this.getState())
 		{
@@ -97,7 +97,7 @@ public class WriterStatusController
 		{
 			case Initialize:
 			case ClosedAfterglow:
-				boolean open = this.writer.onOpen();
+				boolean open = this.writer.open();
 				if(open)
 				{
 					this.setState(WriterState.Opened);
@@ -106,7 +106,7 @@ public class WriterStatusController
 				if((prestate == WriterState.Initialize) && (this.getState() == WriterState.Opened))
 				{
 					this.operation.onHeaderOutputTiming();
-					this.writer.onDequeueBuffer();
+					this.writer.dequeueBuffer();
 					this.operation.onOpenFileOperationCompleted();
 				}
 				break;
@@ -118,20 +118,20 @@ public class WriterStatusController
 		}
 	}
 
-	public void write(String output)
+	public void onWrite(String output)
 	{
 		switch(this.getState())
 		{
 			case Initialize:
-				this.writer.onEnqueueBuffer(output);
+				this.writer.enqueueBuffer(output);
 
 				// オープンを試みる。
-				this.open();
+				this.onOpen();
 				break;
 
 			case Opened:
-				this.writer.onDequeueBuffer();
-				this.writer.onWrite(output);
+				this.writer.dequeueBuffer();
+				this.writer.write(output);
 				break;
 
 			case ClosedAfterglow:
@@ -142,9 +142,9 @@ public class WriterStatusController
 				if(this.operation.hasPlayerChanged())
 				{
 					// 毎回書き込むたびに、open/closeする。
-					this.open();
-					this.write(output);
-					this.close();
+					this.onOpen();
+					this.onWrite(output);
+					this.onClose();
 
 					// 状態が変化しているので、再チェックが必要
 					if(this.operation.hasPlayerChanged())
@@ -156,8 +156,8 @@ public class WriterStatusController
 				else
 				{
 					// ワールド移動のみで、ログアウトしていないと判断
-					this.open();
-					this.write(output);
+					this.onOpen();
+					this.onWrite(output);
 					// closeしない
 				}
 				break;
@@ -167,12 +167,12 @@ public class WriterStatusController
 		}
 	}
 
-	public void flush()
+	public void onFlush()
 	{
 		switch(this.getState())
 		{
 			case Opened:
-				this.writer.onFlush();
+				this.writer.flush();
 				break;
 
 			case ClosedAfterglow:
@@ -188,7 +188,7 @@ public class WriterStatusController
 		}
 	}
 
-	public void close()
+	public void onClose()
 	{
 		WriterState prestate = this.getState();
 
@@ -198,7 +198,7 @@ public class WriterStatusController
 				break;
 
 			case Opened:
-				boolean close = this.writer.onClose();
+				boolean close = this.writer.close();
 				if(close)
 				{
 					this.setState(WriterState.ClosedAfterglow);

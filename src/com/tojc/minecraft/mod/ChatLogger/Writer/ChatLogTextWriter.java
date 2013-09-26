@@ -32,7 +32,7 @@ import com.tojc.minecraft.mod.ChatLogger.ChatLoggerConfiguration;
 import com.tojc.minecraft.mod.ChatLogger.Writer.WriterStatusController.WriterState;
 import com.tojc.minecraft.mod.log.DebugLog;
 
-public class ChatLogTextWriter implements WriterInterface
+public class ChatLogTextWriter
 {
 	private ChatLoggerConfiguration config = null;
 	private LogFileNameManager manager = null;
@@ -59,14 +59,12 @@ public class ChatLogTextWriter implements WriterInterface
 		this.datetimeformat = new SimpleDateFormat(this.config.getFormatDateTime().get());
 	}
 
-	@Override
 	public LogFileNameManager getLogFileNameManager()
 	{
 		return this.manager;
 	}
 
-	@Override
-	public boolean onOpen()
+	public boolean open()
 	{
 		boolean result = false;
 
@@ -105,8 +103,7 @@ public class ChatLogTextWriter implements WriterInterface
 		return result;
 	}
 
-	@Override
-	public void onEnqueueBuffer(String output)
+	public void enqueueBuffer(String output)
 	{
 		if(this.fileopen)
 		{
@@ -122,8 +119,7 @@ public class ChatLogTextWriter implements WriterInterface
 		}
 	}
 
-	@Override
-	public void onWrite(String output)
+	public void write(String output)
 	{
 		if(!this.fileopen)
 		{
@@ -139,8 +135,7 @@ public class ChatLogTextWriter implements WriterInterface
 		}
 	}
 
-	@Override
-	public void onWriteLowLevel(String output)
+	public void writeLowLevel(String output)
 	{
 		if(!this.fileopen)
 		{
@@ -153,8 +148,7 @@ public class ChatLogTextWriter implements WriterInterface
 		}
 	}
 
-	@Override
-	public void onDequeueBuffer()
+	public void dequeueBuffer()
 	{
 		if(!this.fileopen)
 		{
@@ -178,8 +172,7 @@ public class ChatLogTextWriter implements WriterInterface
 		}
 	}
 
-	@Override
-	public void onFlush()
+	public void flush()
 	{
 		if(!this.fileopen)
 		{
@@ -189,8 +182,7 @@ public class ChatLogTextWriter implements WriterInterface
 		this.flush(true);
 	}
 
-	@Override
-	public boolean onClose()
+	public boolean close()
 	{
 		boolean result = false;
 

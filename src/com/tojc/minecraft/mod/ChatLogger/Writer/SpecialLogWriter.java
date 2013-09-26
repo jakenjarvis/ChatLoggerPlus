@@ -56,22 +56,22 @@ public class SpecialLogWriter implements WriterOperationInterface
 
 	public void open()
 	{
-		this.controller.open();
+		this.controller.onOpen();
 	}
 
 	public void write(String output)
 	{
-		this.controller.write(output);
+		this.controller.onWrite(output);
 	}
 
 	public void flush()
 	{
-		this.controller.flush();
+		this.controller.onFlush();
 	}
 
 	public void close()
 	{
-		this.controller.close();
+		this.controller.onClose();
 	}
 
 	@Override
@@ -129,7 +129,7 @@ public class SpecialLogWriter implements WriterOperationInterface
 	public void onHeaderOutputTiming()
 	{
 		// ヘッダーの出力
-		this.writer.onWriteLowLevel("--------------------------------------------------------------------------------");
+		this.writer.writeLowLevel("--------------------------------------------------------------------------------");
 
 		StringBuffer message = new StringBuffer();
 		message.append(datetimeformat.format(this.writer.getLogFileNameManager().getFileBaseDate()));
@@ -142,8 +142,8 @@ public class SpecialLogWriter implements WriterOperationInterface
 		message.append(this.writer.getLogFileNameManager().getPlayerName());
 		message.append(")");
 
-		this.writer.onWriteLowLevel(message.toString());
-		this.writer.onWriteLowLevel("--------------------------------------------------------------------------------");
+		this.writer.writeLowLevel(message.toString());
+		this.writer.writeLowLevel("--------------------------------------------------------------------------------");
 	}
 
 	@Override
