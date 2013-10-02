@@ -1,7 +1,12 @@
 @echo off
 set devdir=C:\dev_mcp\mcdev\forge\mcp
 set topleveldomain=com
-set prjsrcdir=C:\dev_mcp\workspace\ChatLoggerPlus\src
+set prjdir=C:\dev_mcp\workspace\ChatLoggerPlus
+set prjsrcdir=%prjdir%\src
+
+cd %prjdir%
+rmdir /S /Q %prjdir%\doc
+ant javadoc -f javadoc.xml
 
 echo "%devdir%\src\minecraft\%topleveldomain%"
 echo "%prjsrcdir%\%topleveldomain%"

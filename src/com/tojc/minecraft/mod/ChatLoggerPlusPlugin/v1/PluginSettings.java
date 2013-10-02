@@ -21,11 +21,41 @@ package com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * プラグインの設定や登録を行うためのインターフェイスです。
+ * @author Jaken
+ */
 public interface PluginSettings
 {
+	/**
+	 * チャットメッセージを加工するパーミッションを要求します。
+	 * スクリプトでsetMessageを使用する場合は宣言が必要です。
+	 * @see ChatMessage#setMessage(String)
+	 * @param modification パーミッションを要求する場合はtrueを指定してください。
+	 */
 	public void registerPermissionMessageModification(boolean modification);
+
+	/**
+	 * チャットメッセージを追加するパーミッションを要求します。
+	 * スクリプトでaddAfterMessageを使用する場合は宣言が必要です。
+	 * @see ChatMessage#addAfterMessage(String)
+	 * @param adding パーミッションを要求する場合はtrueを指定してください。
+	 */
 	public void registerPermissionAddAfterMessage(boolean adding);
 
+	/**
+	 * スタックに書き込むパーミッションを要求します。（実質新規作成の意味合いです）
+	 * スクリプトでwriteStackを使用する場合は宣言が必要です。
+	 * @see ChatMessage#writeStack(String, Object)
+	 * @param keyname アクセス対象のスタックに登録するキー文字列
+	 */
 	public void registerPermissionWriteStack(String keyname);
+
+	/**
+	 * スタックを読み込むパーミッションを要求します。（実質、既に存在するスタックなら読み書きできます）
+	 * スクリプトでreadStackを使用する場合は宣言が必要です。
+	 * @see ChatMessage#readStack(String)
+	 * @param keyname アクセス対象のスタックから読み取るキー文字列
+	 */
 	public void registerPermissionReadStack(String keyname);
 }
