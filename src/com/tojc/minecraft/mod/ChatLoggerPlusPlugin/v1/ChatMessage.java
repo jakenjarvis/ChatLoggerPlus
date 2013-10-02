@@ -22,10 +22,11 @@ public interface ChatMessage
 {
 	public String getServerName();
 	public String getWorldName();
+	public String getPlayerName();
 
 	public String getOriginalJsonString();
 
-	public String getPlayerName();
+	public String getUserName();
 	public String getMessageOriginal();
 	public String getMessage();
 	public void setMessage(String message);

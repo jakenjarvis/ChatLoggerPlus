@@ -134,20 +134,20 @@ public class HandlerAndEventListener implements IConnectionHandler, IChatListene
 		{
 			ChatMessageComponentWrapper wrapperOriginalComponent = new ChatMessageComponentWrapper(ChatMessageComponent.createFromJson(event.message));
 			//String target = component.func_111068_a(true);
-			String targetPlayerName = wrapperOriginalComponent.getPlayerNameFromChatTypeText();
-			String targetPlayerMessage = wrapperOriginalComponent.getPlayerMessageFromChatTypeText();
-			if(targetPlayerMessage == null)
+			String targetUserName = wrapperOriginalComponent.getPlayerNameFromChatTypeText();
+			String targetUserMessage = wrapperOriginalComponent.getPlayerMessageFromChatTypeText();
+			if(targetUserMessage == null)
 			{
-				// chat.type.text以外は、targetPlayerName=nullかつ、targetPlayerMessage=全文とする。
-				targetPlayerMessage = wrapperOriginalComponent.toStringWithFormatting(true);
+				// chat.type.text以外は、targetUserName=nullかつ、targetUserMessage=全文とする。
+				targetUserMessage = wrapperOriginalComponent.toStringWithFormatting(true);
 			}
-			DebugLog.trace("    targetPlayerName    = " + targetPlayerName);
-			DebugLog.trace("    targetPlayerMessage = " + targetPlayerMessage);
+			DebugLog.trace("    targetUserName    = " + targetUserName);
+			DebugLog.trace("    targetUserMessage = " + targetUserMessage);
 
 			// チャットメッセージの加工
 			ClientChatMessageManager chatmanager = new ClientChatMessageManager(
 					this.core,
-					new ChatMessageImpl(this.servername, this.worldname, event.message, targetPlayerName, targetPlayerMessage));
+					new ChatMessageImpl(this.servername, this.worldname, this.core.getPlayerName(), event.message, targetUserName, targetUserMessage));
 
 			// ChatLog
 			String chatlogmessage = chatmanager.outputChatLog();

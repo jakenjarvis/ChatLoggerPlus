@@ -33,7 +33,7 @@ var plugin = new PluginInterface()
         var message = String(chatmessage);
 
         // ユーザー名の取得
-        var username = chat.getPlayerName();
+        var username = chat.getUserName();
 
         // ユーザー名がnullの場合は、ユーザーの発言ではないので無視する（システムメッセージなどが該当する）
         if(username != null)
