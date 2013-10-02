@@ -17,7 +17,7 @@ var plugin = new PluginInterface()
         settings.registerPermissionMessageModification(true);
     },
 
-    onChatMessage: function(chat)
+    onChatMessage: function(env, chat)
     {
         // Stack MyRemark から結果を読み込み（数値）
         var myRemark = chat.readStack("MyRemark");

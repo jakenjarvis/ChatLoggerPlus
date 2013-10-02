@@ -27,7 +27,7 @@ var plugin = new PluginInterface()
         settings.registerPermissionWriteStack("Passing");
     },
 
-    onChatMessage: function(chat)
+    onChatMessage: function(env, chat)
     {
         // ユーザー名の取得（発言者）
         var username = chat.getUserName();

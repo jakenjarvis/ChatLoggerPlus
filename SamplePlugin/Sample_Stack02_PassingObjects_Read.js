@@ -15,7 +15,7 @@ var plugin = new PluginInterface()
         settings.registerPermissionReadStack("Passing");
     },
 
-    onChatMessage: function(chat)
+    onChatMessage: function(env, chat)
     {
         // Stack Passing から結果を読み込み（PassingItemオブジェクト）
         var value = chat.readStack("Passing");

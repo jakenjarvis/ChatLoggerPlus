@@ -24,7 +24,7 @@ var plugin = new PluginInterface()
         segmenter.segment("loadさせるために、一度、適当に実行させておく。（重い）");
     },
 
-    onChatMessage: function(chat)
+    onChatMessage: function(env, chat)
     {
         // チャットメッセージを取得（別のプラグインで加工されていない、オリジナルのメッセージ）
         var chatmessage = chat.getMessageOriginal();

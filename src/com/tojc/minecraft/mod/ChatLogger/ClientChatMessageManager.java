@@ -24,6 +24,7 @@ import java.util.List;
 
 import com.tojc.minecraft.mod.ChatLogger.Plugin.PluginManager;
 import com.tojc.minecraft.mod.ChatLogger.Plugin.Implements.v1.ChatMessageImpl;
+import com.tojc.minecraft.mod.ChatLogger.Plugin.Implements.v1.PluginEnvironmentImpl;
 import com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.ChatMessage;
 
 public class ClientChatMessageManager
@@ -38,7 +39,7 @@ public class ClientChatMessageManager
 	private List<String> messageOutputScreenAfter = null;
 	private List<String> messageOutputChatLogAfter = null;
 
-	public ClientChatMessageManager(ChatLoggerCore core, ChatMessageImpl chatMessage)
+	public ClientChatMessageManager(ChatLoggerCore core, PluginEnvironmentImpl env, ChatMessageImpl chatMessage)
 	{
 		this.config = core.getConfig();
 		this.pluginManager = core.getPluginManager();
@@ -51,10 +52,10 @@ public class ClientChatMessageManager
 		if(this.config.getPluginScriptsEnabled().get())
 		{
 			this.messageOutputScreen = this.pluginManager.getPluginOrderManager().getPluginScreenOrderController()
-					.fireOnChatMessage(this.messageOriginal, this.messageOutputScreenAfter);
+					.fireOnChatMessage(env, this.messageOriginal, this.messageOutputScreenAfter);
 
 			this.messageOutputChatLog = this.pluginManager.getPluginOrderManager().getPluginChatLogOrderController()
-					.fireOnChatMessage(this.messageOriginal, this.messageOutputChatLogAfter);
+					.fireOnChatMessage(env, this.messageOriginal, this.messageOutputChatLogAfter);
 		}
 		else
 		{

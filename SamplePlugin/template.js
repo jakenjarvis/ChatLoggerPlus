@@ -14,7 +14,7 @@ var plugin = new PluginInterface()
         debug.log(name, "onInitialize");
     },
 
-    onChatMessage: function(chat)
+    onChatMessage: function(env, chat)
     {
         debug.log(name, "onChatMessage");
     },

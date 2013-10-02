@@ -34,6 +34,7 @@ import javax.script.ScriptEngineFactory;
 import javax.script.ScriptException;
 
 import com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.ChatMessage;
+import com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.PluginEnvironment;
 import com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.PluginInterface;
 import com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.PluginSettings;
 import com.tojc.minecraft.mod.Exception.PluginPermissionDeniedException;
@@ -189,14 +190,14 @@ public class PluginInformation implements PluginInterface
 	}
 
 	@Override
-	public void onChatMessage(ChatMessage chat)
+	public void onChatMessage(PluginEnvironment env, ChatMessage chat)
 	{
 		if(this.isEnabled())
 		{
 			ChatMessageImpl backup = ChatMessageImpl.clone(chat);
 			try
 			{
-				this.plugin.onChatMessage(chat);
+				this.plugin.onChatMessage(env, chat);
 				if(!this.settings.getMessageModification())
 				{
 					if(backup.getMessage() != null)

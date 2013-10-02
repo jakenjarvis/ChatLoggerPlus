@@ -15,10 +15,10 @@ var plugin = new PluginInterface()
         settings.registerPermissionWriteStack("MyRemark");
     },
 
-    onChatMessage: function(chat)
+    onChatMessage: function(env, chat)
     {
         // プレイヤー名を取得
-        var playername = chat.getPlayerName();
+        var playername = env.getPlayerName();
         // ユーザー名の取得（発言者）
         var username = chat.getUserName();
 

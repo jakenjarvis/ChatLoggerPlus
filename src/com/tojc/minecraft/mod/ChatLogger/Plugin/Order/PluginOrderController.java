@@ -27,6 +27,7 @@ import java.util.TreeMap;
 
 import com.tojc.minecraft.mod.ChatLogger.ChatLoggerConfiguration;
 import com.tojc.minecraft.mod.ChatLogger.Plugin.Implements.v1.ChatMessageImpl;
+import com.tojc.minecraft.mod.ChatLogger.Plugin.Implements.v1.PluginEnvironmentImpl;
 import com.tojc.minecraft.mod.ChatLogger.Plugin.Implements.v1.PluginInformation;
 import com.tojc.minecraft.mod.ChatLogger.Plugin.Type.PluginType;
 import com.tojc.minecraft.mod.Crypto.SimpleEncryption;
@@ -155,7 +156,7 @@ public class PluginOrderController
 		return result;
 	}
 
-	public ChatMessageImpl fireOnChatMessage(ChatMessageImpl chat, List<String> masterMessagesAfter)
+	public ChatMessageImpl fireOnChatMessage(PluginEnvironmentImpl env, ChatMessageImpl chat, List<String> masterMessagesAfter)
 	{
 		ChatMessageImpl result = ChatMessageImpl.clone(chat);
 		result.setMessagesAfter(masterMessagesAfter);
@@ -168,7 +169,7 @@ public class PluginOrderController
 				DebugLog.trace("onChatMessage() call: %s", item.toString());
 				result.setSettings(status.getPlugin().getSettings());
 				result.setPluginStack(this.pluginStack);
-				status.getPlugin().onChatMessage(result);
+				status.getPlugin().onChatMessage(env, result);
 
 				switch(this.type)
 				{

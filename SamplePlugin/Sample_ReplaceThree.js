@@ -15,7 +15,7 @@ var plugin = new PluginInterface()
         settings.registerPermissionMessageModification(true);
     },
 
-    onChatMessage: function(chat)
+    onChatMessage: function(env, chat)
     {
         // チャットメッセージを取得（別のプラグインで加工された可能性のあるメッセージ）
         var chatmessage = chat.getMessage();

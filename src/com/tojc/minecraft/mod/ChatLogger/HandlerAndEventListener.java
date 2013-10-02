@@ -21,6 +21,7 @@ package com.tojc.minecraft.mod.ChatLogger;
 import com.tojc.minecraft.mod.ChatLogger.CurrentScreenMonitor.CurrentScreenChangedEvent;
 import com.tojc.minecraft.mod.ChatLogger.CurrentScreenMonitor.CurrentScreenChangedListener;
 import com.tojc.minecraft.mod.ChatLogger.Plugin.Implements.v1.ChatMessageImpl;
+import com.tojc.minecraft.mod.ChatLogger.Plugin.Implements.v1.PluginEnvironmentImpl;
 import com.tojc.minecraft.mod.log.DebugLog;
 
 import net.minecraft.client.Minecraft;
@@ -147,7 +148,8 @@ public class HandlerAndEventListener implements IConnectionHandler, IChatListene
 			// チャットメッセージの加工
 			ClientChatMessageManager chatmanager = new ClientChatMessageManager(
 					this.core,
-					new ChatMessageImpl(this.servername, this.worldname, this.core.getPlayerName(), event.message, targetUserName, targetUserMessage));
+					new PluginEnvironmentImpl(this.servername, this.worldname, this.core.getPlayerName()),
+					new ChatMessageImpl(event.message, targetUserName, targetUserMessage));
 
 			// ChatLog
 			String chatlogmessage = chatmanager.outputChatLog();

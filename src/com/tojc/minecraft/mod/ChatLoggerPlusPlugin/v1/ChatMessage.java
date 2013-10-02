@@ -20,10 +20,6 @@ package com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1;
 
 public interface ChatMessage
 {
-	public String getServerName();
-	public String getWorldName();
-	public String getPlayerName();
-
 	public String getOriginalJsonString();
 
 	public String getUserName();
