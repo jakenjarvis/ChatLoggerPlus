@@ -45,7 +45,7 @@ if __name__  == "__main__":
     print ur"versionChatLoggerPlus:" + versionChatLoggerPlus
 
     #version = 'x.x.x'
-    file_replace(ur"sphinx\source\conf.py", ur"sjis", ur"(?<=(version))(\s*[=]\s*)([\'])(\d{1,2}[.]\d{1,2}[.]\d{1,2})([\'])", ur"\g<2>\g<3>" + versionChatLoggerPlus + "\g<5>")
+    file_replace(ur"sphinx\source\conf.py", ur"utf-8", ur"(?<=(version))(\s*[=]\s*)([\'])(\d{1,2}[.]\d{1,2}[.]\d{1,2})([\'])", ur"\g<2>\g<3>" + versionChatLoggerPlus + "\g<5>")
 
     #"version": "x.x.x",
     #file_replace(ur"mcmod.info", ur"utf-8", ur"(?<=([\"]version[\"]))(\s*[:]\s*)([\"])(\d{1,2}[.]\d{1,2}[.]\d{1,2})([\"])", ur"\g<2>\g<3>" + versionChatLoggerPlus + "\g<5>")

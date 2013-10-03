@@ -3,20 +3,26 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to ChatLoggerPlus's documentation!
+.. meta::
+   :description: [MinecraftMOD] ChatLoggerPlusドキュメント
+   :keywords: ChatLoggerPlus, Minecraft, MOD, チャット, ログ, 保存, 記録, Chat, Log, Logging, Logger
+
+ChatLoggerPlusドキュメント
 ==========================================
-
-Contents:
-
 .. toctree::
    :maxdepth: 2
 
-   java/com/tojc/minecraft/mod/ChatLoggerPlusPlugin/v1/package-index
 
 
 
+ChatLoggerPlus プラグインAPIリファレンス
+--------------------------------------------------
+.. toctree::
+    :maxdepth: 2
 
-Indices and tables
+    java/com/tojc/minecraft/mod/ChatLoggerPlusPlugin/v1/package-index
+
+索引
 ==================
 
 * :ref:`genindex`
