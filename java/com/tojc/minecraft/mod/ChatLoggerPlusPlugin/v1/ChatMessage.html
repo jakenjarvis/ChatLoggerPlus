@@ -1,0 +1,315 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+  <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+  <title>ChatMessage</title>
+  <link rel="stylesheet" type="text/css" href="../../../../../../../_static/general.css" />
+  <link rel="stylesheet" type="text/css" href="../../../../../../../_static/pygments.css" />
+  <meta name="description" content="Python製ドキュメンテーションビルダー、Sphinxの日本ユーザ会">
+  <meta name="keywords" content="Sphinx,スフィンクス,ドキュメンテーション,ツール,Python,reStructuredText,reST">
+  <script type="text/javascript">
+  var DOCUMENTATION_OPTIONS = {
+    URL_ROOT:    '../../../../../../../',
+    VERSION:     '1.0.0',
+    COLLAPSE_MODINDEX: false,
+    FILE_SUFFIX: '.html',
+    HAS_SOURCE:  true
+  };
+  </script>
+  <script type="text/javascript" src="../../../../../../../_static/jquery.js"></script>
+  <script type="text/javascript" src="../../../../../../../_static/underscore.js"></script>
+  <script type="text/javascript" src="../../../../../../../_static/doctools.js"></script>
+  <script type="text/javascript" src="../../../../../../../_static/translations.js"></script>
+  <!-- Sticky footer -->
+  <!--[if  IE 8]>
+  <style type="text/css">
+    #wrap {display:table;}
+  </style>
+  <![endif]-->
+</head>
+<body>
+<div id="wrapper">
+  
+  <!-- header -->
+  <div id="header">
+    <div id="projInfo">
+      <h1 id="title">
+        <a href="../../../../../../../index.html">ChatLoggerPlus</a>
+      </h1>
+      <p class="docdesc">ChatLoggerPlus 1.0.0 ドキュメント</p>
+    </div>
+    <div id="headerNav">
+      <div id="searchbox">
+        <form name="search" action="../../../../../../../search.html" method="get">
+          <fieldset class="search">
+            <input type="text" class="hint" name="q" />
+            <button class="button" title="検索" />検索</button>
+            <input type="hidden" name="check_keywords" value="yes" />
+            <input type="hidden" name="area" value="default" />
+          </fieldset>
+        </form>
+      </div>
+    </div>
+    <script type="text/javascript">$('#searchbox').show(0);</script>
+    <div id="gnav">
+      <ul>
+        <li class="home"><p><a href="../../../../../../../index.html" title="ChatLoggerPlus">ChatLoggerPlus</a></p></li>
+        <li class="doc"><p><a href="../../../../../../../doc.html" title="ドキュメント">ドキュメント</a></p></li>
+        <li class="modindex">
+          <p><a title="索引" href="../../../../../../../genindex.html">索引</a></p>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <!-- /header -->
+  
+  
+  <!-- content -->
+  <div id="content">
+    <!-- current document area -->
+    <div id="document" class="left">
+  <div class="section" id="chatmessage">
+<h1>ChatMessage<a class="headerlink" href="#chatmessage" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<dl class="type">
+<dt id="com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.ChatMessage">
+public interface <tt class="descname">ChatMessage</tt><a class="headerlink" href="#com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.ChatMessage" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>チャットメッセージに対する操作を行うためのインターフェイスです。</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Author:</th><td class="field-body">Jaken</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<div class="section" id="methods">
+<h2>Methods<a class="headerlink" href="#methods" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="addaftermessage">
+<h3>addAfterMessage<a class="headerlink" href="#addaftermessage" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<dl class="method">
+<dt id="com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.ChatMessage.addAfterMessage(String)">
+public void <tt class="descname">addAfterMessage</tt><big>(</big>String<em> message</em><big>)</big><a class="headerlink" href="#com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.ChatMessage.addAfterMessage(String)" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>チャットメッセージを追加します。 追加したメッセージは、処理中のメッセージが表示された後、順番に出力されます。 これは、ローカルチャットへ追加するだけで、サーバに送られることはありません。（利用者だけが見える） 注意：これを実現するためにチャットメッセージを横取りする必要があるので、他のチャット処理MODと競合する可能性があります。 このメソッドを使用するためには、パーミッションAddAfterMessageが必要です。</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">パラメタ:</th><td class="field-body"><ul class="first last simple">
+<li><strong>message</strong> &#8211; チャットメッセージ文字列</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="getmessage">
+<h3>getMessage<a class="headerlink" href="#getmessage" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<dl class="method">
+<dt id="com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.ChatMessage.getMessage()">
+public String <tt class="descname">getMessage</tt><big>(</big><big>)</big><a class="headerlink" href="#com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.ChatMessage.getMessage()" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>チャットメッセージを取得します。 このプラグインが処理する前に、別のプラグインによって加工されている場合は、その内容が反映された状態で渡されます。 ※取得できるチャットメッセージにはユーザー名を含みません。 ※他のプラグインによって、チャットメッセージが削除されている場合、nullが返却される可能性があります。 このためnullチェックを必ず行ってください。</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">戻り値:</th><td class="field-body">チャットメッセージ文字列</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="getmessageoriginal">
+<h3>getMessageOriginal<a class="headerlink" href="#getmessageoriginal" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<dl class="method">
+<dt id="com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.ChatMessage.getMessageOriginal()">
+public String <tt class="descname">getMessageOriginal</tt><big>(</big><big>)</big><a class="headerlink" href="#com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.ChatMessage.getMessageOriginal()" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>オリジナルのチャットメッセージを取得します。 他のプラグインの影響を受けずに、オリジナルのメッセージがほしい場合に使います。 ※取得できるチャットメッセージにはユーザー名を含みません。</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">戻り値:</th><td class="field-body">チャットメッセージ文字列</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="getoriginaljsonstring">
+<h3>getOriginalJsonString<a class="headerlink" href="#getoriginaljsonstring" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<dl class="method">
+<dt id="com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.ChatMessage.getOriginalJsonString()">
+public String <tt class="descname">getOriginalJsonString</tt><big>(</big><big>)</big><a class="headerlink" href="#com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.ChatMessage.getOriginalJsonString()" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>オリジナルのJSONメッセージを取得します。 （Minecraft1.6以降でチャットメッセージの扱いが大きく変わっています）</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">戻り値:</th><td class="field-body">JSON形式の文字列</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="getusername">
+<h3>getUserName<a class="headerlink" href="#getusername" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<dl class="method">
+<dt id="com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.ChatMessage.getUserName()">
+public String <tt class="descname">getUserName</tt><big>(</big><big>)</big><a class="headerlink" href="#com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.ChatMessage.getUserName()" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>発言したユーザー名を取得します。 メッセージがユーザーによる発言ではない場合はnullが返却されます。 （Minecraft1.6以降で確実にユーザー名が取得できるようになり、メッセージと分断可能になりました）</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">戻り値:</th><td class="field-body">ユーザー名の文字列</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="readstack">
+<h3>readStack<a class="headerlink" href="#readstack" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<dl class="method">
+<dt id="com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.ChatMessage.readStack(String)">
+public Object <tt class="descname">readStack</tt><big>(</big>String<em> keyname</em><big>)</big><a class="headerlink" href="#com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.ChatMessage.readStack(String)" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>スタックから指定のキー文字列に関連付けされているオブジェクトを取得します。 このメソッドを使うプラグインよりも前に、別のプラグインの <a class="reference internal" href="#com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.ChatMessage.writeStack(String, Object)" title="com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.ChatMessage.writeStack(String, Object)"><tt class="xref java java-ref docutils literal"><span class="pre">ChatMessage.writeStack(String,Object)</span></tt></a> によって スタックにあらかじめ値が登録されている必要があります。 このメソッドを使用するためには、パーミッションReadStackが必要です。</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">パラメタ:</th><td class="field-body"><ul class="first simple">
+<li><strong>keyname</strong> &#8211; スタックから受け取るキー文字列</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">戻り値:</th><td class="field-body"><p class="first last">キー文字列に登録されている値 ※null、文字列、数値、配列やクラスオブジェクトなどが受け取れます。</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="setmessage">
+<h3>setMessage<a class="headerlink" href="#setmessage" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<dl class="method">
+<dt id="com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.ChatMessage.setMessage(String)">
+public void <tt class="descname">setMessage</tt><big>(</big>String<em> message</em><big>)</big><a class="headerlink" href="#com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.ChatMessage.setMessage(String)" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>チャットメッセージを設定します。 ※nullをセットすると、チャットの発言自体を削除できますが、nullを想定していない他のチャット処理MODと競合する可能性があります。 このメソッドを使用するためには、パーミッションMessageModificationが必要です。</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">パラメタ:</th><td class="field-body"><ul class="first last simple">
+<li><strong>message</strong> &#8211; チャットメッセージ文字列</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="writestack">
+<h3>writeStack<a class="headerlink" href="#writestack" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<dl class="method">
+<dt id="com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.ChatMessage.writeStack(String, Object)">
+public void <tt class="descname">writeStack</tt><big>(</big>String<em> keyname</em>, Object<em> value</em><big>)</big><a class="headerlink" href="#com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.ChatMessage.writeStack(String, Object)" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>スタックへ指定のキー文字列に関連付けした任意のオブジェクトをセットします。 任意のキー文字列を指定できます。 指定したキー文字列を知るプラグインは <a class="reference internal" href="#com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.ChatMessage.readStack(String)" title="com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.ChatMessage.readStack(String)"><tt class="xref java java-ref docutils literal"><span class="pre">ChatMessage.readStack(String)</span></tt></a> にて値を受け取ることができます。 このメソッドを使用するためには、パーミッションWriteStackが必要です。</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">パラメタ:</th><td class="field-body"><ul class="first last simple">
+<li><strong>keyname</strong> &#8211; スタックに登録するキー文字列</li>
+<li><strong>value</strong> &#8211; スタックに登録する値 ※null、文字列、数値、配列やクラスオブジェクトなども渡せます。</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+    </div>
+    <!-- /current document area -->
+    <!-- sidebar -->
+    
+  <div id="sidebar" class="left">
+    <div id="sidebarWrap">
+      <div id="toc" class="sidebarRow">
+        <h3>目次</h3>
+        <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="package-index.html">com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="">ChatMessage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PluginEnvironment.html">PluginEnvironment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PluginInterface.html">PluginInterface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PluginSettings.html">PluginSettings</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+        <div id="rel" class="sidebarRow">
+          <div class="relRow prev">
+            <h4>前のトピックへ</h4>
+            <p class="topless"><a href="package-index.html" title="前の章へ">com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1</a></p>
+          </div>
+          <div class="relRow next">
+            <h4>次のトピックへ</h4>
+            <p class="topless"><a href="PluginEnvironment.html" title="次の章へ">PluginEnvironment</a></p>
+          </div>
+      </div>
+      <div id="source" class="sidebarRow">
+        <h3>このページ</h3>
+        <ul class="this-page-menu">
+          <li><a href="../../../../../../../_sources/java/com/tojc/minecraft/mod/ChatLoggerPlusPlugin/v1/ChatMessage.txt" rel="nofollow">ソースコードを表示</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+    <!-- /sidebar -->
+  </div>
+  
+  <!-- /content -->
+</div>
+  <!-- footer -->
+  
+  <div id="footer">
+    <div class="footerCol">
+      <h1><a href="../../../../../../../index.html">ChatLoggerPlus</a></h1>
+      <p class="copy">
+      &copy; Copyright 2013, Jaken(jaken.jarvis@gmail.com).
+      </p>
+      <p class="sp">
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2b2.
+      </p>
+    </div>
+    <div class="footerCol">
+    
+  <div class="relbar">
+    <dl id="relPrev">
+      <dt class="prev">前のトピックへ</dt>
+      <dd class="relTitle"><a href="package-index.html" title="前の章へ" accesskey="N">com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1</a></dd>
+    </dl>
+    <dl id="relNext">
+      <dt class="next">次のトピックへ</dt>
+      <dd class="relTitle"><a href="PluginEnvironment.html" title="次の章へ" >PluginEnvironment</a></dd>
+    </dl>
+  </div>
+    </div>
+  </div>
+ 
+ <!-- /footer -->
+</body>
+</html>

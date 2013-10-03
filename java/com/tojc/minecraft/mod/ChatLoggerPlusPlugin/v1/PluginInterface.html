@@ -1,0 +1,213 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+  <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+  <title>PluginInterface</title>
+  <link rel="stylesheet" type="text/css" href="../../../../../../../_static/general.css" />
+  <link rel="stylesheet" type="text/css" href="../../../../../../../_static/pygments.css" />
+  <meta name="description" content="Python製ドキュメンテーションビルダー、Sphinxの日本ユーザ会">
+  <meta name="keywords" content="Sphinx,スフィンクス,ドキュメンテーション,ツール,Python,reStructuredText,reST">
+  <script type="text/javascript">
+  var DOCUMENTATION_OPTIONS = {
+    URL_ROOT:    '../../../../../../../',
+    VERSION:     '1.0.0',
+    COLLAPSE_MODINDEX: false,
+    FILE_SUFFIX: '.html',
+    HAS_SOURCE:  true
+  };
+  </script>
+  <script type="text/javascript" src="../../../../../../../_static/jquery.js"></script>
+  <script type="text/javascript" src="../../../../../../../_static/underscore.js"></script>
+  <script type="text/javascript" src="../../../../../../../_static/doctools.js"></script>
+  <script type="text/javascript" src="../../../../../../../_static/translations.js"></script>
+  <!-- Sticky footer -->
+  <!--[if  IE 8]>
+  <style type="text/css">
+    #wrap {display:table;}
+  </style>
+  <![endif]-->
+</head>
+<body>
+<div id="wrapper">
+  
+  <!-- header -->
+  <div id="header">
+    <div id="projInfo">
+      <h1 id="title">
+        <a href="../../../../../../../index.html">ChatLoggerPlus</a>
+      </h1>
+      <p class="docdesc">ChatLoggerPlus 1.0.0 ドキュメント</p>
+    </div>
+    <div id="headerNav">
+      <div id="searchbox">
+        <form name="search" action="../../../../../../../search.html" method="get">
+          <fieldset class="search">
+            <input type="text" class="hint" name="q" />
+            <button class="button" title="検索" />検索</button>
+            <input type="hidden" name="check_keywords" value="yes" />
+            <input type="hidden" name="area" value="default" />
+          </fieldset>
+        </form>
+      </div>
+    </div>
+    <script type="text/javascript">$('#searchbox').show(0);</script>
+    <div id="gnav">
+      <ul>
+        <li class="home"><p><a href="../../../../../../../index.html" title="ChatLoggerPlus">ChatLoggerPlus</a></p></li>
+        <li class="doc"><p><a href="../../../../../../../doc.html" title="ドキュメント">ドキュメント</a></p></li>
+        <li class="modindex">
+          <p><a title="索引" href="../../../../../../../genindex.html">索引</a></p>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <!-- /header -->
+  
+  
+  <!-- content -->
+  <div id="content">
+    <!-- current document area -->
+    <div id="document" class="left">
+  <div class="section" id="plugininterface">
+<h1>PluginInterface<a class="headerlink" href="#plugininterface" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<dl class="type">
+<dt id="com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.PluginInterface">
+public interface <tt class="descname">PluginInterface</tt><a class="headerlink" href="#com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.PluginInterface" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>プラグインの骨格となるインターフェイスです。</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Author:</th><td class="field-body">Jaken</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<div class="section" id="methods">
+<h2>Methods<a class="headerlink" href="#methods" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="onchatmessage">
+<h3>onChatMessage<a class="headerlink" href="#onchatmessage" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<dl class="method">
+<dt id="com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.PluginInterface.onChatMessage(PluginEnvironment, ChatMessage)">
+public void <tt class="descname">onChatMessage</tt><big>(</big><a class="reference internal" href="PluginEnvironment.html#com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.PluginEnvironment" title="com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.PluginEnvironment">PluginEnvironment</a><em> env</em>, <a class="reference internal" href="ChatMessage.html#com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.ChatMessage" title="com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.ChatMessage">ChatMessage</a><em> chat</em><big>)</big><a class="headerlink" href="#com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.PluginInterface.onChatMessage(PluginEnvironment, ChatMessage)" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>ここで、チャットのメッセージに対する処理を行います。 これは通常、ユーザーがチャット発言をしたとき、画面に表示する前に呼び出されます。 ここでのチャット編集は、ローカルのみに反映されます。※サーバへ送信されることはありません。</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">パラメタ:</th><td class="field-body"><ul class="first last simple">
+<li><strong>env</strong> &#8211; 環境オブジェクト <a class="reference internal" href="PluginEnvironment.html#com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.PluginEnvironment" title="com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.PluginEnvironment"><tt class="xref java java-ref docutils literal"><span class="pre">PluginEnvironment</span></tt></a></li>
+<li><strong>chat</strong> &#8211; チャットオブジェクト <a class="reference internal" href="ChatMessage.html#com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.ChatMessage" title="com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.ChatMessage"><tt class="xref java java-ref docutils literal"><span class="pre">ChatMessage</span></tt></a></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="onfinalize">
+<h3>onFinalize<a class="headerlink" href="#onfinalize" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<dl class="method">
+<dt id="com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.PluginInterface.onFinalize()">
+public void <tt class="descname">onFinalize</tt><big>(</big><big>)</big><a class="headerlink" href="#com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.PluginInterface.onFinalize()" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>ここで、プラグインの終了処理を行います。 これは通常、サーバ切断時に呼び出されますが、タイミングを意識しない作りにしてください。</p>
+</dd></dl>
+
+</div>
+<div class="section" id="oninitialize">
+<h3>onInitialize<a class="headerlink" href="#oninitialize" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<dl class="method">
+<dt id="com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.PluginInterface.onInitialize(PluginSettings)">
+public void <tt class="descname">onInitialize</tt><big>(</big><a class="reference internal" href="PluginSettings.html#com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.PluginSettings" title="com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.PluginSettings">PluginSettings</a><em> settings</em><big>)</big><a class="headerlink" href="#com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.PluginInterface.onInitialize(PluginSettings)" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>ここで、プラグインの初期化処理を行います。 これは通常、サーバ接続時に呼び出されますが、タイミングを意識しない作りにしてください。 パーミッションが必要なプラグインの場合は、ここで登録を行います。</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">パラメタ:</th><td class="field-body"><ul class="first last simple">
+<li><strong>settings</strong> &#8211; 設定オブジェクト <a class="reference internal" href="PluginSettings.html#com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.PluginSettings" title="com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.PluginSettings"><tt class="xref java java-ref docutils literal"><span class="pre">PluginSettings</span></tt></a></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+    </div>
+    <!-- /current document area -->
+    <!-- sidebar -->
+    
+  <div id="sidebar" class="left">
+    <div id="sidebarWrap">
+      <div id="toc" class="sidebarRow">
+        <h3>目次</h3>
+        <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="package-index.html">com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="ChatMessage.html">ChatMessage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PluginEnvironment.html">PluginEnvironment</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">PluginInterface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PluginSettings.html">PluginSettings</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+        <div id="rel" class="sidebarRow">
+          <div class="relRow prev">
+            <h4>前のトピックへ</h4>
+            <p class="topless"><a href="PluginEnvironment.html" title="前の章へ">PluginEnvironment</a></p>
+          </div>
+          <div class="relRow next">
+            <h4>次のトピックへ</h4>
+            <p class="topless"><a href="PluginSettings.html" title="次の章へ">PluginSettings</a></p>
+          </div>
+      </div>
+      <div id="source" class="sidebarRow">
+        <h3>このページ</h3>
+        <ul class="this-page-menu">
+          <li><a href="../../../../../../../_sources/java/com/tojc/minecraft/mod/ChatLoggerPlusPlugin/v1/PluginInterface.txt" rel="nofollow">ソースコードを表示</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+    <!-- /sidebar -->
+  </div>
+  
+  <!-- /content -->
+</div>
+  <!-- footer -->
+  
+  <div id="footer">
+    <div class="footerCol">
+      <h1><a href="../../../../../../../index.html">ChatLoggerPlus</a></h1>
+      <p class="copy">
+      &copy; Copyright 2013, Jaken(jaken.jarvis@gmail.com).
+      </p>
+      <p class="sp">
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2b2.
+      </p>
+    </div>
+    <div class="footerCol">
+    
+  <div class="relbar">
+    <dl id="relPrev">
+      <dt class="prev">前のトピックへ</dt>
+      <dd class="relTitle"><a href="PluginEnvironment.html" title="前の章へ" accesskey="N">PluginEnvironment</a></dd>
+    </dl>
+    <dl id="relNext">
+      <dt class="next">次のトピックへ</dt>
+      <dd class="relTitle"><a href="PluginSettings.html" title="次の章へ" >PluginSettings</a></dd>
+    </dl>
+  </div>
+    </div>
+  </div>
+ 
+ <!-- /footer -->
+</body>
+</html>
