@@ -11,6 +11,9 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
+   java/com/tojc/minecraft/mod/ChatLoggerPlusPlugin/v1/package-index
+
+
 
 
 Indices and tables

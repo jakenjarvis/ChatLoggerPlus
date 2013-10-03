@@ -6,7 +6,7 @@
             additionalparam=" -encoding &quot;utf-8&quot; -charset &quot;utf-8&quot; -link http://docs.oracle.com/javase/jp/6/api/"
             author="true"
             classpath=""
-            destdir=".\doc"
+            destdir=".\document\javadoc"
             doctitle="ChatLoggerPlus Plugin Interface Version1"
             nodeprecated="false"
             nodeprecatedlist="false"
