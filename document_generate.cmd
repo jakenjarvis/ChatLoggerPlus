@@ -3,6 +3,7 @@ set devdir=C:\dev_mcp\mcdev\forge\mcp
 set topleveldomain=com
 set prjdir=C:\dev_mcp\workspace\ChatLoggerPlus
 set prjsrcdir=%prjdir%\src
+set sevenzipexe=C:\dev_mcp\7zip\7za.exe
 
 :step1
 echo "****************************************"
@@ -32,22 +33,37 @@ rmdir /S /Q %prjdir%\sphinx\source\java
 echo "****************************************"
 echo "javadocの生成"
 echo "****************************************"
+cd %prjdir%
 call ant javadoc -f javadoc.xml
 
 echo "****************************************"
 echo "javasphinxの生成"
 echo "****************************************"
+cd %prjdir%
 call javasphinx-apidoc -f -o sphinx/source/java src/com/tojc/minecraft/mod/ChatLoggerPlusPlugin/v1
-cd %prjdir%\sphinx
+
+echo "****************************************"
+echo "バージョン情報書き換え"
+echo "****************************************"
+cd %prjdir%
+call python update_version.py
 
 echo "****************************************"
 echo "sphinxのHTML生成"
 echo "****************************************"
+cd %prjdir%\sphinx
 call make html
 
 echo "****************************************"
 echo "documentにコピー"
 echo "****************************************"
+cd %prjdir%
 xcopy %prjdir%\sphinx\build\html %prjdir%\document /e /c /h /r /y
+
+echo "****************************************"
+echo "documentのファイルをgit add -all"
+echo "****************************************"
+cd %prjdir%\document
+git add --all
 
 pause
