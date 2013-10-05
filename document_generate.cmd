@@ -16,7 +16,7 @@ goto :step2
 
 :document_cleanup
 set flag=OFF
-for %%e in ( .git .nojekyll ) do if %1=="%%e" set flag=ON
+for %%e in ( .git .nojekyll release ) do if %1=="%%e" set flag=ON
 if "%flag%"=="ON" goto :EOF
 if "%2"=="" del /F /S /Q %1
 if "%2"=="d" rmdir /S /Q %1

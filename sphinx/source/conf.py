@@ -136,12 +136,36 @@ keep_warnings = True
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
-html_theme = 'sphinxjp' # 'default'
+html_theme = 'basicstrap' # default sphinxjp basicstrap
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
 # documentation.
-#html_theme_options = {}
+html_theme_options = {
+    'lang': 'ja',
+    'nosidebar': False,
+    'rightsidebar': True,
+    'sidebar_span': 4,
+    'nav_fixed': False,
+    'nav_width': '900px',
+    'content_fixed': False,
+    'content_width': '900px',
+    'row_fixed': False,
+    'noresponsive': False,
+    'googlewebfont': True,
+    'googlewebfont_url': 'http://fonts.googleapis.com/css?family=Volkhov',
+    'googlewebfont_style': u"font-family: 'Volkhov', Verdana, Roboto, 'Droid Sans', 'メイリオ', Meiryo, 'ＭＳ Ｐゴシック', 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic ProN', sans-serif;",
+    'header_inverse': False,
+    'relbar_inverse': False,
+    'inner_theme': True,
+    'inner_theme_name': 'bootswatch-cosmo', # bootswatch-slate bootswatch-flatly
+    'h1_size': '2.0em',
+    'h2_size': '1.6em',
+    'h3_size': '1.4em',
+    'h4_size': '1.3em',
+    'h5_size': '1.2em',
+    'h6_size': '1.2em',
+}
 
 # Add any paths that contain custom themes here, relative to this directory.
 #html_theme_path = []
