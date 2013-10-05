@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+
+
+
+
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    
+    <title>インストールの仕方 &mdash; [MinecraftMOD] ChatLoggerPlus 1.0.0 ドキュメント</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Volkhov" type="text/css" />
+<link rel="stylesheet" href="_static/css/basicstrap-base.css" type="text/css" />
+<link rel="stylesheet" href="_static/css/bootswatch-cosmo.css" type="text/css" />
+<link rel="stylesheet" href="_static/css/font-awesome.min.css">
+<!--[if IE 7]>
+<link rel="stylesheet" href="_static/css/font-awesome-ie7.min.css">
+<![endif]-->
+<style type="text/css">
+  body {
+    padding-top: 60px;
+    padding-bottom: 40px;
+  }
+}
+</style>
+<link rel="stylesheet" href="_static/basicstrap.css" type="text/css" />
+<link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+<link rel="stylesheet" href="_static/css/bootstrap-responsive.min.css" type="text/css" />
+    
+<script type="text/javascript">
+  var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:    './',
+            VERSION:     '1.0.0',
+            COLLAPSE_INDEX: false,
+            FILE_SUFFIX: '.html',
+            HAS_SOURCE:  true
+  };
+</script>
+<script type="text/javascript" src="_static/js/jquery.min.js"></script>
+<script type="text/javascript" src="_static/underscore.js"></script>
+<script type="text/javascript" src="_static/doctools.js"></script>
+<script type="text/javascript" src="_static/translations.js"></script>
+<script type="text/javascript" src="_static/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('.show-sidebar').click(function(e) {
+       e.preventDefault();
+       if ($(".show-sidebar").html() == "Open Table Of Contents") {
+          $('.for-mobile').removeClass('hidden-phone');
+          $(".show-sidebar").html("Close Table Of Contents");
+       } else {
+          $(".show-sidebar").html("Open Table Of Contents");
+       }
+    });
+  });
+</script>
+    <link rel="top" title="[MinecraftMOD] ChatLoggerPlus 1.0.0 ドキュメント" href="index.html" />
+    <link rel="next" title="ダウンロード" href="Download.html" />
+    <link rel="prev" title="ChatLoggerPlusとは？" href="WhatChatLoggerPlus.html" /> 
+  </head>
+  <body>
+    <div class="navbar navbar-fixed-top ">
+      <div class="navbar-inner">
+        <div class="container-fluid">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="index.html">[MinecraftMOD] ChatLoggerPlus 1.0.0 ドキュメント</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav pull-right">
+              
+                <li>
+                <a href="genindex.html" title="総合索引" accesskey="I">索引</a>
+                </li>
+                <li>
+                <a href="Download.html" title="ダウンロード" accesskey="N">次へ</a>
+                </li>
+                <li>
+                <a href="WhatChatLoggerPlus.html" title="ChatLoggerPlusとは？" accesskey="P">前へ</a>
+                </li>
+              
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+
+    <!-- container -->
+    <div class="container-fluid">
+
+
+      
+      <div class="row-fluid hidden-desktop hidden-tablet">
+      
+<div class="span4 ">
+  <a class="visible-phone btn btn-small show-sidebar" data-toggle="collapse" data-target=".for-mobile">Open Table Of Contents</a>
+  <div class="for-mobile sidebar hidden-phone">
+  <h4>前のトピックへ</h4>
+  <p class="topless"><a href="WhatChatLoggerPlus.html"
+                        title="前の章へ">ChatLoggerPlusとは？</a></p>
+  <h4>次のトピックへ</h4>
+  <p class="topless"><a href="Download.html"
+                        title="次の章へ">ダウンロード</a></p>
+  <h3>このページ</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/Install.txt"
+           rel="nofollow">ソースコードを表示</a></li>
+  </ul>
+<div id="searchbox">
+  <h3>クイック検索</h3>
+  <form class="search form-search" action="search.html" method="get">
+      <div class="input-append">
+        <input type="text" class="search-query" name="q">
+        <input type="submit" class="btn" value="検索" />
+      </div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    モジュール、クラス、または関数名を入力してください
+    </p>
+</div>
+  </div>
+</div>
+      </div>
+      
+
+      <!-- row -->
+      <div class="row-fluid">
+        
+        
+
+        <div class="span8">
+          <div class="document">
+            <div class="documentwrapper">
+              <div class="bodywrapper">
+                <div class="body">
+                  
+  <div class="section" id="install">
+<span id="id1"></span><h1>インストールの仕方<a class="headerlink" href="#install" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>MinecraftForge導入後、modsフォルダへ、ダウンロードしたChatLoggerPlusのzipファイルを置くだけで動作します。
+この時、zipファイルを展開する必要はありません。</p>
+<p>ChatLoggerPlusのzipファイルは、 <a class="reference internal" href="Download.html#download"><em>ダウンロード</em></a> のページから、お使いのMinecraftForgeのバージョンと一致した物を選んでインストールしてください。</p>
+<div class="admonition attention">
+<p class="first admonition-title">注意</p>
+<p class="last">お使いのMinecraftForgeのバージョンと完全に一致するバージョンが無い場合は、差異が少ないもっとも近いバージョンをインストールすると動作する可能性が高いです。
+ただし、明記していないバージョンでの動作確認は行っておりませんので、ご注意ください。</p>
+</div>
+<p>また、初回起動時に生成されるconfigファイルを編集することで、挙動を変更することもできます。詳しくは <a class="reference internal" href="SettingConfig.html#setting-config"><em>configファイルの設定</em></a> を参照ください。</p>
+</div>
+
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+         
+<div class="span4 visible-desktop visible-tablet">
+  <div class=" sidebar hidden-phone">
+  <h4>前のトピックへ</h4>
+  <p class="topless"><a href="WhatChatLoggerPlus.html"
+                        title="前の章へ">ChatLoggerPlusとは？</a></p>
+  <h4>次のトピックへ</h4>
+  <p class="topless"><a href="Download.html"
+                        title="次の章へ">ダウンロード</a></p>
+  <h3>このページ</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/Install.txt"
+           rel="nofollow">ソースコードを表示</a></li>
+  </ul>
+<div id="searchbox">
+  <h3>クイック検索</h3>
+  <form class="search form-search" action="search.html" method="get">
+      <div class="input-append">
+        <input type="text" class="search-query" name="q">
+        <input type="submit" class="btn" value="検索" />
+      </div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    モジュール、クラス、または関数名を入力してください
+    </p>
+</div>
+  </div>
+</div> 
+        
+      </div><!-- /row -->
+
+      <!-- row -->
+      <div class="row-fluid">
+<div class="related navbar ">
+  <div class="navbar-inner">
+    <ul class="nav pull-right">
+      
+        <li><a href="genindex.html" title="総合索引" >索引</a></li>
+        <li><a href="Download.html" title="ダウンロード" >次へ</a></li>
+        <li><a href="WhatChatLoggerPlus.html" title="ChatLoggerPlusとは？" >前へ</a></li>
+        <li><a href="index.html">[MinecraftMOD] ChatLoggerPlus 1.0.0 ドキュメント</a></li> 
+      
+    </ul>
+  </div>
+</div>
+      </div><!-- /row -->
+
+      <!-- footer -->
+      <footer>
+          &copy; Copyright 2013, Jaken.
+        Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2b3.
+      </footer>
+      <!-- /footer -->
+
+    </div>
+    <!-- /container -->
+
+  </body>
+</html>

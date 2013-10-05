@@ -1,0 +1,208 @@
+/*  Bootstrap
+    ------------------------------------------------------- */
+
+/*  apply font awesome
+    ------------------------------------------------------- */
+
+div.danger p.admonition-title:before,
+div.error p.admonition-title:before,
+div.warning p.admonition-title:before,
+div.caution p.admonition-title:before,
+div.attention p.admonition-title:before,
+div.important p.admonition-title:before,
+div.note p.admonition-title:before,
+div.hint p.admonition-title:before,
+div.tip p.admonition-title:before
+{
+  font-family: FontAwesome;
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: inherit;
+  -webkit-font-smoothing: antialiased;
+  margin-right: 5px;
+}
+
+div.danger p.admonition-title:before,
+div.error p.admonition-title:before {
+  content: "\f06a";
+}
+div.warning p.admonition-title:before,
+div.caution p.admonition-title:before,
+div.attention p.admonition-title:before {
+  content: "\f071";
+}
+div.important p.admonition-title:before,
+div.note p.admonition-title:before {
+  content: "\f05a";
+}
+div.hint p.admonition-title:before,
+div.tip p.admonition-title:before {
+  content: "\f0eb";
+}
+h1 { font-size: 2.0em; }
+
+h2 { font-size: 1.6em; }
+
+h3 { font-size: 1.4em; }
+
+h4 { font-size: 1.3em; }
+
+h5 { font-size: 1.2em; }
+
+h6 { font-size: 1.2em; }
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+input,
+button,
+select,
+textarea,
+h1 small,
+h2 small,
+h3 small,
+h4 small,
+h5 small,
+h6 small,
+.navbar,
+.navbar-search .search-query,
+.navbar .navbar-search .search-query,
+/* 
+.navbar .search-query::-moz-placeholder,
+.navbar .search-query::-webkit-input-placeholder,
+*/
+.navbar .brand,
+.navbar .nav>li>a,
+.navbar .navbar-text,
+.navbar .dropdown-menu li>a,
+.nav li>a,
+div.subnav,
+div.subnav .nav>li>a,
+div.subnav .nav>li:first-child>a,
+div.subnav .nav>li.active>a,
+legend,
+.btn,
+.alert-heading
+{
+  font-family: 'Volkhov', Verdana, Roboto, 'Droid Sans', 'メイリオ', Meiryo, 'ＭＳ Ｐゴシック', 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic ProN', sans-serif;
+}
+
+    
+    
+    
+
+    
+    
+    
+
+    
+    
+    
+
+    
+    
+    
+
+    
+    
+    
+
+
+table.docutils th,
+table.docutils td {
+  border-top: 1px solid #dddddd;
+}
+table.docutils tbody + tbody {
+  border-top: 2px solid #dddddd;
+}
+table.docutils {
+  border: none;
+  border-top: 1px solid #dddddd;
+  border-right: 1px solid #dddddd;
+  border-bottom: 1px solid #dddddd;
+}
+table.docutils th,
+table.docutils td {
+  border-left: 1px solid #dddddd;
+}
+
+table.docutils tbody tr:nth-child(odd) td,
+table.docutils tbody tr:nth-child(odd) th {
+  background-color: #f9f9f9;
+}
+
+table.docutils tbody tr:hover td,
+table.docutils tbody tr:hover th {
+  background-color: #e8f8fd;
+}
+table.docutils.field-list {
+  border: none;
+}
+
+
+/* -- admonition -- */
+div.admonition {
+  color: #ffffff;
+  background-color: #ff7518;
+  border-color: transparent;
+}
+
+/* -- danger, error -- */
+div.danger,
+div.error {
+  color: #ffffff;
+  background-color: #ff0039;
+  border-color: transparent;
+}
+
+/* -- warning, caution, attention -- */
+div.warning,
+div.caution,
+div.attention {
+  color: #ffffff;
+  background-color: #ff7518;
+  border-color: transparent;
+}
+
+/* -- note, important -- */
+div.note,
+div.important {
+  color: #ffffff;
+  background-color: #3fb618;
+  border-color: #transparent;
+}
+
+/* -- hint, tip -- */
+div.hint,
+div.tip {
+  color: #ffffff;
+  background-color: #9954bb;
+  border-color: transparent;
+}
+
+div.topic {
+  background-color: #f9f9f9;
+  border-color: #dddddd;
+}
+
+
+
+/* for mobile */
+@media (max-width: 480px) {
+  a.brand {
+    width: 80%;
+  }
+  searchbox .search-query {
+    width: 60%;
+  }
+}
+
+/* for desktop */
+@media (min-width: 768px) {
+  
+  
+}

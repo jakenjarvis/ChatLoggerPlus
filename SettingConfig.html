@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+
+
+
+
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    
+    <title>configファイルの設定 &mdash; [MinecraftMOD] ChatLoggerPlus 1.0.0 ドキュメント</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Volkhov" type="text/css" />
+<link rel="stylesheet" href="_static/css/basicstrap-base.css" type="text/css" />
+<link rel="stylesheet" href="_static/css/bootswatch-cosmo.css" type="text/css" />
+<link rel="stylesheet" href="_static/css/font-awesome.min.css">
+<!--[if IE 7]>
+<link rel="stylesheet" href="_static/css/font-awesome-ie7.min.css">
+<![endif]-->
+<style type="text/css">
+  body {
+    padding-top: 60px;
+    padding-bottom: 40px;
+  }
+}
+</style>
+<link rel="stylesheet" href="_static/basicstrap.css" type="text/css" />
+<link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+<link rel="stylesheet" href="_static/css/bootstrap-responsive.min.css" type="text/css" />
+    
+<script type="text/javascript">
+  var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:    './',
+            VERSION:     '1.0.0',
+            COLLAPSE_INDEX: false,
+            FILE_SUFFIX: '.html',
+            HAS_SOURCE:  true
+  };
+</script>
+<script type="text/javascript" src="_static/js/jquery.min.js"></script>
+<script type="text/javascript" src="_static/underscore.js"></script>
+<script type="text/javascript" src="_static/doctools.js"></script>
+<script type="text/javascript" src="_static/translations.js"></script>
+<script type="text/javascript" src="_static/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('.show-sidebar').click(function(e) {
+       e.preventDefault();
+       if ($(".show-sidebar").html() == "Open Table Of Contents") {
+          $('.for-mobile').removeClass('hidden-phone');
+          $(".show-sidebar").html("Close Table Of Contents");
+       } else {
+          $(".show-sidebar").html("Open Table Of Contents");
+       }
+    });
+  });
+</script>
+    <link rel="top" title="[MinecraftMOD] ChatLoggerPlus 1.0.0 ドキュメント" href="index.html" />
+    <link rel="next" title="プラグインを使う" href="UsePlugin.html" />
+    <link rel="prev" title="ダウンロード" href="Download.html" /> 
+  </head>
+  <body>
+    <div class="navbar navbar-fixed-top ">
+      <div class="navbar-inner">
+        <div class="container-fluid">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="index.html">[MinecraftMOD] ChatLoggerPlus 1.0.0 ドキュメント</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav pull-right">
+              
+                <li>
+                <a href="genindex.html" title="総合索引" accesskey="I">索引</a>
+                </li>
+                <li>
+                <a href="UsePlugin.html" title="プラグインを使う" accesskey="N">次へ</a>
+                </li>
+                <li>
+                <a href="Download.html" title="ダウンロード" accesskey="P">前へ</a>
+                </li>
+              
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+
+    <!-- container -->
+    <div class="container-fluid">
+
+
+      
+      <div class="row-fluid hidden-desktop hidden-tablet">
+      
+<div class="span4 ">
+  <a class="visible-phone btn btn-small show-sidebar" data-toggle="collapse" data-target=".for-mobile">Open Table Of Contents</a>
+  <div class="for-mobile sidebar hidden-phone">
+  <h3><a href="index.html">目次</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">configファイルの設定</a><ul>
+<li><a class="reference internal" href="#general">general</a><ul>
+<li><a class="reference internal" href="#pluginscriptsenabled">PluginScriptsEnabled</a></li>
+<li><a class="reference internal" href="#formatdatetime">FormatDateTime</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#relativepath">relativepath</a><ul>
+<li><a class="reference internal" href="#defaultreplacelogfilefullpathfilename">DefaultReplaceLogFileFullPathFileName</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#absolutepath">absolutepath</a><ul>
+<li><a class="reference internal" href="#enforcementreplacelogfilefullpathfilename">EnforcementReplaceLogFileFullPathFileName</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id1">シンボル置換処理について</a></li>
+<li><a class="reference internal" href="#filenameformat">filenameformat</a><ul>
+<li><a class="reference internal" href="#formatreplacedate">FormatReplaceDate</a></li>
+<li><a class="reference internal" href="#formatreplacetime">FormatReplaceTime</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#pluginscriptsdisabledgeneral">pluginscriptsdisabledgeneral</a><ul>
+<li><a class="reference internal" href="#fillformattingcodesenabled">FillFormattingCodesEnabled</a><ul>
+<li><a class="reference internal" href="#id2">フォーマットコードとは</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#fillformattingcodesregex">FillFormattingCodesRegex</a></li>
+<li><a class="reference internal" href="#fillformattingcodesreplace">FillFormattingCodesReplace</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#pluginsettings">pluginsettings</a><ul>
+<li><a class="reference internal" href="#defaultplugindirectoryname">DefaultPluginDirectoryName</a></li>
+<li><a class="reference internal" href="#pluginordertochatlog">PluginOrderToChatLog</a></li>
+<li><a class="reference internal" href="#pluginordertoscreen">PluginOrderToScreen</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#outputofdebuglog">outputofdebuglog</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>前のトピックへ</h4>
+  <p class="topless"><a href="Download.html"
+                        title="前の章へ">ダウンロード</a></p>
+  <h4>次のトピックへ</h4>
+  <p class="topless"><a href="UsePlugin.html"
+                        title="次の章へ">プラグインを使う</a></p>
+  <h3>このページ</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/SettingConfig.txt"
+           rel="nofollow">ソースコードを表示</a></li>
+  </ul>
+<div id="searchbox">
+  <h3>クイック検索</h3>
+  <form class="search form-search" action="search.html" method="get">
+      <div class="input-append">
+        <input type="text" class="search-query" name="q">
+        <input type="submit" class="btn" value="検索" />
+      </div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    モジュール、クラス、または関数名を入力してください
+    </p>
+</div>
+  </div>
+</div>
+      </div>
+      
+
+      <!-- row -->
+      <div class="row-fluid">
+        
+        
+
+        <div class="span8">
+          <div class="document">
+            <div class="documentwrapper">
+              <div class="bodywrapper">
+                <div class="body">
+                  
+  <div class="section" id="config">
+<span id="setting-config"></span><h1>configファイルの設定<a class="headerlink" href="#config" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>configフォルダの中にある、com.tojc.minecraft.mod.ChatLoggerPlus.cfgファイルをテキストエディタ等で編集すると、ChatLoggerPlusの動作を変更できます。</p>
+<div class="admonition danger">
+<p class="first admonition-title">危険</p>
+<p class="last">このconfigファイルを編集する場合は、 <strong>Windows標準のメモ帳</strong> は絶対に使わないでください。読み込みエラーの原因になります。
+秀丸エディタやSakuraエディタなどのテキストエディタを使用し、UTF-8（BOM無し）で保存してください。</p>
+</div>
+<div class="section" id="general">
+<h2>general<a class="headerlink" href="#general" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="line-block">
+<div class="line">【一般設定】</div>
+</div>
+<p>generalという文字から始まり、括弧で括られた部分の設定です:</p>
+<div class="highlight-python"><pre>general {
+    # true/false
+    B:PluginScriptsEnabled=false
+
+    # The format of date and time on outputs to the beginning of the log.
+    S:FormatDateTime=yyyy/MM/dd-HH:mm:ss
+}</pre>
+</div>
+<div class="section" id="pluginscriptsenabled">
+<h3>PluginScriptsEnabled<a class="headerlink" href="#pluginscriptsenabled" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="line-block">
+<div class="line">【チャットログを解析するプラグイン処理の有効、無効切替】</div>
+</div>
+<p>true/falseの２値選択です。trueだとプラグインを処理し、falseだとログ出力のみ行います。
+デフォルトはfalseになっていますので、プラグインを利用する場合は、trueにしてください。</p>
+<p>※falseの場合は、ChatLoggerPlus Ver0.x.x系と同等の処理となります。</p>
+<p>※trueの場合は、後述のフォーマットコードの塗りつぶし処理は行われなくなります。（同様の処理はプラグインで行ってください）</p>
+</div>
+<div class="section" id="formatdatetime">
+<h3>FormatDateTime<a class="headerlink" href="#formatdatetime" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="line-block">
+<div class="line">【ログ出力日時フォーマット】</div>
+</div>
+<p>ログファイル内に出力する日時用フォーマットを指定します。
+yyyy/MM/dd-HH:mm:ssといった、日時の出力内容をカスタマイズできます。
+書式は、javaのString#format()に準じます。
+詳しくは、「java format 書式」あたりをキーワードに検索してみてください。</p>
+</div>
+</div>
+<div class="section" id="relativepath">
+<h2>relativepath<a class="headerlink" href="#relativepath" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="line-block">
+<div class="line">【相対パス】</div>
+</div>
+<p>relativepathという文字から始まり、括弧で括られた部分の設定です:</p>
+<div class="highlight-python"><pre>relativepath {
+    # Replace : %SERVERNAME% %WORLDNAME% %PLAYERNAME% %DATE% %TIME%
+    S:DefaultReplaceLogFileFullPathFileName=chatlog/%SERVERNAME%/%PLAYERNAME%/ChatLog_%DATE%.log
+}</pre>
+</div>
+<p>「absolutepath 絶対パス」が有効な場合、この項目は無効になります。</p>
+<div class="section" id="defaultreplacelogfilefullpathfilename">
+<h3>DefaultReplaceLogFileFullPathFileName<a class="headerlink" href="#defaultreplacelogfilefullpathfilename" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="line-block">
+<div class="line">【デフォルトログファイル名（シンボル置換）】</div>
+</div>
+<p>.minecraftフォルダからの相対パスで、保存するログファイル名を指定します。拡張子を含めて記述してください。フォルダの区切り記号は「/」で区切ってください。
+また、この項目は、後述の「シンボル置換処理」が入ります。</p>
+</div>
+</div>
+<div class="section" id="absolutepath">
+<h2>absolutepath<a class="headerlink" href="#absolutepath" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="line-block">
+<div class="line">【絶対パス】</div>
+</div>
+<p>absolutepathという文字から始まり、括弧で括られた部分の設定です:</p>
+<div class="highlight-python"><pre>absolutepath {
+    # Replace : %SERVERNAME% %WORLDNAME% %PLAYERNAME% %DATE% %TIME%  * If null, the relativepath is used.
+    S:EnforcementReplaceLogFileFullPathFileName=d:/chatlog/%SERVERNAME%/%PLAYERNAME%/ChatLog_%DATE%.log
+}</pre>
+</div>
+<div class="section" id="enforcementreplacelogfilefullpathfilename">
+<h3>EnforcementReplaceLogFileFullPathFileName<a class="headerlink" href="#enforcementreplacelogfilefullpathfilename" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="line-block">
+<div class="line">【強制フルパスログファイル名（シンボル置換）】</div>
+</div>
+<p>絶対パスでログファイルを指定します。フォルダの区切り記号は「/」で区切ってください。
+この項目に値を入れると、相対パスの設定が無視されます。（絶対パスの設定が優先）
+また、この項目は、後述の「シンボル置換処理」が入ります。</p>
+<p>標準設定では、空になっており、相対パスが有効になっています。</p>
+</div>
+</div>
+<div class="section" id="id1">
+<h2>シンボル置換処理について<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>ファイル名を指定する場合、以下のキーワードを使うことによって、ある程度、動的に名前を決定できます。
+%で括った以下のシンボルのみ利用できます。</p>
+<blockquote>
+<div><ul>
+<li><dl class="first docutils">
+<dt>%SERVERNAME%</dt>
+<dd><p class="first last">サーバ名「（IPアドレスまたはドメイン名）:ポート番号」</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>%WORLDNAME%</dt>
+<dd><p class="first last">ワールド名「ログインしたワールド名」</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>%PLAYERNAME%</dt>
+<dd><p class="first last">プレイヤー名「ログインしているユーザー名」</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>%DATE%</dt>
+<dd><p class="first last">日付</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>%TIME%</dt>
+<dd><p class="first last">時間</p>
+</dd>
+</dl>
+</li>
+</ul>
+</div></blockquote>
+<p>日付と時間は、後述の「ファイル名フォーマット」の指定に従って出力内容が置換されます。
+また、サーバにログイン（ワールドに接続）したときの日時を基準にファイル名が作成されます。
+そのため、夜中0時を過ぎたからといって、ログファイルが切り替わるわけではありません。</p>
+<div class="admonition note">
+<p class="first admonition-title">ノート</p>
+<p class="last">ローカルサーバの場合、%SERVERNAME%が固定で「MpServer」になってしまうため、ChatLoggerPlusはこれを「LocalServer」に置き換える処理を行っています。</p>
+</div>
+</div>
+<div class="section" id="filenameformat">
+<h2>filenameformat<a class="headerlink" href="#filenameformat" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="line-block">
+<div class="line">【ファイル名フォーマット】</div>
+</div>
+<p>filenameformatという文字から始まり、括弧で括られた部分の設定です:</p>
+<div class="highlight-python"><pre>filenameformat {
+    S:FormatReplaceDate=yyyyMMdd
+    S:FormatReplaceTime=HHmmss
+}</pre>
+</div>
+<p>yyyyMMdd、HHmmssといった、ファイル名で使う日付と時間の出力内容をカスタマイズできます。
+書式は、javaのString#format()に準じます。
+詳しくは、「java format 書式」あたりをキーワードに検索してみてください。</p>
+<div class="section" id="formatreplacedate">
+<h3>FormatReplaceDate<a class="headerlink" href="#formatreplacedate" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="line-block">
+<div class="line">【日付用フォーマット】</div>
+</div>
+<p>シンボル置換処理で「%DATE%：日付」を指定した場合の出力フォーマットを指定します。</p>
+</div>
+<div class="section" id="formatreplacetime">
+<h3>FormatReplaceTime<a class="headerlink" href="#formatreplacetime" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="line-block">
+<div class="line">【時間用フォーマット】</div>
+</div>
+<p>シンボル置換処理で「%TIME%：時間」を指定した場合の出力フォーマットを指定します。</p>
+</div>
+</div>
+<div class="section" id="pluginscriptsdisabledgeneral">
+<h2>pluginscriptsdisabledgeneral<a class="headerlink" href="#pluginscriptsdisabledgeneral" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="line-block">
+<div class="line">【プラグイン無効時の一般設定】</div>
+</div>
+<p>pluginscriptsdisabledgeneralという文字から始まり、括弧で括られた部分の設定です:</p>
+<div class="highlight-python"><pre>pluginscriptsdisabledgeneral {
+    # true/false, true=fill / false=Not modify
+    B:FillFormattingCodesEnabled=false
+    S:FillFormattingCodesRegex=§[0-9a-fk-or]
+    S:FillFormattingCodesReplace=
+}</pre>
+</div>
+<div class="admonition attention">
+<p class="first admonition-title">注意</p>
+<p class="last">PluginScriptsEnabledが <strong>falseの場合だけ</strong> 、この設定全体が有効になります。</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">ノート</p>
+<p>これは、以前のChatLoggerPlus Ver0.x.x系に存在していた、以下の一般設定とほぼ同じものです。
+プラグインを使わない場合でも、過去のバージョンと同じような処理が行えるようにするための救済措置です。</p>
+<p>ChatLoggerPlus Ver0.x.x系の一般設定です:</p>
+<div class="last highlight-python"><pre>general {
+    # true/false, true=fill / false=Not modify
+    B:FillColorCodeEnabled=false
+    S:FillColorCodeRegex=§[0-9a-fk-or]
+    S:FillColorCodeReplace=
+    （・・・省略・・・）
+}</pre>
+</div>
+</div>
+<div class="section" id="fillformattingcodesenabled">
+<h3>FillFormattingCodesEnabled<a class="headerlink" href="#fillformattingcodesenabled" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="line-block">
+<div class="line">【フォーマットコードの塗りつぶしの有効、無効切替】</div>
+</div>
+<p>ログファイル出力前に、フォーマットコードを塗りつぶす処理を行うかどうかを切り替えます。
+trueだと、塗りつぶしを行い、falseだと何もしません。
+※デフォルトでは、ログを加工しないように、「無効」になっています。</p>
+<p>この処理は、以下のFillFormattingCodesRegexとFillFormattingCodesReplaceによって、内容を変更できます。</p>
+<div class="admonition attention">
+<p class="first admonition-title">注意</p>
+<p class="last">PluginScriptsEnabledがtrueの場合、FillFormattingCodesEnabledがtrueでも、フォーマットコードの塗りつぶし処理は行われません。</p>
+</div>
+<div class="section" id="id2">
+<h4>フォーマットコードとは<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<p>「文字の色を変更して表示するため」の「固定文字列」のことです。
+たとえば、マルチで誰かに直接話しかけられた場合は、以下のようなメッセージが出力されます:</p>
+<div class="highlight-python"><pre>2012/11/17-02:53:41 : §dFrom testuser§d: 今度二人で遊ぼうぜ！</pre>
+</div>
+<p>FillFormattingCodesRegexとFillFormattingCodesReplaceの設定がデフォルトの場合、このメッセージは以下のように加工されます:</p>
+<div class="highlight-python"><pre>2012/11/17-02:53:41 : From testuser: 今度二人で遊ぼうぜ！</pre>
+</div>
+<p>このように、フォーマットコードがログに不要な場合、FillFormattingCodesEnabledをtrueにすると、ずいぶん見やすくなります。
+フォーマットコードにどのような種類があるのか知りたい場合は、 <a class="reference external" href="http://minecraft.gamepedia.com/Formatting_codes">こちら</a> を参照ください。</p>
+</div>
+</div>
+<div class="section" id="fillformattingcodesregex">
+<h3>FillFormattingCodesRegex<a class="headerlink" href="#fillformattingcodesregex" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="line-block">
+<div class="line">【塗りつぶし条件（正規表現）】</div>
+</div>
+<p>ここで指定した条件が、ログに出力する１行すべてで評価されます。
+行頭の日時の出力部分に対しても、有効となっていますので注意してください。</p>
+<div class="admonition warning">
+<p class="first admonition-title">警告</p>
+<p class="last">「正規表現」が何かわからない場合、この項目を触らないようにしてください。ログを破損する原因になります。
+通常はデフォルト設定のままで使用してください。</p>
+</div>
+</div>
+<div class="section" id="fillformattingcodesreplace">
+<h3>FillFormattingCodesReplace<a class="headerlink" href="#fillformattingcodesreplace" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="line-block">
+<div class="line">【塗りつぶし文字列】</div>
+</div>
+<p>正規表現の条件に一致した文字と置換する文字を指定します。通常は空欄にします。</p>
+<div class="admonition warning">
+<p class="first admonition-title">警告</p>
+<p class="last">「正規表現」が何かわからない場合、この項目を触らないようにしてください。ログを破損する原因になります。
+通常はデフォルト設定のままで使用してください。</p>
+</div>
+</div>
+</div>
+<div class="section" id="pluginsettings">
+<h2>pluginsettings<a class="headerlink" href="#pluginsettings" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="line-block">
+<div class="line">【プラグイン設定】</div>
+</div>
+<p>pluginsettingsという文字から始まり、括弧で括られた部分の設定です:</p>
+<div class="highlight-python"><pre>pluginsettings {
+    S:DefaultPluginDirectoryName=ChatLoggerPlusPlugins
+
+    # Please do not modify.
+    S:PluginOrderToChatLog &lt;
+     &gt;
+
+    # Please do not modify.
+    S:PluginOrderToScreen &lt;
+     &gt;
+}</pre>
+</div>
+<p>これは、プラグインに関する設定項目です。</p>
+<div class="section" id="defaultplugindirectoryname">
+<h3>DefaultPluginDirectoryName<a class="headerlink" href="#defaultplugindirectoryname" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="line-block">
+<div class="line">【デフォルトプラグインフォルダ名】</div>
+</div>
+<p>プラグインを格納するフォルダ名を指定します。
+通常はデフォルト設定のままで使用してください。</p>
+</div>
+<div class="section" id="pluginordertochatlog">
+<h3>PluginOrderToChatLog<a class="headerlink" href="#pluginordertochatlog" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="line-block">
+<div class="line">【データ保存：プラグイン順序ChatLog用】</div>
+</div>
+<p>基本的にChatLoggerPlusのデータ保存として使っていますので、手動で変更しないでください。</p>
+</div>
+<div class="section" id="pluginordertoscreen">
+<h3>PluginOrderToScreen<a class="headerlink" href="#pluginordertoscreen" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="line-block">
+<div class="line">【データ保存：プラグイン順序Screen用】</div>
+</div>
+<p>基本的にChatLoggerPlusのデータ保存として使っていますので、手動で変更しないでください。</p>
+</div>
+</div>
+<div class="section" id="outputofdebuglog">
+<h2>outputofdebuglog<a class="headerlink" href="#outputofdebuglog" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="line-block">
+<div class="line">【デバッグログの出力設定】</div>
+</div>
+<p>outputofdebuglogという文字から始まり、括弧で括られた部分の設定です:</p>
+<div class="highlight-python"><pre>outputofdebuglog {
+    B:OutputLoggingTrace=false
+    B:OutputLoggingWarning=true
+    B:OutputLoggingError=true
+
+    B:OutputLoggingMessageOriginal=false
+    B:OutputLoggingMessageDuringChatLog=false
+    B:OutputLoggingMessageDuringScreen=false
+    B:OutputLoggingMessageLastChatLog=false
+    B:OutputLoggingMessageLastScreen=false
+
+    B:OutputLoggingScript=false
+}</pre>
+</div>
+<p>標準出力へのデバッグログ出力を制御できます。主に開発用です。
+通常はデフォルト設定のままで使用してください。</p>
+<div class="admonition hint">
+<p class="first admonition-title">ヒント</p>
+<p class="last">プラグインを作成する方は、すべての設定をtrueにすると、デバッグしやすいでしょう。</p>
+</div>
+</div>
+</div>
+
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+         
+<div class="span4 visible-desktop visible-tablet">
+  <div class=" sidebar hidden-phone">
+  <h3><a href="index.html">目次</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">configファイルの設定</a><ul>
+<li><a class="reference internal" href="#general">general</a><ul>
+<li><a class="reference internal" href="#pluginscriptsenabled">PluginScriptsEnabled</a></li>
+<li><a class="reference internal" href="#formatdatetime">FormatDateTime</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#relativepath">relativepath</a><ul>
+<li><a class="reference internal" href="#defaultreplacelogfilefullpathfilename">DefaultReplaceLogFileFullPathFileName</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#absolutepath">absolutepath</a><ul>
+<li><a class="reference internal" href="#enforcementreplacelogfilefullpathfilename">EnforcementReplaceLogFileFullPathFileName</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id1">シンボル置換処理について</a></li>
+<li><a class="reference internal" href="#filenameformat">filenameformat</a><ul>
+<li><a class="reference internal" href="#formatreplacedate">FormatReplaceDate</a></li>
+<li><a class="reference internal" href="#formatreplacetime">FormatReplaceTime</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#pluginscriptsdisabledgeneral">pluginscriptsdisabledgeneral</a><ul>
+<li><a class="reference internal" href="#fillformattingcodesenabled">FillFormattingCodesEnabled</a><ul>
+<li><a class="reference internal" href="#id2">フォーマットコードとは</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#fillformattingcodesregex">FillFormattingCodesRegex</a></li>
+<li><a class="reference internal" href="#fillformattingcodesreplace">FillFormattingCodesReplace</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#pluginsettings">pluginsettings</a><ul>
+<li><a class="reference internal" href="#defaultplugindirectoryname">DefaultPluginDirectoryName</a></li>
+<li><a class="reference internal" href="#pluginordertochatlog">PluginOrderToChatLog</a></li>
+<li><a class="reference internal" href="#pluginordertoscreen">PluginOrderToScreen</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#outputofdebuglog">outputofdebuglog</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>前のトピックへ</h4>
+  <p class="topless"><a href="Download.html"
+                        title="前の章へ">ダウンロード</a></p>
+  <h4>次のトピックへ</h4>
+  <p class="topless"><a href="UsePlugin.html"
+                        title="次の章へ">プラグインを使う</a></p>
+  <h3>このページ</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/SettingConfig.txt"
+           rel="nofollow">ソースコードを表示</a></li>
+  </ul>
+<div id="searchbox">
+  <h3>クイック検索</h3>
+  <form class="search form-search" action="search.html" method="get">
+      <div class="input-append">
+        <input type="text" class="search-query" name="q">
+        <input type="submit" class="btn" value="検索" />
+      </div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    モジュール、クラス、または関数名を入力してください
+    </p>
+</div>
+  </div>
+</div> 
+        
+      </div><!-- /row -->
+
+      <!-- row -->
+      <div class="row-fluid">
+<div class="related navbar ">
+  <div class="navbar-inner">
+    <ul class="nav pull-right">
+      
+        <li><a href="genindex.html" title="総合索引" >索引</a></li>
+        <li><a href="UsePlugin.html" title="プラグインを使う" >次へ</a></li>
+        <li><a href="Download.html" title="ダウンロード" >前へ</a></li>
+        <li><a href="index.html">[MinecraftMOD] ChatLoggerPlus 1.0.0 ドキュメント</a></li> 
+      
+    </ul>
+  </div>
+</div>
+      </div><!-- /row -->
+
+      <!-- footer -->
+      <footer>
+          &copy; Copyright 2013, Jaken.
+        Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2b3.
+      </footer>
+      <!-- /footer -->
+
+    </div>
+    <!-- /container -->
+
+  </body>
+</html>

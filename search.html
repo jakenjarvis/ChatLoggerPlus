@@ -1,60 +1,123 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
-<head>
-  <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
-  <title>検索</title>
-  <link rel="stylesheet" type="text/css" href="_static/general.css" />
-  <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-  <meta name="description" content="Python製ドキュメンテーションビルダー、Sphinxの日本ユーザ会">
-  <meta name="keywords" content="Sphinx,スフィンクス,ドキュメンテーション,ツール,Python,reStructuredText,reST">
-  <script type="text/javascript">
+
+<!DOCTYPE html>
+
+
+
+
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    
+    <title>検索 &mdash; [MinecraftMOD] ChatLoggerPlus 1.0.0 ドキュメント</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Volkhov" type="text/css" />
+<link rel="stylesheet" href="_static/css/basicstrap-base.css" type="text/css" />
+<link rel="stylesheet" href="_static/css/bootswatch-cosmo.css" type="text/css" />
+<link rel="stylesheet" href="_static/css/font-awesome.min.css">
+<!--[if IE 7]>
+<link rel="stylesheet" href="_static/css/font-awesome-ie7.min.css">
+<![endif]-->
+<style type="text/css">
+  body {
+    padding-top: 60px;
+    padding-bottom: 40px;
+  }
+}
+</style>
+<link rel="stylesheet" href="_static/basicstrap.css" type="text/css" />
+<link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+<link rel="stylesheet" href="_static/css/bootstrap-responsive.min.css" type="text/css" />
+    
+<script type="text/javascript">
   var DOCUMENTATION_OPTIONS = {
-    URL_ROOT:    './',
-    VERSION:     '1.0.0',
-    COLLAPSE_MODINDEX: false,
-    FILE_SUFFIX: '.html',
-    HAS_SOURCE:  true
+            URL_ROOT:    './',
+            VERSION:     '1.0.0',
+            COLLAPSE_INDEX: false,
+            FILE_SUFFIX: '.html',
+            HAS_SOURCE:  true
   };
+</script>
+<script type="text/javascript" src="_static/js/jquery.min.js"></script>
+<script type="text/javascript" src="_static/underscore.js"></script>
+<script type="text/javascript" src="_static/doctools.js"></script>
+<script type="text/javascript" src="_static/translations.js"></script>
+<script type="text/javascript" src="_static/searchtools.js"></script>
+<script type="text/javascript" src="_static/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('.show-sidebar').click(function(e) {
+       e.preventDefault();
+       if ($(".show-sidebar").html() == "Open Table Of Contents") {
+          $('.for-mobile').removeClass('hidden-phone');
+          $(".show-sidebar").html("Close Table Of Contents");
+       } else {
+          $(".show-sidebar").html("Open Table Of Contents");
+       }
+    });
+  });
+</script>
+    <link rel="top" title="[MinecraftMOD] ChatLoggerPlus 1.0.0 ドキュメント" href="index.html" />
+  <script type="text/javascript">
+    jQuery(function() { Search.loadIndex("searchindex.js"); });
   </script>
-  <script type="text/javascript" src="_static/jquery.js"></script>
-  <script type="text/javascript" src="_static/underscore.js"></script>
-  <script type="text/javascript" src="_static/doctools.js"></script>
-  <script type="text/javascript" src="_static/translations.js"></script>
-  <script type="text/javascript" src="_static/searchtools.js"></script>
-  <!-- Sticky footer -->
-  <!--[if  IE 8]>
-  <style type="text/css">
-    #wrap {display:table;}
-  </style>
-  <![endif]-->
-</head>
-<body>
-<div id="wrapper">
-  
-  <!-- header -->
-  <div id="header">
-    <div id="projInfo">
-      <h1 id="title">
-        <a href="index.html">ChatLoggerPlus</a>
-      </h1>
-      <p class="docdesc">ChatLoggerPlus 1.0.0 ドキュメント</p>
+   
+
+  </head>
+  <body>
+    <div class="navbar navbar-fixed-top ">
+      <div class="navbar-inner">
+        <div class="container-fluid">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="index.html">[MinecraftMOD] ChatLoggerPlus 1.0.0 ドキュメント</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav pull-right">
+              
+                <li>
+                <a href="genindex.html" title="総合索引" accesskey="I">索引</a>
+                </li>
+              
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
-    <div id="gnav">
-      <ul>
-        <li class="home"><p><a href="index.html" title="ChatLoggerPlus">ChatLoggerPlus</a></p></li>
-        <li class="doc"><p><a href="doc.html" title="ドキュメント">ドキュメント</a></p></li>
-        <li class="modindex">
-          <p><a title="索引" href="genindex.html">索引</a></p>
-        </li>
-      </ul>
-    </div>
+    
+
+    <!-- container -->
+    <div class="container-fluid">
+
+
+      
+      <div class="row-fluid hidden-desktop hidden-tablet">
+      
+<div class="span4 ">
+  <a class="visible-phone btn btn-small show-sidebar" data-toggle="collapse" data-target=".for-mobile">Open Table Of Contents</a>
+  <div class="for-mobile sidebar hidden-phone">
   </div>
-  <!-- /header -->
-  
-  
-  <!-- content -->
-  <div id="content">
-    <!-- current document area -->
-    <div id="document" class="left">
+</div>
+      </div>
+      
+
+      <!-- row -->
+      <div class="row-fluid">
+        
+        
+
+        <div class="span8">
+          <div class="document">
+            <div class="documentwrapper">
+              <div class="bodywrapper">
+                <div class="body">
+                  
   <h1 id="search-documentation">検索</h1>
   <div id="fallback" class="admonition warning">
   <script type="text/javascript">$('#fallback').hide();</script>
@@ -63,69 +126,56 @@
   </p>
   </div>
   <p>
-    このページからドキュメントを検索することができます。検索するキーワードを下のテキストボックスに入力して、Enterキー、またはアイコンをクリックしてください。入力された全てのキーワードを含むページが検索されます。一部のキーワードしか含まれないページは検索結果に表示されないので注意してください。
+    このページからドキュメントを検索できます。キーワードを下のボックスに入力して、「検索」をクリックしてください。入力された全てのキーワードを含むページが検索されます。一部のキーワードしか含まないページは検索結果に表示されないので注意してください。
   </p>
-  <div id="searchbox">
-     <form name="search" action="#" method="get">
-       <fieldset class="search">
-         <input type="text" class="hint" name="q" />
-         <button class="button" title="検索" />検索</button>
-         <input type="hidden" name="check_keywords" value="yes" />
-         <input type="hidden" name="area" value="default" />
-       </fieldset>
-     </form>
-  </div>
+  <form class="form-search" action="" method="get">
+    <div class="input-append">
+      <input type="text" class="search-query" name="q" value="">
+      <input type="submit" class="btn" value="検索" />
+    </div>
+    <span id="search-progress" style="padding-left: 10px"></span>
+  </form>
   
   <div id="search-results">
   
   </div>
 
-    </div>
-    <!-- /current document area -->
-    <!-- sidebar -->
-    
-  <div id="sidebar" class="left">
-    <div id="sidebarWrap">
-      <div id="toc" class="sidebarRow">
-        <h3>目次</h3>
-        <ul>
-<li class="toctree-l1"><a class="reference internal" href="java/com/tojc/minecraft/mod/ChatLoggerPlusPlugin/v1/package-index.html">com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1</a></li>
-</ul>
-
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div id="rel" class="sidebarRow">
-      </div>
-      <div id="source" class="sidebarRow">
-      </div>
-    </div>
+         
+<div class="span4 visible-desktop visible-tablet">
+  <div class=" sidebar hidden-phone">
   </div>
-    <!-- /sidebar -->
-  </div>
-  
-  <!-- /content -->
-</div>
-  <!-- footer -->
-  
-  
-  <div id="footer">
-    <div class="footerCol">
-      <h1><a href="index.html">ChatLoggerPlus</a></h1>
-      <p class="copy">
-      &copy; Copyright 2013, Jaken(jaken.jarvis@gmail.com).
-      </p>
-      <p class="sp">
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2b2.
-      </p>
-    </div>
-    <div class="footerCol">
-    
-  <div class="relbar">
-  </div>
-    </div>
-  </div>
- 
-  <script type="text/javascript" src="searchindex.js"></script>
+</div> 
+        
+      </div><!-- /row -->
 
- <!-- /footer -->
-</body>
+      <!-- row -->
+      <div class="row-fluid">
+<div class="related navbar ">
+  <div class="navbar-inner">
+    <ul class="nav pull-right">
+      
+        <li><a href="genindex.html" title="総合索引" >索引</a></li>
+        <li><a href="index.html">[MinecraftMOD] ChatLoggerPlus 1.0.0 ドキュメント</a></li> 
+      
+    </ul>
+  </div>
+</div>
+      </div><!-- /row -->
+
+      <!-- footer -->
+      <footer>
+          &copy; Copyright 2013, Jaken.
+        Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2b3.
+      </footer>
+      <!-- /footer -->
+
+    </div>
+    <!-- /container -->
+
+  </body>
 </html>

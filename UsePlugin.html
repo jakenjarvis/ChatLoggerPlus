@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+
+
+
+
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    
+    <title>プラグインを使う &mdash; [MinecraftMOD] ChatLoggerPlus 1.0.0 ドキュメント</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Volkhov" type="text/css" />
+<link rel="stylesheet" href="_static/css/basicstrap-base.css" type="text/css" />
+<link rel="stylesheet" href="_static/css/bootswatch-cosmo.css" type="text/css" />
+<link rel="stylesheet" href="_static/css/font-awesome.min.css">
+<!--[if IE 7]>
+<link rel="stylesheet" href="_static/css/font-awesome-ie7.min.css">
+<![endif]-->
+<style type="text/css">
+  body {
+    padding-top: 60px;
+    padding-bottom: 40px;
+  }
+}
+</style>
+<link rel="stylesheet" href="_static/basicstrap.css" type="text/css" />
+<link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+<link rel="stylesheet" href="_static/css/bootstrap-responsive.min.css" type="text/css" />
+    
+<script type="text/javascript">
+  var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:    './',
+            VERSION:     '1.0.0',
+            COLLAPSE_INDEX: false,
+            FILE_SUFFIX: '.html',
+            HAS_SOURCE:  true
+  };
+</script>
+<script type="text/javascript" src="_static/js/jquery.min.js"></script>
+<script type="text/javascript" src="_static/underscore.js"></script>
+<script type="text/javascript" src="_static/doctools.js"></script>
+<script type="text/javascript" src="_static/translations.js"></script>
+<script type="text/javascript" src="_static/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('.show-sidebar').click(function(e) {
+       e.preventDefault();
+       if ($(".show-sidebar").html() == "Open Table Of Contents") {
+          $('.for-mobile').removeClass('hidden-phone');
+          $(".show-sidebar").html("Close Table Of Contents");
+       } else {
+          $(".show-sidebar").html("Open Table Of Contents");
+       }
+    });
+  });
+</script>
+    <link rel="top" title="[MinecraftMOD] ChatLoggerPlus 1.0.0 ドキュメント" href="index.html" />
+    <link rel="next" title="プラグインの仕様について" href="PluginSpecification.html" />
+    <link rel="prev" title="configファイルの設定" href="SettingConfig.html" /> 
+  </head>
+  <body>
+    <div class="navbar navbar-fixed-top ">
+      <div class="navbar-inner">
+        <div class="container-fluid">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="index.html">[MinecraftMOD] ChatLoggerPlus 1.0.0 ドキュメント</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav pull-right">
+              
+                <li>
+                <a href="genindex.html" title="総合索引" accesskey="I">索引</a>
+                </li>
+                <li>
+                <a href="PluginSpecification.html" title="プラグインの仕様について" accesskey="N">次へ</a>
+                </li>
+                <li>
+                <a href="SettingConfig.html" title="configファイルの設定" accesskey="P">前へ</a>
+                </li>
+              
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+
+    <!-- container -->
+    <div class="container-fluid">
+
+
+      
+      <div class="row-fluid hidden-desktop hidden-tablet">
+      
+<div class="span4 ">
+  <a class="visible-phone btn btn-small show-sidebar" data-toggle="collapse" data-target=".for-mobile">Open Table Of Contents</a>
+  <div class="for-mobile sidebar hidden-phone">
+  <h3><a href="index.html">目次</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">プラグインを使う</a><ul>
+<li><a class="reference internal" href="#id2">プラグインとは？</a></li>
+<li><a class="reference internal" href="#id3">プラグインについて</a></li>
+<li><a class="reference internal" href="#id4">事前準備</a><ul>
+<li><a class="reference internal" href="#id5">プラグイン機能を有効にする</a></li>
+<li><a class="reference internal" href="#id6">プラグインを準備する</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id7">設定画面の呼び出しとキー設定の変更</a></li>
+<li><a class="reference internal" href="#id8">プラグインの処理登録と順序</a></li>
+<li><a class="reference internal" href="#id9">パーミッション（権限）について</a></li>
+<li><a class="reference internal" href="#id10">スタックについて</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>前のトピックへ</h4>
+  <p class="topless"><a href="SettingConfig.html"
+                        title="前の章へ">configファイルの設定</a></p>
+  <h4>次のトピックへ</h4>
+  <p class="topless"><a href="PluginSpecification.html"
+                        title="次の章へ">プラグインの仕様について</a></p>
+  <h3>このページ</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/UsePlugin.txt"
+           rel="nofollow">ソースコードを表示</a></li>
+  </ul>
+<div id="searchbox">
+  <h3>クイック検索</h3>
+  <form class="search form-search" action="search.html" method="get">
+      <div class="input-append">
+        <input type="text" class="search-query" name="q">
+        <input type="submit" class="btn" value="検索" />
+      </div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    モジュール、クラス、または関数名を入力してください
+    </p>
+</div>
+  </div>
+</div>
+      </div>
+      
+
+      <!-- row -->
+      <div class="row-fluid">
+        
+        
+
+        <div class="span8">
+          <div class="document">
+            <div class="documentwrapper">
+              <div class="bodywrapper">
+                <div class="body">
+                  
+  <div class="section" id="use-plugin">
+<span id="id1"></span><h1>プラグインを使う<a class="headerlink" href="#use-plugin" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<div class="section" id="id2">
+<h2>プラグインとは？<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>一般的な用語と同じように、ここでは「 <strong>ChatLoggerPlusに備わっていない機能を、後から付け足せる物</strong> 」のことを「プラグイン」と呼びます。
+このプラグインは、テキストファイルに記述されたスクリプトを解釈することで実現しています。</p>
+<p>ただし、スクリプトを記述するには、プログラミングの知識が必要になってしまいます。
+そこで、プラグインを「部品」のように扱えるようにし、一般ユーザーは、出来るだけ「 <strong>プラグインを選択して組み合わせるだけで、求めている機能を実現できる</strong> 」ようにしています。</p>
+<div class="admonition note">
+<p class="first admonition-title">ノート</p>
+<p class="last">プラグインの設定変更のために、スクリプトを変更しなければならないケースもありますが、「設定を変更されることを前提に作られているプラグイン」であれば、その範囲内であれば、それほど難しくは無いはずです。（簡単に変更が出来るように作り手側が考えてます）
+configファイルを編集できるスキルがあれば、プラグインの設定変更も簡単に出来るでしょう。</p>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>プラグインについて<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>まずは、概要でもお見せした図を確認ください。</p>
+<img alt="https://cacoo.com/diagrams/92t1GUWyAXoBK8zC-7B345.png" src="https://cacoo.com/diagrams/92t1GUWyAXoBK8zC-7B345.png" />
+<p>このように、ChatLoggerPlusは「 <strong>受信したチャットのメッセージ</strong> 」に対して処理を行います。</p>
+<p>この部分だけを抽出した図が次の図です。</p>
+<img alt="https://cacoo.com/diagrams/sk2EfTc5RQIsJGIg-7B345.png" src="https://cacoo.com/diagrams/sk2EfTc5RQIsJGIg-7B345.png" />
+<p>至ってシンプルな図になりました。</p>
+<p>そして、これに「ChatLoggerPlusがプラグインを含めて行う動作」を図に書き足したものが次の図です。</p>
+<img alt="https://cacoo.com/diagrams/FWTghiZjygNOxlhq-7B345.png" src="https://cacoo.com/diagrams/FWTghiZjygNOxlhq-7B345.png" />
+<p>このように、ChatLoggerPlusでは、チャットメッセージを２つのものに分けて考えます。</p>
+<blockquote>
+<div><ul class="simple">
+<li>画面に出力されるチャット文字（Screen Plugin）</li>
+<li>ログ保存ファイルに出力されるチャット文字（ChatLog Plugin）</li>
+</ul>
+</div></blockquote>
+<p>プラグインは発言単位でチャット文字列を受け取り、文字のチェックや加工、削除、その他の動作が行えます。
+そして、ChatLoggerPlusは、これらのチャット文字を「プラグイン」に受け渡し、結果を順次処理をさせ、すべてのプラグインで処理した結果を画面及びログファイルに出力します。</p>
+<p>これは、画面用の加工と、ログ保存用の加工が、別々で行えるということです。</p>
+<p>このように、チャットの文字加工を、対象別に分けることによって、「画面表示では特定の文字を伏字にして、チャットログにはオリジナルのメッセージを出力する」といった使い分けが可能になります。</p>
+<p>ユーザーは、「 &#8221; <strong>どこを対象</strong> &#8221; に &#8221; <strong>どのプラグイン</strong> &#8221; を &#8221; <strong>どのような順番</strong> &#8221; で適用するか」だけを意識すれば、使うことができます。</p>
+</div>
+<div class="section" id="id4">
+<h2>事前準備<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id5">
+<h3>プラグイン機能を有効にする<a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>ChatLoggerPlusのデフォルトの設定では、プラグイン機能は無効になっています。
+このため、プラグインを使えるようにするためには、この機能を有効にしなければなりません。</p>
+<p>configフォルダにある、「com.tojc.minecraft.mod.ChatLoggerPlus.cfg」ファイルをテキストエディタ等で編集する必要があります。</p>
+<p>以下のPluginScriptsEnabledをtrueに設定してください:</p>
+<div class="highlight-python"><pre>general {
+    B:PluginScriptsEnabled=true
+    （・・・省略・・・）
+}</pre>
+</div>
+<p>これでプラグイン機能が有効になります。
+設定に関する詳細は <a class="reference internal" href="SettingConfig.html#setting-config"><em>configファイルの設定</em></a> を参照ください。</p>
+<div class="admonition attention">
+<p class="first admonition-title">注意</p>
+<p class="last">プラグイン機能を有効にすると、「フォーマットコードの塗りつぶし処理」は行われなくなります。
+同様の処理はFormattingCodesRemoverプラグインを使うと実現できます。</p>
+</div>
+</div>
+<div class="section" id="id6">
+<h3>プラグインを準備する<a class="headerlink" href="#id6" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>デフォルト設定では、configフォルダの中にChatLoggerPlusPluginsフォルダが出来ていますので、そのフォルダの中に、ダウンロードしたプラグインを配置します。</p>
+<p>配布されているプラグインの拡張子は、ほとんどが「js」となっているハズですので、そのファイルを入れてください。
+（プラグインの拡張子が「js」でない場合は、別途スクリプトの設定などが必要になる場合があります）
+また、このChatLoggerPlusPluginsフォルダに入れただけではプラグインは有効になりません。後述の処理登録作業がゲーム内で必要です。</p>
+<div class="admonition tip">
+<p class="first admonition-title">ちなみに</p>
+<p class="last">このフォルダの中は、再帰的に読み込むため、サブフォルダの中にプラグインがあっても認識します。
+（zip形式などで圧縮されている場合は読み込めませんので、必ず展開して入れてください）</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">ノート</p>
+<p class="last">プラグインの読み込みは、現在はワールドログイン時のみです。そのうち、再読み込みボタンをどこかに用意したいと思ってます。</p>
+</div>
+<div class="admonition caution">
+<p class="first admonition-title">ご用心</p>
+<p class="last">「このChatLoggerPlusPluginsフォルダに入れただけではプラグインは有効になりません」と書きましたが、スクリプトのプログラムの一部はMinecraft起動時に読み込まれ実行されます。
+悪意のあるプラグインの場合、Minecraftとは全く別の処理を行える可能性があるので、 <strong>利用するプラグインの配布元</strong> を意識してください。
+出来るだけ、フォーラムのChatLoggerPlusトピックに話題が上がっているものを使うようにすると、安全だと思います。</p>
+</div>
+</div>
+</div>
+<div class="section" id="id7">
+<h2>設定画面の呼び出しとキー設定の変更<a class="headerlink" href="#id7" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>それでは、Minecraftのゲーム画面を起動してください。設定するために、まずはローカルサーバにログインしましょう。（特に問題が無ければマルチサーバでもOKです）</p>
+<p>初期状態では、プラグインは一つも処理を行うようには登録されていません。</p>
+<p>デフォルトでは、Lキーに設定画面を割り当ててありますので、設定画面を開いてみましょう。このような画面が出ます。</p>
+<img alt="_images/2013-03-28_19.18.10.png" src="_images/2013-03-28_19.18.10.png" />
+<p>ここでは、Screen PluginかChatLog Pluginのどちらの処理順序を編集するかを選びます。</p>
+<div class="admonition tip">
+<p class="first admonition-title">ちなみに</p>
+<p class="last">設定画面の呼び出しキーは、Minecraftのオプション画面からキー設定を開くと、別のキーに割り当てることができます。
+また、この呼び出しキーは、 <strong>PluginScriptsEnabledがtrueの場合のみ有効</strong> になります。</p>
+</div>
+</div>
+<div class="section" id="id8">
+<h2>プラグインの処理登録と順序<a class="headerlink" href="#id8" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>ここでは、Screen Pluginの設定画面を開きました。このスクリーンショットでは、既にいくつか登録済みの状態です。</p>
+<img alt="_images/2013-03-28_19.18.24.png" src="_images/2013-03-28_19.18.24.png" />
+<p>この中央のリストに表示されているものが「処理が行われるプラグイン」です。発言ごとに、このリストの <strong>上から順番に下へ向かって</strong> 処理が行われます。</p>
+<p>ここでは以下のような操作が可能です。</p>
+<blockquote>
+<div><ul class="simple">
+<li>Addでリストにプラグインを追加できます。</li>
+<li>Deleteで画面のリストからプラグインを削除できます。（プラグインのファイル自身には影響ありません）</li>
+<li>Enabled/Disabledで有効無効の切り替えができます。（ただし、エラーで無効になっているものは有効化できません）</li>
+<li>UP,Downで選択中のプラグインを移動させ、並び替えを変更できます。</li>
+</ul>
+</div></blockquote>
+<p>それでは、Addボタンで以下のようなプラグイン選択画面が開きますので、どれか一つを選択してください。
+ここには、ChatLoggerPlusPluginsフォルダへ配置されたプラグインが全て表示されます。</p>
+<img alt="_images/2013-03-28_19.18.58.png" src="_images/2013-03-28_19.18.58.png" />
+</div>
+<div class="section" id="id9">
+<h2>パーミッション（権限）について<a class="headerlink" href="#id9" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>（準備中）</p>
+</div>
+<div class="section" id="id10">
+<h2>スタックについて<a class="headerlink" href="#id10" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>（準備中）</p>
+</div>
+</div>
+
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+         
+<div class="span4 visible-desktop visible-tablet">
+  <div class=" sidebar hidden-phone">
+  <h3><a href="index.html">目次</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">プラグインを使う</a><ul>
+<li><a class="reference internal" href="#id2">プラグインとは？</a></li>
+<li><a class="reference internal" href="#id3">プラグインについて</a></li>
+<li><a class="reference internal" href="#id4">事前準備</a><ul>
+<li><a class="reference internal" href="#id5">プラグイン機能を有効にする</a></li>
+<li><a class="reference internal" href="#id6">プラグインを準備する</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id7">設定画面の呼び出しとキー設定の変更</a></li>
+<li><a class="reference internal" href="#id8">プラグインの処理登録と順序</a></li>
+<li><a class="reference internal" href="#id9">パーミッション（権限）について</a></li>
+<li><a class="reference internal" href="#id10">スタックについて</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>前のトピックへ</h4>
+  <p class="topless"><a href="SettingConfig.html"
+                        title="前の章へ">configファイルの設定</a></p>
+  <h4>次のトピックへ</h4>
+  <p class="topless"><a href="PluginSpecification.html"
+                        title="次の章へ">プラグインの仕様について</a></p>
+  <h3>このページ</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/UsePlugin.txt"
+           rel="nofollow">ソースコードを表示</a></li>
+  </ul>
+<div id="searchbox">
+  <h3>クイック検索</h3>
+  <form class="search form-search" action="search.html" method="get">
+      <div class="input-append">
+        <input type="text" class="search-query" name="q">
+        <input type="submit" class="btn" value="検索" />
+      </div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    モジュール、クラス、または関数名を入力してください
+    </p>
+</div>
+  </div>
+</div> 
+        
+      </div><!-- /row -->
+
+      <!-- row -->
+      <div class="row-fluid">
+<div class="related navbar ">
+  <div class="navbar-inner">
+    <ul class="nav pull-right">
+      
+        <li><a href="genindex.html" title="総合索引" >索引</a></li>
+        <li><a href="PluginSpecification.html" title="プラグインの仕様について" >次へ</a></li>
+        <li><a href="SettingConfig.html" title="configファイルの設定" >前へ</a></li>
+        <li><a href="index.html">[MinecraftMOD] ChatLoggerPlus 1.0.0 ドキュメント</a></li> 
+      
+    </ul>
+  </div>
+</div>
+      </div><!-- /row -->
+
+      <!-- footer -->
+      <footer>
+          &copy; Copyright 2013, Jaken.
+        Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2b3.
+      </footer>
+      <!-- /footer -->
+
+    </div>
+    <!-- /container -->
+
+  </body>
+</html>
