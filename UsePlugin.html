@@ -60,7 +60,7 @@
   });
 </script>
     <link rel="top" title="[MinecraftMOD] ChatLoggerPlus 1.0.0 ドキュメント" href="index.html" />
-    <link rel="next" title="プラグインの仕様について" href="PluginSpecification.html" />
+    <link rel="next" title="FormattingCodesRemover：カラーコード削除" href="sampleplugin/FormattingCodesRemover.html" />
     <link rel="prev" title="configファイルの設定" href="SettingConfig.html" /> 
   </head>
   <body>
@@ -80,7 +80,7 @@
                 <a href="genindex.html" title="総合索引" accesskey="I">索引</a>
                 </li>
                 <li>
-                <a href="PluginSpecification.html" title="プラグインの仕様について" accesskey="N">次へ</a>
+                <a href="sampleplugin/FormattingCodesRemover.html" title="FormattingCodesRemover：カラーコード削除" accesskey="N">次へ</a>
                 </li>
                 <li>
                 <a href="SettingConfig.html" title="configファイルの設定" accesskey="P">前へ</a>
@@ -125,8 +125,8 @@
   <p class="topless"><a href="SettingConfig.html"
                         title="前の章へ">configファイルの設定</a></p>
   <h4>次のトピックへ</h4>
-  <p class="topless"><a href="PluginSpecification.html"
-                        title="次の章へ">プラグインの仕様について</a></p>
+  <p class="topless"><a href="sampleplugin/FormattingCodesRemover.html"
+                        title="次の章へ">FormattingCodesRemover：カラーコード削除</a></p>
   <h3>このページ</h3>
   <ul class="this-page-menu">
     <li><a href="_sources/UsePlugin.txt"
@@ -276,11 +276,66 @@ configファイルを編集できるスキルがあれば、プラグインの�
 </div>
 <div class="section" id="id9">
 <h2>パーミッション（権限）について<a class="headerlink" href="#id9" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<p>（準備中）</p>
+<p>プラグインは、「ある一定の機能」を使うためには、それを使うことを宣言しなければならないようにしています。
+宣言したパーミッションは、プラグイン一覧画面にて、ユーザーに通知されます。
+これは、利用者がプラグインの中身を把握できなくても「ああ、このプラグインはチャット文字を加工するんだな」とザックリと理解できるように用意しています。</p>
+<p>パーミッション（権限）には、以下のような種類が存在しています。</p>
+<table border="1" class="docutils">
+<caption>パーミッション（権限）一覧</caption>
+<colgroup>
+<col width="10%" />
+<col width="20%" />
+<col width="70%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">表示名</th>
+<th class="head">概要</th>
+<th class="head">詳細</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Modify</td>
+<td>チャット加工有り</td>
+<td>このプラグインはチャットの文字を加工（変更・削除）します。</td>
+</tr>
+<tr class="row-odd"><td>Add</td>
+<td>チャット追加メッセージ有り</td>
+<td>このプラグインは発言の後に、追加のチャット文字を出力します。※これを実現するためにチャットメッセージを横取りする必要があるので、Addパーミッションが必要なプラグインは他のチャット処理MODと競合する可能性があります。</td>
+</tr>
+<tr class="row-even"><td>WS/xxxx</td>
+<td>スタック書き込み有り</td>
+<td>このプラグインは、他のプラグインと連携するために、スタックに情報を新規作成し書き込みます。</td>
+</tr>
+<tr class="row-odd"><td>RS/xxxx</td>
+<td>スタック読み込み有り</td>
+<td>このプラグインは、他のプラグインと連携するための既存のスタックの情報を読み書きします。</td>
+</tr>
+</tbody>
+</table>
+<p>例えば、特定の文字を塗りつぶすプラグインがあった場合、このプラグインはチャットを加工する必要があるので、必ずModifyパーミッションを持っています。
+逆に、Modifyパーミッションを持っていないプラグインは、チャットの文字を変更することは出来ません。</p>
+<p>スタック関連パーミッションのxxxxには、プラグインが使用するキーワードが表示されます。このキーワードが同じものが、連携するプラグインとなります。
+これは、ほとんどのケースで、WSパーミッションを持つプラグインとRSパーミッションを持つプラグインが、同じキーワードで「対」になります。</p>
+<div class="admonition important">
+<p class="first admonition-title">重要</p>
+<p class="last">RSパーミッションのプラグインの <strong>前</strong> に、必ず <strong>同じキーワードのWSパーミッションのプラグイン</strong> が存在しなければなりません。</p>
+</div>
 </div>
 <div class="section" id="id10">
 <h2>スタックについて<a class="headerlink" href="#id10" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<p>（準備中）</p>
+<p>ある情報を記録して一時的に貯めておく場所のことを「スタック」と呼んでいます。
+どのような情報を記録して受け渡しするかは、プラグインが自由に決めることができます。</p>
+<p>例えば</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>チャット文字をチェックし、スタックにフラグを立てるプラグイン</li>
+<li>スタックのフラグをチェックし、そのフラグを元に動作するプラグイン</li>
+</ol>
+</div></blockquote>
+<p>のように、スタックは <strong>プラグイン同士で連携</strong> するために使われます。</p>
+<p>プラグイン利用者は、どのような情報が受け渡しされるのかは、基本的に意識する必要はありません。
+その代り、RSパーミッションのプラグインの <strong>前</strong> に、必ず <strong>同じキーワードのWSパーミッションのプラグイン</strong> が存在しなければならないため、関連するプラグインの「並び順」だけは気を付けてください。</p>
+<p>この順番が守られていない場合、画面上でエラーメッセージが表示されます。</p>
 </div>
 </div>
 
@@ -315,8 +370,8 @@ configファイルを編集できるスキルがあれば、プラグインの�
   <p class="topless"><a href="SettingConfig.html"
                         title="前の章へ">configファイルの設定</a></p>
   <h4>次のトピックへ</h4>
-  <p class="topless"><a href="PluginSpecification.html"
-                        title="次の章へ">プラグインの仕様について</a></p>
+  <p class="topless"><a href="sampleplugin/FormattingCodesRemover.html"
+                        title="次の章へ">FormattingCodesRemover：カラーコード削除</a></p>
   <h3>このページ</h3>
   <ul class="this-page-menu">
     <li><a href="_sources/UsePlugin.txt"
@@ -348,7 +403,7 @@ configファイルを編集できるスキルがあれば、プラグインの�
     <ul class="nav pull-right">
       
         <li><a href="genindex.html" title="総合索引" >索引</a></li>
-        <li><a href="PluginSpecification.html" title="プラグインの仕様について" >次へ</a></li>
+        <li><a href="sampleplugin/FormattingCodesRemover.html" title="FormattingCodesRemover：カラーコード削除" >次へ</a></li>
         <li><a href="SettingConfig.html" title="configファイルの設定" >前へ</a></li>
         <li><a href="index.html">[MinecraftMOD] ChatLoggerPlus 1.0.0 ドキュメント</a></li> 
       

@@ -60,8 +60,8 @@
   });
 </script>
     <link rel="top" title="[MinecraftMOD] ChatLoggerPlus 1.0.0 ドキュメント" href="index.html" />
-    <link rel="next" title="com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1" href="java/com/tojc/minecraft/mod/ChatLoggerPlusPlugin/v1/package-index.html" />
-    <link rel="prev" title="JavaScriptによるプラグインテンプレート" href="PluginTemplate.html" /> 
+    <link rel="next" title="JavaScriptによるプラグインテンプレート" href="PluginTemplate.html" />
+    <link rel="prev" title="プラグインの仕様について" href="PluginSpecification.html" /> 
   </head>
   <body>
     <div class="navbar navbar-fixed-top ">
@@ -80,10 +80,10 @@
                 <a href="genindex.html" title="総合索引" accesskey="I">索引</a>
                 </li>
                 <li>
-                <a href="java/com/tojc/minecraft/mod/ChatLoggerPlusPlugin/v1/package-index.html" title="com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1" accesskey="N">次へ</a>
+                <a href="PluginTemplate.html" title="JavaScriptによるプラグインテンプレート" accesskey="N">次へ</a>
                 </li>
                 <li>
-                <a href="PluginTemplate.html" title="JavaScriptによるプラグインテンプレート" accesskey="P">前へ</a>
+                <a href="PluginSpecification.html" title="プラグインの仕様について" accesskey="P">前へ</a>
                 </li>
               
             </ul>
@@ -106,6 +106,7 @@
   <h3><a href="index.html">目次</a></h3>
   <ul>
 <li><a class="reference internal" href="#">プラグイン開発準備</a><ul>
+<li><a class="reference internal" href="#id2">テキストエディタの準備</a></li>
 <li><a class="reference internal" href="#config">configの設定</a></li>
 <li><a class="reference internal" href="#minecraft">Minecraftの起動方法</a></li>
 </ul>
@@ -113,11 +114,11 @@
 </ul>
 
   <h4>前のトピックへ</h4>
-  <p class="topless"><a href="PluginTemplate.html"
-                        title="前の章へ">JavaScriptによるプラグインテンプレート</a></p>
+  <p class="topless"><a href="PluginSpecification.html"
+                        title="前の章へ">プラグインの仕様について</a></p>
   <h4>次のトピックへ</h4>
-  <p class="topless"><a href="java/com/tojc/minecraft/mod/ChatLoggerPlusPlugin/v1/package-index.html"
-                        title="次の章へ">com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1</a></p>
+  <p class="topless"><a href="PluginTemplate.html"
+                        title="次の章へ">JavaScriptによるプラグインテンプレート</a></p>
   <h3>このページ</h3>
   <ul class="this-page-menu">
     <li><a href="_sources/PluginDevPreparation.txt"
@@ -155,12 +156,34 @@
                   
   <div class="section" id="plugin-dev-preparation">
 <span id="id1"></span><h1>プラグイン開発準備<a class="headerlink" href="#plugin-dev-preparation" title="このヘッドラインへのパーマリンク">¶</a></h1>
-<p>（準備中）</p>
+<div class="section" id="id2">
+<h2>テキストエディタの準備<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>基本的にUTF-8のテキストファイルを正しく扱えるエディタであれば、なんでもOKです。</p>
+<p>ただし、Windows標準の「メモ帳」は「BOM有り」で保存してしまうので、トラブルの原因になります。
+どれを使えばいいか分からない場合は、秀丸エディタやSakuraエディタなどのテキストエディタを調べてみてください。</p>
+</div>
 <div class="section" id="config">
 <h2>configの設定<a class="headerlink" href="#config" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>「com.tojc.minecraft.mod.ChatLoggerPlus.cfg」の「outputofdebuglog」の項目を全てtrueにすることをお勧めします。</p>
+<p>特にスクリプトを作る時は、以下の項目が重要です。</p>
+<div class="highlight-ini"><div class="highlight"><pre><span class="na">OutputLoggingScript</span><span class="o">=</span><span class="s">true</span>
+<span class="na">OutputLoggingMessageOriginal</span><span class="o">=</span><span class="s">true</span>
+<span class="na">OutputLoggingMessageDuringChatLog</span><span class="o">=</span><span class="s">true</span>
+<span class="na">OutputLoggingMessageDuringScreen</span><span class="o">=</span><span class="s">true</span>
+<span class="na">OutputLoggingMessageLastChatLog</span><span class="o">=</span><span class="s">true</span>
+<span class="na">OutputLoggingMessageLastScreen</span><span class="o">=</span><span class="s">true</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="minecraft">
 <h2>Minecraftの起動方法<a class="headerlink" href="#minecraft" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>スクリプトからdebug.logメソッドで出力したログを見るために、実行時にログが閲覧できるようにします。</p>
+<p>Windowsであれば、以下のようなバッチファイルを作り、このバッチファイルからMinecraftを起動するようにすると、ログが閲覧できます。
+（以下は、Jakenが使っているバッチファイルの例です。それぞれの環境にあわせてパスやメモリ量を変更してください）</p>
+<p>minecraft.cmd</p>
+<div class="highlight-minecraft.cmd"><pre>"C:\Program Files\Java\jre6\bin\java.exe" -Xms1024m -Xmx3072m -jar Minecraft.exe</pre>
+</div>
+<p>※ここで出力されるログの種類は、上記「outputofdebuglog」の設定で決定されます。</p>
 </div>
 </div>
 
@@ -176,6 +199,7 @@
   <h3><a href="index.html">目次</a></h3>
   <ul>
 <li><a class="reference internal" href="#">プラグイン開発準備</a><ul>
+<li><a class="reference internal" href="#id2">テキストエディタの準備</a></li>
 <li><a class="reference internal" href="#config">configの設定</a></li>
 <li><a class="reference internal" href="#minecraft">Minecraftの起動方法</a></li>
 </ul>
@@ -183,11 +207,11 @@
 </ul>
 
   <h4>前のトピックへ</h4>
-  <p class="topless"><a href="PluginTemplate.html"
-                        title="前の章へ">JavaScriptによるプラグインテンプレート</a></p>
+  <p class="topless"><a href="PluginSpecification.html"
+                        title="前の章へ">プラグインの仕様について</a></p>
   <h4>次のトピックへ</h4>
-  <p class="topless"><a href="java/com/tojc/minecraft/mod/ChatLoggerPlusPlugin/v1/package-index.html"
-                        title="次の章へ">com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1</a></p>
+  <p class="topless"><a href="PluginTemplate.html"
+                        title="次の章へ">JavaScriptによるプラグインテンプレート</a></p>
   <h3>このページ</h3>
   <ul class="this-page-menu">
     <li><a href="_sources/PluginDevPreparation.txt"
@@ -219,8 +243,8 @@
     <ul class="nav pull-right">
       
         <li><a href="genindex.html" title="総合索引" >索引</a></li>
-        <li><a href="java/com/tojc/minecraft/mod/ChatLoggerPlusPlugin/v1/package-index.html" title="com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1" >次へ</a></li>
-        <li><a href="PluginTemplate.html" title="JavaScriptによるプラグインテンプレート" >前へ</a></li>
+        <li><a href="PluginTemplate.html" title="JavaScriptによるプラグインテンプレート" >次へ</a></li>
+        <li><a href="PluginSpecification.html" title="プラグインの仕様について" >前へ</a></li>
         <li><a href="index.html">[MinecraftMOD] ChatLoggerPlus 1.0.0 ドキュメント</a></li> 
       
     </ul>

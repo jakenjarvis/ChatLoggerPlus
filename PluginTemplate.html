@@ -60,8 +60,8 @@
   });
 </script>
     <link rel="top" title="[MinecraftMOD] ChatLoggerPlus 1.0.0 ドキュメント" href="index.html" />
-    <link rel="next" title="プラグイン開発準備" href="PluginDevPreparation.html" />
-    <link rel="prev" title="プラグインの仕様について" href="PluginSpecification.html" /> 
+    <link rel="next" title="プラグイン作成のチュートリアル" href="TutorialCreatePlugin.html" />
+    <link rel="prev" title="プラグイン開発準備" href="PluginDevPreparation.html" /> 
   </head>
   <body>
     <div class="navbar navbar-fixed-top ">
@@ -80,10 +80,10 @@
                 <a href="genindex.html" title="総合索引" accesskey="I">索引</a>
                 </li>
                 <li>
-                <a href="PluginDevPreparation.html" title="プラグイン開発準備" accesskey="N">次へ</a>
+                <a href="TutorialCreatePlugin.html" title="プラグイン作成のチュートリアル" accesskey="N">次へ</a>
                 </li>
                 <li>
-                <a href="PluginSpecification.html" title="プラグインの仕様について" accesskey="P">前へ</a>
+                <a href="PluginDevPreparation.html" title="プラグイン開発準備" accesskey="P">前へ</a>
                 </li>
               
             </ul>
@@ -106,18 +106,23 @@
   <h3><a href="index.html">目次</a></h3>
   <ul>
 <li><a class="reference internal" href="#">JavaScriptによるプラグインテンプレート</a><ul>
-<li><a class="reference internal" href="#id1">プラグイン骨格の説明</a></li>
-<li><a class="reference internal" href="#id2">ログ出力について</a></li>
+<li><a class="reference internal" href="#id1">プラグイン骨格の説明</a><ul>
+<li><a class="reference internal" href="#importpackage">importPackage定義</a></li>
+<li><a class="reference internal" href="#id2">プラグインの基本情報の定義</a></li>
+<li><a class="reference internal" href="#id3">プラグインの本体の定義</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id4">ログ出力について</a></li>
 </ul>
 </li>
 </ul>
 
   <h4>前のトピックへ</h4>
-  <p class="topless"><a href="PluginSpecification.html"
-                        title="前の章へ">プラグインの仕様について</a></p>
-  <h4>次のトピックへ</h4>
   <p class="topless"><a href="PluginDevPreparation.html"
-                        title="次の章へ">プラグイン開発準備</a></p>
+                        title="前の章へ">プラグイン開発準備</a></p>
+  <h4>次のトピックへ</h4>
+  <p class="topless"><a href="TutorialCreatePlugin.html"
+                        title="次の章へ">プラグイン作成のチュートリアル</a></p>
   <h3>このページ</h3>
   <ul class="this-page-menu">
     <li><a href="_sources/PluginTemplate.txt"
@@ -155,12 +160,112 @@
                   
   <div class="section" id="javascript">
 <span id="plugin-template"></span><h1>JavaScriptによるプラグインテンプレート<a class="headerlink" href="#javascript" title="このヘッドラインへのパーマリンク">¶</a></h1>
-<p>（準備中）</p>
+<p>以下に、最小限のプラグインテンプレートを示します。
+インターフェイスが認識できればいいので、これ以外にもいくつか書き方はあります。</p>
+<div class="highlight-javascript"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26</pre></div></td><td class="code"><div class="highlight"><pre><span class="c1">// ファイル形式はUTF-8で保存すること</span>
+<span class="c1">// Please file format to UTF-8.</span>
+<span class="nx">importPackage</span><span class="p">(</span><span class="nx">com</span><span class="p">.</span><span class="nx">tojc</span><span class="p">.</span><span class="nx">minecraft</span><span class="p">.</span><span class="nx">mod</span><span class="p">.</span><span class="nx">ChatLoggerPlusPlugin</span><span class="p">.</span><span class="nx">v1</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">name</span> <span class="o">=</span> <span class="s2">&quot;plugin name&quot;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">version</span> <span class="o">=</span> <span class="s2">&quot;1.0.0&quot;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">description</span> <span class="o">=</span> <span class="s2">&quot;plugin description&quot;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">auther</span> <span class="o">=</span> <span class="s2">&quot;your name&quot;</span><span class="p">;</span>
+
+<span class="kd">var</span> <span class="nx">plugin</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PluginInterface</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="nx">onInitialize</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">settings</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nx">debug</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="s2">&quot;onInitialize&quot;</span><span class="p">);</span>
+    <span class="p">},</span>
+
+    <span class="nx">onChatMessage</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">env</span><span class="p">,</span> <span class="nx">chat</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nx">debug</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="s2">&quot;onChatMessage&quot;</span><span class="p">);</span>
+    <span class="p">},</span>
+
+    <span class="nx">onFinalize</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="nx">debug</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="s2">&quot;onFinalize&quot;</span><span class="p">);</span>
+    <span class="p">},</span>
+<span class="p">};</span>
+</pre></div>
+</td></tr></table></div>
+<p>このテンプレートをダウンロードする場合は、以下のtemplate.jsを右クリックして「名前を付けて保存」で保存してください。</p>
+<p><a class="reference download internal" href="_downloads/template.js"><tt class="xref download docutils literal"><span class="pre">template.js</span></tt></a></p>
 <div class="section" id="id1">
 <h2>プラグイン骨格の説明<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="importpackage">
+<h3>importPackage定義<a class="headerlink" href="#importpackage" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">importPackage</span><span class="p">(</span><span class="nx">com</span><span class="p">.</span><span class="nx">tojc</span><span class="p">.</span><span class="nx">minecraft</span><span class="p">.</span><span class="nx">mod</span><span class="p">.</span><span class="nx">ChatLoggerPlusPlugin</span><span class="p">.</span><span class="nx">v1</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>プラグインインターフェイスを定義しているパッケージ名を指定しています。
+これは、このままおまじないとして固定で定義してください。</p>
 </div>
 <div class="section" id="id2">
-<h2>ログ出力について<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<h3>プラグインの基本情報の定義<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">name</span> <span class="o">=</span> <span class="s2">&quot;plugin name&quot;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">version</span> <span class="o">=</span> <span class="s2">&quot;1.0.0&quot;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">description</span> <span class="o">=</span> <span class="s2">&quot;plugin description&quot;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">auther</span> <span class="o">=</span> <span class="s2">&quot;your name&quot;</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>プラグインの名前、バージョン、説明、作者名をここで定義します。
+この値は利用者が画面上で確認できるようにするためのものです。</p>
+<p>詳細は <a class="reference internal" href="GlobalValue.html#global-value"><em>global</em></a> も参照ください。</p>
+</div>
+<div class="section" id="id3">
+<h3>プラグインの本体の定義<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">plugin</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PluginInterface</span><span class="p">(){};</span>
+</pre></div>
+</div>
+<p>プラグインの処理を定義します。
+ここには、 <a class="reference internal" href="java/com/tojc/minecraft/mod/ChatLoggerPlusPlugin/v1/PluginInterface.html#com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.PluginInterface" title="com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.PluginInterface"><tt class="xref java java-ref docutils literal"><span class="pre">PluginInterface</span></tt></a> を実装したオブジェクトを渡さなければなりません。</p>
+<p>インターフェイスの詳細は、 <a class="reference internal" href="java/com/tojc/minecraft/mod/ChatLoggerPlusPlugin/v1/PluginInterface.html#com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.PluginInterface" title="com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.PluginInterface"><tt class="xref java java-ref docutils literal"><span class="pre">PluginInterface</span></tt></a> を参照してください。</p>
+<p>インターフェイスを実装してさえいれば、異なる書き方でも構いません。（JavaScriptでは、いくつかの記述方法があります）</p>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>ログ出力について<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">debug</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="s2">&quot;ログに出力する内容&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>デバッグ用のログ出力メソッドです。グローバルに定義されているため、どこからでも呼び出せます。
+プラグイン基本情報のnameと、ログに出力したい文字を渡してください。</p>
+<p>また、このメソッドは、com.tojc.minecraft.mod.ChatLoggerPlus.cfgファイルの設定を参照して、実際にログを出力するかを判断します。
+プラグインを配布するときもdebug.logを記述したまま配布可能です。</p>
+<p>※設定は、outputofdebuglogのOutputLoggingScriptをtrueにすることで、出力できるようになります。</p>
+<div class="admonition note">
+<p class="first admonition-title">ノート</p>
+<p class="last">一般公開前のDevelop版では、ログ出力をprintlnで行っていましたが、別途ログ出力用のdebug.logメソッドを用意しました。
+これは、config設定で出力の有無を設定できるようになっているため、利用者が出力の有無を切り替えることができます。
+このため、出来るだけdebug.logメソッドを使うようにしてください。</p>
+</div>
 </div>
 </div>
 
@@ -176,18 +281,23 @@
   <h3><a href="index.html">目次</a></h3>
   <ul>
 <li><a class="reference internal" href="#">JavaScriptによるプラグインテンプレート</a><ul>
-<li><a class="reference internal" href="#id1">プラグイン骨格の説明</a></li>
-<li><a class="reference internal" href="#id2">ログ出力について</a></li>
+<li><a class="reference internal" href="#id1">プラグイン骨格の説明</a><ul>
+<li><a class="reference internal" href="#importpackage">importPackage定義</a></li>
+<li><a class="reference internal" href="#id2">プラグインの基本情報の定義</a></li>
+<li><a class="reference internal" href="#id3">プラグインの本体の定義</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id4">ログ出力について</a></li>
 </ul>
 </li>
 </ul>
 
   <h4>前のトピックへ</h4>
-  <p class="topless"><a href="PluginSpecification.html"
-                        title="前の章へ">プラグインの仕様について</a></p>
-  <h4>次のトピックへ</h4>
   <p class="topless"><a href="PluginDevPreparation.html"
-                        title="次の章へ">プラグイン開発準備</a></p>
+                        title="前の章へ">プラグイン開発準備</a></p>
+  <h4>次のトピックへ</h4>
+  <p class="topless"><a href="TutorialCreatePlugin.html"
+                        title="次の章へ">プラグイン作成のチュートリアル</a></p>
   <h3>このページ</h3>
   <ul class="this-page-menu">
     <li><a href="_sources/PluginTemplate.txt"
@@ -219,8 +329,8 @@
     <ul class="nav pull-right">
       
         <li><a href="genindex.html" title="総合索引" >索引</a></li>
-        <li><a href="PluginDevPreparation.html" title="プラグイン開発準備" >次へ</a></li>
-        <li><a href="PluginSpecification.html" title="プラグインの仕様について" >前へ</a></li>
+        <li><a href="TutorialCreatePlugin.html" title="プラグイン作成のチュートリアル" >次へ</a></li>
+        <li><a href="PluginDevPreparation.html" title="プラグイン開発準備" >前へ</a></li>
         <li><a href="index.html">[MinecraftMOD] ChatLoggerPlus 1.0.0 ドキュメント</a></li> 
       
     </ul>

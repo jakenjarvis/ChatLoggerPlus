@@ -61,6 +61,7 @@
 </script>
     <link rel="top" title="[MinecraftMOD] ChatLoggerPlus 1.0.0 ドキュメント" href="../../../../../../../index.html" />
     <link rel="up" title="com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1" href="package-index.html" />
+    <link rel="next" title="既知の問題点" href="../../../../../../../Other.html" />
     <link rel="prev" title="PluginInterface" href="PluginInterface.html" /> 
   </head>
   <body>
@@ -78,6 +79,9 @@
               
                 <li>
                 <a href="../../../../../../../genindex.html" title="総合索引" accesskey="I">索引</a>
+                </li>
+                <li>
+                <a href="../../../../../../../Other.html" title="既知の問題点" accesskey="N">次へ</a>
                 </li>
                 <li>
                 <a href="PluginInterface.html" title="PluginInterface" accesskey="P">前へ</a>
@@ -120,6 +124,9 @@
   <h4>前のトピックへ</h4>
   <p class="topless"><a href="PluginInterface.html"
                         title="前の章へ">PluginInterface</a></p>
+  <h4>次のトピックへ</h4>
+  <p class="topless"><a href="../../../../../../../Other.html"
+                        title="次の章へ">既知の問題点</a></p>
   <h3>このページ</h3>
   <ul class="this-page-menu">
     <li><a href="../../../../../../../_sources/java/com/tojc/minecraft/mod/ChatLoggerPlusPlugin/v1/PluginSettings.txt"
@@ -176,40 +183,18 @@ public interface <tt class="descname">PluginSettings</tt><a class="headerlink" h
 <div class="section" id="registerpermissionaddaftermessage">
 <h3>registerPermissionAddAfterMessage<a class="headerlink" href="#registerpermissionaddaftermessage" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <dl class="method">
-<dt id="com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.PluginSettings.registerPermissionAddAfterMessage(boolean)">
-public void <tt class="descname">registerPermissionAddAfterMessage</tt><big>(</big>boolean<em> adding</em><big>)</big><a class="headerlink" href="#com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.PluginSettings.registerPermissionAddAfterMessage(boolean)" title="この定義へのパーマリンク">¶</a></dt>
-<dd><p>チャットメッセージを追加するパーミッションを要求します。 スクリプトでaddAfterMessageを使用する場合は宣言が必要です。</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">パラメタ:</th><td class="field-body"><ul class="first last simple">
-<li><strong>adding</strong> &#8211; パーミッションを要求する場合はtrueを指定してください。</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
+<dt id="com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.PluginSettings.registerPermissionAddAfterMessage()">
+public void <tt class="descname">registerPermissionAddAfterMessage</tt><big>(</big><big>)</big><a class="headerlink" href="#com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.PluginSettings.registerPermissionAddAfterMessage()" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>チャットメッセージを追加するパーミッションを要求します。 スクリプトで <a class="reference internal" href="ChatMessage.html#com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.ChatMessage.addAfterMessage(String)" title="com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.ChatMessage.addAfterMessage(String)"><tt class="xref java java-ref docutils literal"><span class="pre">ChatMessage.addAfterMessage(String)</span></tt></a> を使用する場合は宣言が必要です。</p>
 </dd></dl>
 
 </div>
 <div class="section" id="registerpermissionmessagemodification">
 <h3>registerPermissionMessageModification<a class="headerlink" href="#registerpermissionmessagemodification" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <dl class="method">
-<dt id="com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.PluginSettings.registerPermissionMessageModification(boolean)">
-public void <tt class="descname">registerPermissionMessageModification</tt><big>(</big>boolean<em> modification</em><big>)</big><a class="headerlink" href="#com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.PluginSettings.registerPermissionMessageModification(boolean)" title="この定義へのパーマリンク">¶</a></dt>
-<dd><p>チャットメッセージを加工するパーミッションを要求します。 スクリプトでsetMessageを使用する場合は宣言が必要です。</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">パラメタ:</th><td class="field-body"><ul class="first last simple">
-<li><strong>modification</strong> &#8211; パーミッションを要求する場合はtrueを指定してください。</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
+<dt id="com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.PluginSettings.registerPermissionMessageModification()">
+public void <tt class="descname">registerPermissionMessageModification</tt><big>(</big><big>)</big><a class="headerlink" href="#com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.PluginSettings.registerPermissionMessageModification()" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>チャットメッセージを加工するパーミッションを要求します。 スクリプトで <a class="reference internal" href="ChatMessage.html#com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.ChatMessage.setMessage(String)" title="com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.ChatMessage.setMessage(String)"><tt class="xref java java-ref docutils literal"><span class="pre">ChatMessage.setMessage(String)</span></tt></a> を使用する場合は宣言が必要です。</p>
 </dd></dl>
 
 </div>
@@ -218,7 +203,7 @@ public void <tt class="descname">registerPermissionMessageModification</tt><big>
 <dl class="method">
 <dt id="com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.PluginSettings.registerPermissionReadStack(String)">
 public void <tt class="descname">registerPermissionReadStack</tt><big>(</big>String<em> keyname</em><big>)</big><a class="headerlink" href="#com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.PluginSettings.registerPermissionReadStack(String)" title="この定義へのパーマリンク">¶</a></dt>
-<dd><p>スタックを読み込むパーミッションを要求します。（実質、既に存在するスタックなら読み書きできます） スクリプトでreadStackを使用する場合は宣言が必要です。</p>
+<dd><p>スタックを読み込むパーミッションを要求します。（実質、既に存在するスタックなら読み書きできます） スクリプトで <a class="reference internal" href="ChatMessage.html#com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.ChatMessage.readStack(String)" title="com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.ChatMessage.readStack(String)"><tt class="xref java java-ref docutils literal"><span class="pre">ChatMessage.readStack(String)</span></tt></a> を使用する場合は宣言が必要です。</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -238,7 +223,7 @@ public void <tt class="descname">registerPermissionReadStack</tt><big>(</big>Str
 <dl class="method">
 <dt id="com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.PluginSettings.registerPermissionWriteStack(String)">
 public void <tt class="descname">registerPermissionWriteStack</tt><big>(</big>String<em> keyname</em><big>)</big><a class="headerlink" href="#com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.PluginSettings.registerPermissionWriteStack(String)" title="この定義へのパーマリンク">¶</a></dt>
-<dd><p>スタックに書き込むパーミッションを要求します。（実質新規作成の意味合いです） スクリプトでwriteStackを使用する場合は宣言が必要です。</p>
+<dd><p>スタックに書き込むパーミッションを要求します。（実質新規作成の意味合いです） スクリプトで <a class="reference internal" href="ChatMessage.html#com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.ChatMessage.writeStack(String, Object)" title="com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.ChatMessage.writeStack(String, Object)"><tt class="xref java java-ref docutils literal"><span class="pre">ChatMessage.writeStack(String,Object)</span></tt></a> を使用する場合は宣言が必要です。</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -282,6 +267,9 @@ public void <tt class="descname">registerPermissionWriteStack</tt><big>(</big>St
   <h4>前のトピックへ</h4>
   <p class="topless"><a href="PluginInterface.html"
                         title="前の章へ">PluginInterface</a></p>
+  <h4>次のトピックへ</h4>
+  <p class="topless"><a href="../../../../../../../Other.html"
+                        title="次の章へ">既知の問題点</a></p>
   <h3>このページ</h3>
   <ul class="this-page-menu">
     <li><a href="../../../../../../../_sources/java/com/tojc/minecraft/mod/ChatLoggerPlusPlugin/v1/PluginSettings.txt"
@@ -313,6 +301,7 @@ public void <tt class="descname">registerPermissionWriteStack</tt><big>(</big>St
     <ul class="nav pull-right">
       
         <li><a href="../../../../../../../genindex.html" title="総合索引" >索引</a></li>
+        <li><a href="../../../../../../../Other.html" title="既知の問題点" >次へ</a></li>
         <li><a href="PluginInterface.html" title="PluginInterface" >前へ</a></li>
         <li><a href="../../../../../../../index.html">[MinecraftMOD] ChatLoggerPlus 1.0.0 ドキュメント</a></li>
         <li><a href="package-index.html" >com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1</a></li> 

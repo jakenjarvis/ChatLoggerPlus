@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+
+
+
+
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    
+    <title>既知の問題点 &mdash; [MinecraftMOD] ChatLoggerPlus 1.0.0 ドキュメント</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Volkhov" type="text/css" />
+<link rel="stylesheet" href="_static/css/basicstrap-base.css" type="text/css" />
+<link rel="stylesheet" href="_static/css/bootswatch-cosmo.css" type="text/css" />
+<link rel="stylesheet" href="_static/css/font-awesome.min.css">
+<!--[if IE 7]>
+<link rel="stylesheet" href="_static/css/font-awesome-ie7.min.css">
+<![endif]-->
+<style type="text/css">
+  body {
+    padding-top: 60px;
+    padding-bottom: 40px;
+  }
+}
+</style>
+<link rel="stylesheet" href="_static/basicstrap.css" type="text/css" />
+<link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+<link rel="stylesheet" href="_static/css/bootstrap-responsive.min.css" type="text/css" />
+    
+<script type="text/javascript">
+  var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:    './',
+            VERSION:     '1.0.0',
+            COLLAPSE_INDEX: false,
+            FILE_SUFFIX: '.html',
+            HAS_SOURCE:  true
+  };
+</script>
+<script type="text/javascript" src="_static/js/jquery.min.js"></script>
+<script type="text/javascript" src="_static/underscore.js"></script>
+<script type="text/javascript" src="_static/doctools.js"></script>
+<script type="text/javascript" src="_static/translations.js"></script>
+<script type="text/javascript" src="_static/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('.show-sidebar').click(function(e) {
+       e.preventDefault();
+       if ($(".show-sidebar").html() == "Open Table Of Contents") {
+          $('.for-mobile').removeClass('hidden-phone');
+          $(".show-sidebar").html("Close Table Of Contents");
+       } else {
+          $(".show-sidebar").html("Open Table Of Contents");
+       }
+    });
+  });
+</script>
+    <link rel="top" title="[MinecraftMOD] ChatLoggerPlus 1.0.0 ドキュメント" href="index.html" />
+    <link rel="prev" title="PluginSettings" href="java/com/tojc/minecraft/mod/ChatLoggerPlusPlugin/v1/PluginSettings.html" /> 
+  </head>
+  <body>
+    <div class="navbar navbar-fixed-top ">
+      <div class="navbar-inner">
+        <div class="container-fluid">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="index.html">[MinecraftMOD] ChatLoggerPlus 1.0.0 ドキュメント</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav pull-right">
+              
+                <li>
+                <a href="genindex.html" title="総合索引" accesskey="I">索引</a>
+                </li>
+                <li>
+                <a href="java/com/tojc/minecraft/mod/ChatLoggerPlusPlugin/v1/PluginSettings.html" title="PluginSettings" accesskey="P">前へ</a>
+                </li>
+              
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+
+    <!-- container -->
+    <div class="container-fluid">
+
+
+      
+      <div class="row-fluid hidden-desktop hidden-tablet">
+      
+<div class="span4 ">
+  <a class="visible-phone btn btn-small show-sidebar" data-toggle="collapse" data-target=".for-mobile">Open Table Of Contents</a>
+  <div class="for-mobile sidebar hidden-phone">
+  <h3><a href="index.html">目次</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">既知の問題点</a></li>
+<li><a class="reference internal" href="#id2">開発メモ</a></li>
+</ul>
+
+  <h4>前のトピックへ</h4>
+  <p class="topless"><a href="java/com/tojc/minecraft/mod/ChatLoggerPlusPlugin/v1/PluginSettings.html"
+                        title="前の章へ">PluginSettings</a></p>
+  <h3>このページ</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/Other.txt"
+           rel="nofollow">ソースコードを表示</a></li>
+  </ul>
+<div id="searchbox">
+  <h3>クイック検索</h3>
+  <form class="search form-search" action="search.html" method="get">
+      <div class="input-append">
+        <input type="text" class="search-query" name="q">
+        <input type="submit" class="btn" value="検索" />
+      </div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    モジュール、クラス、または関数名を入力してください
+    </p>
+</div>
+  </div>
+</div>
+      </div>
+      
+
+      <!-- row -->
+      <div class="row-fluid">
+        
+        
+
+        <div class="span8">
+          <div class="document">
+            <div class="documentwrapper">
+              <div class="bodywrapper">
+                <div class="body">
+                  
+  <div class="section" id="other">
+<span id="id1"></span><h1>既知の問題点<a class="headerlink" href="#other" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<blockquote>
+<div><ul>
+<li><p class="first">Screen PluginとしてaddAfterMessageで出力するときは、チャットメッセージを横取りする必要があるので、他のチャット処理MODと競合する可能性がある。</p>
+<blockquote>
+<div><p>同様に、setMessageでnullをセットし、チャットメッセージを削除する場合も同様の問題を抱えています。
+⇒詳しくは <a class="reference external" href="http://forum.minecraftuser.jp/viewtopic.php?f=13&amp;t=7929&amp;start=40#p125146">http://forum.minecraftuser.jp/viewtopic.php?f=13&amp;t=7929&amp;start=40#p125146</a> 棒読みちゃんMODとの競合 について追いかけてみてください。</p>
+</div></blockquote>
+</li>
+<li><p class="first">どう頑張ってもスクリプトのエラー原因の詳細を取得・表示できない。現在はなんちゃってエラーでごまかしているが、スクリプトのデバッグがつらいかも。</p>
+<blockquote>
+<div><p>⇒今の所debug.logメソッドで出力して、動作チェックする方法が確実です。</p>
+</div></blockquote>
+</li>
+<li><p class="first">スクリプトの処理が多いと、かなり重くなる。PCスペックが必要かも。TinySegmenterで分かち書きさせたら、初回処理時に２秒近く固まる（汗）</p>
+<blockquote>
+<div><p>⇒これはonInitializeで重い処理をあらかじめさせておき、スクリプトを読み込ませておくことで多少は回避可能です。minerabotの作りを参考にしてください。</p>
+</div></blockquote>
+</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="id2">
+<h1>開発メモ<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<blockquote>
+<div><ul class="simple">
+<li>プラグイン側からScreen PluginまたはChatLog Pluginに登録可能かを定義させる必要あり？</li>
+<li>addAfterMessageや画面出力したチャット内容を、別のログファイルに出力したい、なんて話が出てくる？</li>
+<li>チャットログをテキストファイルだけではなく、GUI上でも閲覧できるとうれしいかも。 <a class="reference external" href="http://forum.minecraftuser.jp/viewtopic.php?f=13&amp;t=7929&amp;start=40#p125211">http://forum.minecraftuser.jp/viewtopic.php?f=13&amp;t=7929&amp;start=40#p125211</a> by Desruler</li>
+<li>プラグインフォルダの再読み込みボタンの実装。</li>
+<li>ユーザーが入力した送信前のチャットを加工するプラグインもありだけど、日本語入力系MODと競合、かつ、class改変必須そうなので断念かなぁ。</li>
+</ul>
+</div></blockquote>
+</div>
+
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+         
+<div class="span4 visible-desktop visible-tablet">
+  <div class=" sidebar hidden-phone">
+  <h3><a href="index.html">目次</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">既知の問題点</a></li>
+<li><a class="reference internal" href="#id2">開発メモ</a></li>
+</ul>
+
+  <h4>前のトピックへ</h4>
+  <p class="topless"><a href="java/com/tojc/minecraft/mod/ChatLoggerPlusPlugin/v1/PluginSettings.html"
+                        title="前の章へ">PluginSettings</a></p>
+  <h3>このページ</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/Other.txt"
+           rel="nofollow">ソースコードを表示</a></li>
+  </ul>
+<div id="searchbox">
+  <h3>クイック検索</h3>
+  <form class="search form-search" action="search.html" method="get">
+      <div class="input-append">
+        <input type="text" class="search-query" name="q">
+        <input type="submit" class="btn" value="検索" />
+      </div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    モジュール、クラス、または関数名を入力してください
+    </p>
+</div>
+  </div>
+</div> 
+        
+      </div><!-- /row -->
+
+      <!-- row -->
+      <div class="row-fluid">
+<div class="related navbar ">
+  <div class="navbar-inner">
+    <ul class="nav pull-right">
+      
+        <li><a href="genindex.html" title="総合索引" >索引</a></li>
+        <li><a href="java/com/tojc/minecraft/mod/ChatLoggerPlusPlugin/v1/PluginSettings.html" title="PluginSettings" >前へ</a></li>
+        <li><a href="index.html">[MinecraftMOD] ChatLoggerPlus 1.0.0 ドキュメント</a></li> 
+      
+    </ul>
+  </div>
+</div>
+      </div><!-- /row -->
+
+      <!-- footer -->
+      <footer>
+          &copy; Copyright 2013, Jaken.
+        Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2b3.
+      </footer>
+      <!-- /footer -->
+
+    </div>
+    <!-- /container -->
+
+  </body>
+</html>

@@ -18,7 +18,7 @@ addAfterMessage
 .. java:method:: public void addAfterMessage(String message)
    :outertype: ChatMessage
 
-   チャットメッセージを追加します。 追加したメッセージは、処理中のメッセージが表示された後、順番に出力されます。 これは、ローカルチャットへ追加するだけで、サーバに送られることはありません。（利用者だけが見える） 注意：これを実現するためにチャットメッセージを横取りする必要があるので、他のチャット処理MODと競合する可能性があります。 このメソッドを使用するためには、パーミッションAddAfterMessageが必要です。
+   チャットメッセージを追加します。 追加したメッセージは、処理中のメッセージが表示された後、順番に出力されます。 これは、ローカルチャットへ追加するだけで、サーバに送られることはありません。（利用者だけが見える） 注意：これを実現するためにチャットメッセージを横取りする必要があるので、他のチャット処理MODと競合する可能性があります。 このメソッドを使用するためには、 \ :java:ref:`PluginInterface.onInitialize(PluginSettings)`\  にて、あらかじめ \ :java:ref:`PluginSettings.registerPermissionAddAfterMessage()`\  を呼び出さなければなりません。
 
    :param message: チャットメッセージ文字列
 
@@ -68,7 +68,7 @@ readStack
 .. java:method:: public Object readStack(String keyname)
    :outertype: ChatMessage
 
-   スタックから指定のキー文字列に関連付けされているオブジェクトを取得します。 このメソッドを使うプラグインよりも前に、別のプラグインの \ :java:ref:`ChatMessage.writeStack(String,Object)`\  によって スタックにあらかじめ値が登録されている必要があります。 このメソッドを使用するためには、パーミッションReadStackが必要です。
+   スタックから指定のキー文字列に関連付けされているオブジェクトを取得します。 このメソッドを使うプラグインよりも前に、別のプラグインの \ :java:ref:`ChatMessage.writeStack(String,Object)`\  によって スタックにあらかじめ値が登録されている必要があります。 このメソッドを使用するためには、 \ :java:ref:`PluginInterface.onInitialize(PluginSettings)`\  にて、あらかじめ \ :java:ref:`PluginSettings.registerPermissionReadStack(String)`\  を呼び出さなければなりません。
 
    :param keyname: スタックから受け取るキー文字列
    :return: キー文字列に登録されている値 ※null、文字列、数値、配列やクラスオブジェクトなどが受け取れます。
@@ -79,7 +79,7 @@ setMessage
 .. java:method:: public void setMessage(String message)
    :outertype: ChatMessage
 
-   チャットメッセージを設定します。 ※nullをセットすると、チャットの発言自体を削除できますが、nullを想定していない他のチャット処理MODと競合する可能性があります。 このメソッドを使用するためには、パーミッションMessageModificationが必要です。
+   チャットメッセージを設定します。 ※nullをセットすると、チャットの発言自体を削除できますが、nullを想定していない他のチャット処理MODと競合する可能性があります。 このメソッドを使用するためには、 \ :java:ref:`PluginInterface.onInitialize(PluginSettings)`\  にて、あらかじめ \ :java:ref:`PluginSettings.registerPermissionMessageModification()`\  を呼び出さなければなりません。
 
    :param message: チャットメッセージ文字列
 
@@ -89,7 +89,7 @@ writeStack
 .. java:method:: public void writeStack(String keyname, Object value)
    :outertype: ChatMessage
 
-   スタックへ指定のキー文字列に関連付けした任意のオブジェクトをセットします。 任意のキー文字列を指定できます。 指定したキー文字列を知るプラグインは \ :java:ref:`ChatMessage.readStack(String)`\  にて値を受け取ることができます。 このメソッドを使用するためには、パーミッションWriteStackが必要です。
+   スタックへ指定のキー文字列に関連付けした任意のオブジェクトをセットします。 任意のキー文字列を指定できます。 指定したキー文字列を知るプラグインは \ :java:ref:`ChatMessage.readStack(String)`\  にて値を受け取ることができます。 このメソッドを使用するためには、 \ :java:ref:`PluginInterface.onInitialize(PluginSettings)`\  にて、あらかじめ \ :java:ref:`PluginSettings.registerPermissionWriteStack(String)`\  を呼び出さなければなりません。
 
    :param keyname: スタックに登録するキー文字列
    :param value: スタックに登録する値 ※null、文字列、数値、配列やクラスオブジェクトなども渡せます。

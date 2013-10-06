@@ -60,8 +60,8 @@
   });
 </script>
     <link rel="top" title="[MinecraftMOD] ChatLoggerPlus 1.0.0 ドキュメント" href="index.html" />
-    <link rel="next" title="JavaScriptによるプラグインテンプレート" href="PluginTemplate.html" />
-    <link rel="prev" title="プラグインを使う" href="UsePlugin.html" /> 
+    <link rel="next" title="プラグイン開発準備" href="PluginDevPreparation.html" />
+    <link rel="prev" title="MiNeRa bot：チャットボット（実用的サンプル）" href="sampleplugin/MiNeRaBot.html" /> 
   </head>
   <body>
     <div class="navbar navbar-fixed-top ">
@@ -80,10 +80,10 @@
                 <a href="genindex.html" title="総合索引" accesskey="I">索引</a>
                 </li>
                 <li>
-                <a href="PluginTemplate.html" title="JavaScriptによるプラグインテンプレート" accesskey="N">次へ</a>
+                <a href="PluginDevPreparation.html" title="プラグイン開発準備" accesskey="N">次へ</a>
                 </li>
                 <li>
-                <a href="UsePlugin.html" title="プラグインを使う" accesskey="P">前へ</a>
+                <a href="sampleplugin/MiNeRaBot.html" title="MiNeRa bot：チャットボット（実用的サンプル）" accesskey="P">前へ</a>
                 </li>
               
             </ul>
@@ -108,17 +108,26 @@
 <li><a class="reference internal" href="#">プラグインの仕様について</a><ul>
 <li><a class="reference internal" href="#id2">スクリプトの動作環境</a></li>
 <li><a class="reference internal" href="#id3">パーミッション（権限）について</a></li>
-<li><a class="reference internal" href="#id4">スタックについて</a></li>
+<li><a class="reference internal" href="#id4">スタックについて</a><ul>
+<li><a class="reference internal" href="#id5">スタックを使ったプラグイン連携について</a><ul>
+<li><a class="reference internal" href="#id6">例題の前提条件</a></li>
+<li><a class="reference internal" href="#a">プラグインＡの実装</a></li>
+<li><a class="reference internal" href="#b">プラグインＢの実装</a></li>
+<li><a class="reference internal" href="#id7">スタック連携の使いどころ</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
 
   <h4>前のトピックへ</h4>
-  <p class="topless"><a href="UsePlugin.html"
-                        title="前の章へ">プラグインを使う</a></p>
+  <p class="topless"><a href="sampleplugin/MiNeRaBot.html"
+                        title="前の章へ">MiNeRa bot：チャットボット（実用的サンプル）</a></p>
   <h4>次のトピックへ</h4>
-  <p class="topless"><a href="PluginTemplate.html"
-                        title="次の章へ">JavaScriptによるプラグインテンプレート</a></p>
+  <p class="topless"><a href="PluginDevPreparation.html"
+                        title="次の章へ">プラグイン開発準備</a></p>
   <h3>このページ</h3>
   <ul class="this-page-menu">
     <li><a href="_sources/PluginSpecification.txt"
@@ -156,15 +165,167 @@
                   
   <div class="section" id="plugin-specification">
 <span id="id1"></span><h1>プラグインの仕様について<a class="headerlink" href="#plugin-specification" title="このヘッドラインへのパーマリンク">¶</a></h1>
-<p>（準備中）</p>
+<div class="admonition note">
+<p class="first admonition-title">ノート</p>
+<p class="last">プラグインを作ってくれる方を募集しています！
+まだまだ、どんなプラグインが必要とされ、どんなインターフェイスが必要なのかを、一人では洗い出せていません。
+APIの仕様も、十分ではありませんし、皆さんのご意見をいただきたいです。</p>
+</div>
 <div class="section" id="id2">
 <h2>スクリプトの動作環境<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>プラグイン機能は、Java言語標準のスクリプトエンジンを利用して、ChatLoggerPlus内でスクリプトを動作させるように作っています。
+このため、JVMで動作するスクリプト言語が一通り使えます。</p>
+<p>環境を準備さえすれば、PythonやRuby、Groovyといった言語が使えるようになっているハズです。
+ですが、ほとんどのユーザーは環境準備をしていないと思われるので、プラグインを配布する場合は、標準で使えるJavaScriptで作成することになります。</p>
+<div class="admonition note">
+<p class="first admonition-title">ノート</p>
+<p class="last">このため、JavaScript以外は動作未確認です。
+ChatLoggerPlusは、プラグインの拡張子で言語を判断して動くように作っています。
+もし、他の言語で動作を確認された方がおられましたら、是非ご連絡ください。</p>
+</div>
+<p>JavaScriptの作成にはRhinoの情報が役に立ちます。
+(正式にはJSR223で定義されているものでRhinoは若干異なるようです。JavaImporterが使えない等)</p>
+<p>手元の環境では、「Mozilla Rhino 1.6 release 2, ECMAScript 1.6」と表示されていますので、参考にしてください。</p>
+<p>以下のサイトが参考になりましたので、リンクを張っておきます。</p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference external" href="http://docs.oracle.com/javase/jp/6/technotes/guides/scripting/programmer_guide/index.html">Java スクリプトプログラマーズガイド</a></li>
+<li><a class="reference external" href="http://www.techscore.com/tech/Java/JavaSE/JavaSE6/5/">5. スクリプティング機能 | TECHSCORE(テックスコア)</a></li>
+<li><a class="reference external" href="http://www.javainthebox.net/laboratory/JavaSE6/scripting/scripting.html">Java SE 6 じゃじゃ馬ならし Scripting</a></li>
+</ul>
+</div></blockquote>
+<p>JavaScriptそのものの記述については、検索すると沢山サイトが見つかると思います。
+うまく活用してください。</p>
+<div class="admonition note">
+<p class="first admonition-title">ノート</p>
+<p class="last">スクリプトは、主にJavaScript言語で作ることができ、テキストエディタがあれば開発可能です。特別な開発環境は必要ありません。
+是非、チャレンジしてみてください！</p>
+</div>
 </div>
 <div class="section" id="id3">
 <h2>パーミッション（権限）について<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>パーミッション（権限）には、以下のような種類が存在しています。</p>
+<table border="1" class="docutils">
+<caption>パーミッション（権限）一覧</caption>
+<colgroup>
+<col width="20%" />
+<col width="20%" />
+<col width="10%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">制限対象</th>
+<th class="head">パーミッション取得メソッド</th>
+<th class="head">表示名</th>
+<th class="head">詳細</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><a class="reference internal" href="java/com/tojc/minecraft/mod/ChatLoggerPlusPlugin/v1/ChatMessage.html#com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.ChatMessage.setMessage(String)" title="com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.ChatMessage.setMessage(String)"><tt class="xref java java-ref docutils literal"><span class="pre">setMessage</span></tt></a></td>
+<td><a class="reference internal" href="java/com/tojc/minecraft/mod/ChatLoggerPlusPlugin/v1/PluginSettings.html#com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.PluginSettings.registerPermissionMessageModification()" title="com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.PluginSettings.registerPermissionMessageModification()"><tt class="xref java java-ref docutils literal"><span class="pre">registerPermissionMessageModification</span></tt></a></td>
+<td>Modify</td>
+<td>チャットメッセージを加工するパーミッションを要求します。</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="java/com/tojc/minecraft/mod/ChatLoggerPlusPlugin/v1/ChatMessage.html#com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.ChatMessage.addAfterMessage(String)" title="com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.ChatMessage.addAfterMessage(String)"><tt class="xref java java-ref docutils literal"><span class="pre">addAfterMessage</span></tt></a></td>
+<td><a class="reference internal" href="java/com/tojc/minecraft/mod/ChatLoggerPlusPlugin/v1/PluginSettings.html#com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.PluginSettings.registerPermissionAddAfterMessage()" title="com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.PluginSettings.registerPermissionAddAfterMessage()"><tt class="xref java java-ref docutils literal"><span class="pre">registerPermissionAddAfterMessage</span></tt></a></td>
+<td>Add</td>
+<td>チャットメッセージを追加するパーミッションを要求します。</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="java/com/tojc/minecraft/mod/ChatLoggerPlusPlugin/v1/ChatMessage.html#com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.ChatMessage.writeStack(String, Object)" title="com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.ChatMessage.writeStack(String, Object)"><tt class="xref java java-ref docutils literal"><span class="pre">writeStack</span></tt></a></td>
+<td><a class="reference internal" href="java/com/tojc/minecraft/mod/ChatLoggerPlusPlugin/v1/PluginSettings.html#com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.PluginSettings.registerPermissionWriteStack(String)" title="com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.PluginSettings.registerPermissionWriteStack(String)"><tt class="xref java java-ref docutils literal"><span class="pre">registerPermissionWriteStack</span></tt></a></td>
+<td>WS/xxxx</td>
+<td>スタックに書き込むパーミッションを要求します。（実質新規作成の意味合いです）</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="java/com/tojc/minecraft/mod/ChatLoggerPlusPlugin/v1/ChatMessage.html#com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.ChatMessage.readStack(String)" title="com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.ChatMessage.readStack(String)"><tt class="xref java java-ref docutils literal"><span class="pre">readStack</span></tt></a></td>
+<td><a class="reference internal" href="java/com/tojc/minecraft/mod/ChatLoggerPlusPlugin/v1/PluginSettings.html#com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.PluginSettings.registerPermissionReadStack(String)" title="com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.PluginSettings.registerPermissionReadStack(String)"><tt class="xref java java-ref docutils literal"><span class="pre">registerPermissionReadStack</span></tt></a></td>
+<td>RS/xxxx</td>
+<td>スタックを読み込むパーミッションを要求します。（実質、既に存在するスタックなら読み書きできます）</td>
+</tr>
+</tbody>
+</table>
+<p>この表の制限対象に書かれたメソッドを使用するためには、 <a class="reference internal" href="java/com/tojc/minecraft/mod/ChatLoggerPlusPlugin/v1/PluginInterface.html#com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.PluginInterface.onInitialize(PluginSettings)" title="com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.PluginInterface.onInitialize(PluginSettings)"><tt class="xref java java-ref docutils literal"><span class="pre">onInitialize</span></tt></a> で、パーミッション取得メソッドを呼び出さなければなりません。</p>
+<p>詳しくはAPIリファレンスの <a class="reference internal" href="java/com/tojc/minecraft/mod/ChatLoggerPlusPlugin/v1/PluginSettings.html#com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.PluginSettings" title="com.tojc.minecraft.mod.ChatLoggerPlusPlugin.v1.PluginSettings"><tt class="xref java java-ref docutils literal"><span class="pre">PluginSettings</span></tt></a> も参照してください。</p>
 </div>
 <div class="section" id="id4">
 <h2>スタックについて<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>スタックは以下のような特徴があります。</p>
+<blockquote>
+<div><ul class="simple">
+<li>スタックには、問い合わせ用の「キー文字列」に紐付けして、値を保持することができます。</li>
+<li>スタックは、１つの発言の処理中に値を保持する物です。保持した情報は、次の発言には引き継がれません。</li>
+<li>スタックに対して、情報の読み書きを行い、プラグイン同士の値の受け渡しができるようにしています。</li>
+<li>スタックには、クラスオブジェクトも受け渡すことが出来ます。（これを使えば、一つのスタックで複数の値が渡せます）</li>
+<li>スタックを使い連携するプラグインは、プラグインの実行順序が重要になります。</li>
+<li>スタックに書き込む同一キーのプラグインは１つでなければなりませんが、スタックを読み込む同一キーのプラグインは複数でも動作可能です。（ただしスタックにある情報の状態はうまく管理しなければなりません）</li>
+<li>プラグインは単機能で役割分担することができ、ユーザーはプラグインの組合せで、目的の処理を行えるようになります。</li>
+<li>プラグインの並び替えで、RS権限のプラグインの前に、同一キーのWS権限のプラグインが無い場合はエラーになります。このため、RS権限の前にWS権限が存在することが保証されます。</li>
+</ul>
+</div></blockquote>
+<div class="admonition tip">
+<p class="first admonition-title">ちなみに</p>
+<p class="last">スタックは、プラグイン１つにつき、キー文字列を複数登録が可能です。
+（ただし、多すぎるのは問題です。ユーザーが認知する必要のあるものだけに限定しましょう。通常は１個あれば十分です。多くても２～３個で済ませましょう）</p>
+</div>
+<div class="section" id="id5">
+<h3>スタックを使ったプラグイン連携について<a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>それでは、ここでは「概念」を理解してもらうため、具体的なスクリプトのコードなしで使用例を挙げます。
+実際のスクリプトのコード例については、 <a class="reference internal" href="TutorialCreatePlugin.html#tutorial-create-plugin"><em>プラグイン作成のチュートリアル</em></a> をご覧ください。</p>
+<div class="section" id="id6">
+<h4>例題の前提条件<a class="headerlink" href="#id6" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<p>次のようなプラグインＡとＢが存在し、既にプラグインの処理順がＡ→Ｂとなっているとします。
+また、スタックのキー文字列として、ここでは「Flag」という名前を使うことにします。
+（キー文字列は、連携しない他のプラグインとかぶらなければ、なんでもよいです）</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>プラグインＡ：チャット文字をチェックし、ある条件を満たしたメッセージの場合は、スタックにフラグを立てるプラグイン</li>
+<li>プラグインＢ：スタックのフラグをチェックし、そのフラグを元にチャットメッセージを加工するプラグイン</li>
+</ol>
+</div></blockquote>
+<p>このような仕様のプラグインを作る場合、それぞれのプラグインは、以下のような実装が必要です。</p>
+</div>
+<div class="section" id="a">
+<h4>プラグインＡの実装<a class="headerlink" href="#a" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<p>チャット文字をチェックし、ある条件を満たしたメッセージの場合は、スタックにフラグを立てるプラグイン</p>
+<blockquote>
+<div><ul class="simple">
+<li>プラグイン初期化処理にて、registerPermissionWriteStackを使い、スタックのキー文字列「Flag」を登録する。</li>
+<li>チャットメッセージの処理にて、文字列がある条件を満たすかチェックし、満たす場合は、writeStackを使って、スタック「Flag」にフラグを立てる。</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="b">
+<h4>プラグインＢの実装<a class="headerlink" href="#b" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<p>スタックのフラグをチェックし、そのフラグを元にチャットメッセージを加工するプラグイン</p>
+<blockquote>
+<div><ul class="simple">
+<li>プラグイン初期化処理にて、registerPermissionReadStackを使い、スタックのキー文字列「Flag」を登録する。</li>
+<li>プラグイン初期化処理にて、registerPermissionMessageModificationを使い、チャット加工をすることを登録する。</li>
+<li>チャットメッセージの処理にて、readStackを使って、スタック「Flag」にフラグが立っているかチェックし、フラグが立っている場合は、setMessageを使ってチャット文字を加工する。</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="id7">
+<h4>スタック連携の使いどころ<a class="headerlink" href="#id7" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<p>これを全てここで列挙することは出来ませんが、思いつく例をいくつか挙げておきます。</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>スクリプトの編集なしで、ユーザーに機能を選択させたい場合</dt>
+<dd>たとえば、上記の例のように、判断部分と処理部分を分けておけば、処理部分のプラグインを複数用意しておくことで、ユーザーにより好みの処理を選んでもらうことができます。
+上記例でいえば、プラグインＢは文字を赤色にする機能とし、プラグインＣは緑色にする、といった使い方です。
+また、逆に判断部分を複数用意するパターンも考えられます。</dd>
+<dt>重い処理を複数のプラグインで共有したい場合</dt>
+<dd>たとえば、サンプルプラグインの「MiNeRa bot」では、１つのプラグインの中で大きく分けて二つのことを行っています。
+一つは「TinySegmenterによる日本語の分かち書き」です。もう一つは「分かち書きの結果を使った、マルコフ連鎖による文字列生成」です。
+分かち書きの結果を別の用途でも使いたい場合、このプラグインは、二つの機能を分割して別々のプラグインにすることも考えられます。
+こうすれば、１つの発言に対する分かち書きの処理は１回だけにし、分かち書きの結果を使うプラグインを２つ、３つ同時に使うことも可能です。</dd>
+<dt>特殊な機能を提供するプラグインを公開する場合</dt>
+<dd>たとえば、「音を鳴らすプラグイン」といった特殊なプラグインを公開し、スタックの使い方だけ提示します。
+別のプラグインの作り手がこれを使えば、音を鳴らす部分を作る必要はなくなります。
+このようにスクリプトのパーツとしての使い方も考えられます。</dd>
+</dl>
+</div></blockquote>
+</div>
+</div>
 </div>
 </div>
 
@@ -182,17 +343,26 @@
 <li><a class="reference internal" href="#">プラグインの仕様について</a><ul>
 <li><a class="reference internal" href="#id2">スクリプトの動作環境</a></li>
 <li><a class="reference internal" href="#id3">パーミッション（権限）について</a></li>
-<li><a class="reference internal" href="#id4">スタックについて</a></li>
+<li><a class="reference internal" href="#id4">スタックについて</a><ul>
+<li><a class="reference internal" href="#id5">スタックを使ったプラグイン連携について</a><ul>
+<li><a class="reference internal" href="#id6">例題の前提条件</a></li>
+<li><a class="reference internal" href="#a">プラグインＡの実装</a></li>
+<li><a class="reference internal" href="#b">プラグインＢの実装</a></li>
+<li><a class="reference internal" href="#id7">スタック連携の使いどころ</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
 
   <h4>前のトピックへ</h4>
-  <p class="topless"><a href="UsePlugin.html"
-                        title="前の章へ">プラグインを使う</a></p>
+  <p class="topless"><a href="sampleplugin/MiNeRaBot.html"
+                        title="前の章へ">MiNeRa bot：チャットボット（実用的サンプル）</a></p>
   <h4>次のトピックへ</h4>
-  <p class="topless"><a href="PluginTemplate.html"
-                        title="次の章へ">JavaScriptによるプラグインテンプレート</a></p>
+  <p class="topless"><a href="PluginDevPreparation.html"
+                        title="次の章へ">プラグイン開発準備</a></p>
   <h3>このページ</h3>
   <ul class="this-page-menu">
     <li><a href="_sources/PluginSpecification.txt"
@@ -224,8 +394,8 @@
     <ul class="nav pull-right">
       
         <li><a href="genindex.html" title="総合索引" >索引</a></li>
-        <li><a href="PluginTemplate.html" title="JavaScriptによるプラグインテンプレート" >次へ</a></li>
-        <li><a href="UsePlugin.html" title="プラグインを使う" >前へ</a></li>
+        <li><a href="PluginDevPreparation.html" title="プラグイン開発準備" >次へ</a></li>
+        <li><a href="sampleplugin/MiNeRaBot.html" title="MiNeRa bot：チャットボット（実用的サンプル）" >前へ</a></li>
         <li><a href="index.html">[MinecraftMOD] ChatLoggerPlus 1.0.0 ドキュメント</a></li> 
       
     </ul>
