@@ -14,7 +14,7 @@ var plugin = new PluginInterface()
         // Stack MyRemark への読み込み権限登録
         settings.registerPermissionReadStack("MyRemark");
         // チャットを書き換えるために、パーミッション取得。
-        settings.registerPermissionMessageModification(true);
+        settings.registerPermissionMessageModification();
     },
 
     onChatMessage: function(env, chat)

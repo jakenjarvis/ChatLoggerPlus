@@ -29,23 +29,21 @@ public interface PluginSettings
 {
 	/**
 	 * チャットメッセージを加工するパーミッションを要求します。
-	 * スクリプトでsetMessageを使用する場合は宣言が必要です。
+	 * スクリプトで {@link ChatMessage#setMessage(String)} を使用する場合は宣言が必要です。
 	 * @see ChatMessage#setMessage(String)
-	 * @param modification パーミッションを要求する場合はtrueを指定してください。
 	 */
-	public void registerPermissionMessageModification(boolean modification);
+	public void registerPermissionMessageModification();
 
 	/**
 	 * チャットメッセージを追加するパーミッションを要求します。
-	 * スクリプトでaddAfterMessageを使用する場合は宣言が必要です。
+	 * スクリプトで {@link ChatMessage#addAfterMessage(String)} を使用する場合は宣言が必要です。
 	 * @see ChatMessage#addAfterMessage(String)
-	 * @param adding パーミッションを要求する場合はtrueを指定してください。
 	 */
-	public void registerPermissionAddAfterMessage(boolean adding);
+	public void registerPermissionAddAfterMessage();
 
 	/**
 	 * スタックに書き込むパーミッションを要求します。（実質新規作成の意味合いです）
-	 * スクリプトでwriteStackを使用する場合は宣言が必要です。
+	 * スクリプトで {@link ChatMessage#writeStack(String, Object)} を使用する場合は宣言が必要です。
 	 * @see ChatMessage#writeStack(String, Object)
 	 * @param keyname アクセス対象のスタックに登録するキー文字列
 	 */
@@ -53,7 +51,7 @@ public interface PluginSettings
 
 	/**
 	 * スタックを読み込むパーミッションを要求します。（実質、既に存在するスタックなら読み書きできます）
-	 * スクリプトでreadStackを使用する場合は宣言が必要です。
+	 * スクリプトで {@link ChatMessage#readStack(String)} を使用する場合は宣言が必要です。
 	 * @see ChatMessage#readStack(String)
 	 * @param keyname アクセス対象のスタックから読み取るキー文字列
 	 */

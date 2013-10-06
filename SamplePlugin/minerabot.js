@@ -14,7 +14,7 @@ var plugin = new PluginInterface()
     onInitialize: function(settings)
     {
         // 追加メッセージ権限登録
-        settings.registerPermissionAddAfterMessage(true);
+        settings.registerPermissionAddAfterMessage();
 
         // TinySegmenter本体の生成
         segmenter = new TinySegmenter();

@@ -12,7 +12,7 @@ var plugin = new PluginInterface()
     onInitialize: function(settings)
     {
         // チャットを書き換えるために、パーミッション取得。
-        settings.registerPermissionMessageModification(true);
+        settings.registerPermissionMessageModification();
     },
 
     onChatMessage: function(env, chat)

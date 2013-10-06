@@ -59,15 +59,15 @@ public class PluginSettingsImpl implements PluginSettings
 	}
 
 	@Override
-	public void registerPermissionMessageModification(boolean modification)
+	public void registerPermissionMessageModification()
 	{
-		this.messageModification = modification;
+		this.messageModification = true;
 	}
 
 	@Override
-	public void registerPermissionAddAfterMessage(boolean adding)
+	public void registerPermissionAddAfterMessage()
 	{
-		this.addAfterMessage = adding;
+		this.addAfterMessage = true;
 	}
 
 	@Override

@@ -65,8 +65,9 @@ public interface ChatMessage
 	 * チャットメッセージを設定します。
 	 *
 	 * ※nullをセットすると、チャットの発言自体を削除できますが、nullを想定していない他のチャット処理MODと競合する可能性があります。
-	 * このメソッドを使用するためには、パーミッションMessageModificationが必要です。
-	 * @see PluginSettings#registerPermissionMessageModification(boolean)
+	 * このメソッドを使用するためには、 {@link PluginInterface#onInitialize(PluginSettings)} にて、あらかじめ
+	 *  {@link PluginSettings#registerPermissionMessageModification()} を呼び出さなければなりません。
+	 * @see PluginSettings#registerPermissionMessageModification()
 	 * @param message チャットメッセージ文字列
 	 */
 	public void setMessage(String message);
@@ -77,8 +78,9 @@ public interface ChatMessage
 	 * 追加したメッセージは、処理中のメッセージが表示された後、順番に出力されます。
 	 * これは、ローカルチャットへ追加するだけで、サーバに送られることはありません。（利用者だけが見える）
 	 * 注意：これを実現するためにチャットメッセージを横取りする必要があるので、他のチャット処理MODと競合する可能性があります。
-	 * このメソッドを使用するためには、パーミッションAddAfterMessageが必要です。
-	 * @see PluginSettings#registerPermissionAddAfterMessage(boolean)
+	 * このメソッドを使用するためには、 {@link PluginInterface#onInitialize(PluginSettings)} にて、あらかじめ
+	 *  {@link PluginSettings#registerPermissionAddAfterMessage()} を呼び出さなければなりません。
+	 * @see PluginSettings#registerPermissionAddAfterMessage()
 	 * @param message チャットメッセージ文字列
 	 */
 	public void addAfterMessage(String message);
@@ -88,7 +90,8 @@ public interface ChatMessage
 	 *
 	 * 任意のキー文字列を指定できます。
 	 * 指定したキー文字列を知るプラグインは {@link ChatMessage#readStack(String)} にて値を受け取ることができます。
-	 * このメソッドを使用するためには、パーミッションWriteStackが必要です。
+	 * このメソッドを使用するためには、 {@link PluginInterface#onInitialize(PluginSettings)} にて、あらかじめ
+	 *  {@link PluginSettings#registerPermissionWriteStack(String)} を呼び出さなければなりません。
 	 * @see PluginSettings#registerPermissionWriteStack(String)
 	 * @param keyname スタックに登録するキー文字列
 	 * @param value スタックに登録する値 ※null、文字列、数値、配列やクラスオブジェクトなども渡せます。
@@ -100,7 +103,8 @@ public interface ChatMessage
 	 *
 	 * このメソッドを使うプラグインよりも前に、別のプラグインの {@link ChatMessage#writeStack(String, Object)} によって
 	 * スタックにあらかじめ値が登録されている必要があります。
-	 * このメソッドを使用するためには、パーミッションReadStackが必要です。
+	 * このメソッドを使用するためには、 {@link PluginInterface#onInitialize(PluginSettings)} にて、あらかじめ
+	 *  {@link PluginSettings#registerPermissionReadStack(String)} を呼び出さなければなりません。
 	 * @see PluginSettings#registerPermissionReadStack(String)
 	 * @param keyname スタックから受け取るキー文字列
 	 * @return キー文字列に登録されている値 ※null、文字列、数値、配列やクラスオブジェクトなどが受け取れます。
