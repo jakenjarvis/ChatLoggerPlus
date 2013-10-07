@@ -3,6 +3,24 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
+
+   # 部 オーバーライン付き
+   * 章 オーバーライン付き
+   = セクション
+   - サブセクション
+   ^ サブサブセクション
+   " パラグラフ
+
+   .. hint::         ヒント（青）
+   .. tip::          ちなみに（青）
+   .. important::    重要（緑）
+   .. note::         ノート（緑）
+   .. attention::    注意（黄）
+   .. caution::      ご用心（黄）
+   .. warning::      警告（黄）
+   .. danger::       危険（赤）
+   .. error::        エラー（赤）
+
 .. meta::
    :description: [MinecraftMOD] ChatLoggerPlusドキュメント
    :keywords: ChatLoggerPlus, Minecraft, MOD, チャット, ログ, 保存, 記録, Chat, Log, Logging, Logger
@@ -57,6 +75,7 @@ ChatLoggerPlusを使う
     PluginSpecification
     PluginDevPreparation
     PluginTemplate
+    CautionObjectType
 
     TutorialCreatePlugin
 
