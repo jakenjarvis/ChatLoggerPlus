@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     
-    <title>Sample_Stack02_PassingObjects_Read_Write：スタックサンプル２ &mdash; [MinecraftMOD] ChatLoggerPlus 1.0.0 ドキュメント</title>
+    <title>Sample_Stack02_PassingObjects：スタックサンプル２ &mdash; [MinecraftMOD] ChatLoggerPlus 1.0.0 ドキュメント</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
@@ -61,7 +61,7 @@
 </script>
     <link rel="top" title="[MinecraftMOD] ChatLoggerPlus 1.0.0 ドキュメント" href="../index.html" />
     <link rel="next" title="global" href="../GlobalValue.html" />
-    <link rel="prev" title="Sample_Stack01_MyRemark_Read_Write：スタックサンプル１" href="Sample_Stack01_MyRemark_Read_Write.html" /> 
+    <link rel="prev" title="Sample_Stack01_MyRemark：スタックサンプル１" href="Sample_Stack01_MyRemark_Read_Write.html" /> 
   </head>
   <body>
     <div class="navbar navbar-fixed-top ">
@@ -83,7 +83,7 @@
                 <a href="../GlobalValue.html" title="global" accesskey="N">次へ</a>
                 </li>
                 <li>
-                <a href="Sample_Stack01_MyRemark_Read_Write.html" title="Sample_Stack01_MyRemark_Read_Write：スタックサンプル１" accesskey="P">前へ</a>
+                <a href="Sample_Stack01_MyRemark_Read_Write.html" title="Sample_Stack01_MyRemark：スタックサンプル１" accesskey="P">前へ</a>
                 </li>
               
             </ul>
@@ -103,9 +103,18 @@
 <div class="span4 ">
   <a class="visible-phone btn btn-small show-sidebar" data-toggle="collapse" data-target=".for-mobile">Open Table Of Contents</a>
   <div class="for-mobile sidebar hidden-phone">
+  <h3><a href="../index.html">目次</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Sample_Stack02_PassingObjects：スタックサンプル２</a><ul>
+<li><a class="reference internal" href="#id1">ダウンロード</a></li>
+<li><a class="reference internal" href="#id2">ソースコード</a></li>
+</ul>
+</li>
+</ul>
+
   <h4>前のトピックへ</h4>
   <p class="topless"><a href="Sample_Stack01_MyRemark_Read_Write.html"
-                        title="前の章へ">Sample_Stack01_MyRemark_Read_Write：スタックサンプル１</a></p>
+                        title="前の章へ">Sample_Stack01_MyRemark：スタックサンプル１</a></p>
   <h4>次のトピックへ</h4>
   <p class="topless"><a href="../GlobalValue.html"
                         title="次の章へ">global</a></p>
@@ -144,9 +153,230 @@
               <div class="bodywrapper">
                 <div class="body">
                   
-  <div class="section" id="sample-stack02-passingobjects-read-write-2">
-<span id="sample-stack02-passing-objects-read-write"></span><h1>Sample_Stack02_PassingObjects_Read_Write：スタックサンプル２<a class="headerlink" href="#sample-stack02-passingobjects-read-write-2" title="このヘッドラインへのパーマリンク">¶</a></h1>
-<p>（準備中）</p>
+  <div class="section" id="sample-stack02-passingobjects-2">
+<span id="sample-stack02-passing-objects-read-write"></span><h1>Sample_Stack02_PassingObjects：スタックサンプル２<a class="headerlink" href="#sample-stack02-passingobjects-2" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>（コンテンツ準備中）</p>
+<div class="section" id="id1">
+<h2>ダウンロード<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>このプラグインをダウンロードする場合は、以下のリンクを右クリックして「名前を付けて保存」で保存してください。</p>
+<p><a class="reference download internal" href="../_downloads/Sample_Stack02_PassingObjects_Read.js"><tt class="xref download docutils literal"><span class="pre">Sample_Stack02_PassingObjects_Read.js</span></tt></a></p>
+<p><a class="reference download internal" href="../_downloads/Sample_Stack02_PassingObjects_Write.js"><tt class="xref download docutils literal"><span class="pre">Sample_Stack02_PassingObjects_Write.js</span></tt></a></p>
+</div>
+<div class="section" id="id2">
+<h2>ソースコード<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>Sample_Stack02_PassingObjects_Read.js</p>
+<div class="highlight-javascript"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44</pre></div></td><td class="code"><div class="highlight"><pre><span class="c1">// ファイル形式はUTF-8で保存すること</span>
+<span class="c1">// Please file format to UTF-8.</span>
+<span class="nx">importPackage</span><span class="p">(</span><span class="nx">com</span><span class="p">.</span><span class="nx">tojc</span><span class="p">.</span><span class="nx">minecraft</span><span class="p">.</span><span class="nx">mod</span><span class="p">.</span><span class="nx">ChatLoggerPlusPlugin</span><span class="p">.</span><span class="nx">v1</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">name</span> <span class="o">=</span> <span class="s2">&quot;Passing Objects(read)&quot;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">version</span> <span class="o">=</span> <span class="s2">&quot;1.0.0&quot;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">description</span> <span class="o">=</span> <span class="s2">&quot;sample plugin&quot;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">auther</span> <span class="o">=</span> <span class="s2">&quot;Jaken&quot;</span><span class="p">;</span>
+
+<span class="kd">var</span> <span class="nx">plugin</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PluginInterface</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="nx">onInitialize</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">settings</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// Stack Passing への読み込み権限登録</span>
+        <span class="nx">settings</span><span class="p">.</span><span class="nx">registerPermissionReadStack</span><span class="p">(</span><span class="s2">&quot;Passing&quot;</span><span class="p">);</span>
+    <span class="p">},</span>
+
+    <span class="nx">onChatMessage</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">env</span><span class="p">,</span> <span class="nx">chat</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// Stack Passing から結果を読み込み（PassingItemオブジェクト）</span>
+        <span class="kd">var</span> <span class="nx">value</span> <span class="o">=</span> <span class="nx">chat</span><span class="p">.</span><span class="nx">readStack</span><span class="p">(</span><span class="s2">&quot;Passing&quot;</span><span class="p">);</span>
+        <span class="k">if</span><span class="p">(</span><span class="nx">value</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="c1">// デバッグに値を表示して確認する。</span>
+            <span class="nx">debug</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="s2">&quot;PassingItem: &quot;</span> <span class="o">+</span> <span class="nx">value</span><span class="p">.</span><span class="nx">toString</span><span class="p">());</span>
+            <span class="nx">debug</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="s2">&quot;PassingItem.name: &quot;</span> <span class="o">+</span> <span class="nx">value</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>
+            <span class="nx">debug</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="s2">&quot;PassingItem.length: &quot;</span> <span class="o">+</span> <span class="nx">value</span><span class="p">.</span><span class="nx">length</span><span class="p">);</span>
+
+            <span class="c1">// 出力例</span>
+            <span class="c1">// [ SCRIPT    ]: {Passing Objects(read)}: PassingItem: Name: Player977, Length: 9</span>
+            <span class="c1">// [ SCRIPT    ]: {Passing Objects(read)}: PassingItem.name: Player977</span>
+            <span class="c1">// [ SCRIPT    ]: {Passing Objects(read)}: PassingItem.length: 9</span>
+
+            <span class="c1">// ここでの注目ポイントは、このスクリプト内には定義していないPassingItemオブジェクトの</span>
+            <span class="c1">// ・メンバー変数のnameやlengthにアクセス出来ている事（１つのスタックで複数の値を渡すことが出来る）</span>
+            <span class="c1">// ・toStringメソッドにアクセス出来ている事（処理をWrite側で定義できる）</span>
+            <span class="c1">// です。これを活用すれば、プラグイン間でのAPI提供も可能です。</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+
+    <span class="nx">onFinalize</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span>
+    <span class="p">{</span>
+    <span class="p">},</span>
+<span class="p">};</span>
+</pre></div>
+</td></tr></table></div>
+<p>Sample_Stack02_PassingObjects_Write.js</p>
+<div class="highlight-javascript"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60</pre></div></td><td class="code"><div class="highlight"><pre><span class="c1">// ファイル形式はUTF-8で保存すること</span>
+<span class="c1">// Please file format to UTF-8.</span>
+<span class="nx">importPackage</span><span class="p">(</span><span class="nx">com</span><span class="p">.</span><span class="nx">tojc</span><span class="p">.</span><span class="nx">minecraft</span><span class="p">.</span><span class="nx">mod</span><span class="p">.</span><span class="nx">ChatLoggerPlusPlugin</span><span class="p">.</span><span class="nx">v1</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">name</span> <span class="o">=</span> <span class="s2">&quot;Passing Objects(write)&quot;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">version</span> <span class="o">=</span> <span class="s2">&quot;1.0.0&quot;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">description</span> <span class="o">=</span> <span class="s2">&quot;sample plugin&quot;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">auther</span> <span class="o">=</span> <span class="s2">&quot;Jaken&quot;</span><span class="p">;</span>
+
+<span class="c1">// 受け渡すPassingItemオブジェクトを定義する。</span>
+<span class="kd">function</span> <span class="nx">PassingItem</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">name</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">length</span> <span class="o">=</span> <span class="nx">name</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="c1">// プロトタイプでtoStringメソッドを定義する。</span>
+<span class="nx">PassingItem</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">toString</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="s2">&quot;Name: &quot;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">+</span> <span class="s2">&quot;, Length: &quot;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="kd">var</span> <span class="nx">plugin</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PluginInterface</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="nx">onInitialize</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">settings</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// Stack Passing への書き込み権限登録</span>
+        <span class="nx">settings</span><span class="p">.</span><span class="nx">registerPermissionWriteStack</span><span class="p">(</span><span class="s2">&quot;Passing&quot;</span><span class="p">);</span>
+    <span class="p">},</span>
+
+    <span class="nx">onChatMessage</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">env</span><span class="p">,</span> <span class="nx">chat</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// ユーザー名の取得（発言者）</span>
+        <span class="kd">var</span> <span class="nx">username</span> <span class="o">=</span> <span class="nx">chat</span><span class="p">.</span><span class="nx">getUserName</span><span class="p">();</span>
+
+        <span class="c1">// デバッグに値を表示して確認する。</span>
+        <span class="nx">debug</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="s2">&quot;username: &quot;</span> <span class="o">+</span> <span class="nx">username</span><span class="p">);</span>
+
+        <span class="kd">var</span> <span class="nx">value</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+
+        <span class="c1">// ユーザー名がnullの場合は、ユーザーの発言ではないので無視する。</span>
+        <span class="k">if</span><span class="p">(</span><span class="nx">username</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="c1">// JavaのStringからJavaScriptのStringに型変換</span>
+            <span class="nx">username</span> <span class="o">=</span> <span class="nb">String</span><span class="p">(</span><span class="nx">username</span><span class="p">);</span>
+
+            <span class="c1">// 受け渡すPassingItemオブジェクトを生成する。</span>
+            <span class="nx">value</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PassingItem</span><span class="p">(</span><span class="nx">username</span><span class="p">);</span>
+
+            <span class="c1">// デバッグに値を表示して確認する。</span>
+            <span class="nx">debug</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="s2">&quot;PassingItem: &quot;</span> <span class="o">+</span> <span class="nx">value</span><span class="p">.</span><span class="nx">toString</span><span class="p">());</span>
+        <span class="p">}</span>
+
+        <span class="c1">// Stack Passing へ書き込む。</span>
+        <span class="nx">chat</span><span class="p">.</span><span class="nx">writeStack</span><span class="p">(</span><span class="s2">&quot;Passing&quot;</span><span class="p">,</span> <span class="nx">value</span><span class="p">);</span>
+    <span class="p">},</span>
+
+    <span class="nx">onFinalize</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span>
+    <span class="p">{</span>
+    <span class="p">},</span>
+<span class="p">};</span>
+</pre></div>
+</td></tr></table></div>
+</div>
 </div>
 
 
@@ -158,9 +388,18 @@
          
 <div class="span4 visible-desktop visible-tablet">
   <div class=" sidebar hidden-phone">
+  <h3><a href="../index.html">目次</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Sample_Stack02_PassingObjects：スタックサンプル２</a><ul>
+<li><a class="reference internal" href="#id1">ダウンロード</a></li>
+<li><a class="reference internal" href="#id2">ソースコード</a></li>
+</ul>
+</li>
+</ul>
+
   <h4>前のトピックへ</h4>
   <p class="topless"><a href="Sample_Stack01_MyRemark_Read_Write.html"
-                        title="前の章へ">Sample_Stack01_MyRemark_Read_Write：スタックサンプル１</a></p>
+                        title="前の章へ">Sample_Stack01_MyRemark：スタックサンプル１</a></p>
   <h4>次のトピックへ</h4>
   <p class="topless"><a href="../GlobalValue.html"
                         title="次の章へ">global</a></p>
@@ -196,7 +435,7 @@
       
         <li><a href="../genindex.html" title="総合索引" >索引</a></li>
         <li><a href="../GlobalValue.html" title="global" >次へ</a></li>
-        <li><a href="Sample_Stack01_MyRemark_Read_Write.html" title="Sample_Stack01_MyRemark_Read_Write：スタックサンプル１" >前へ</a></li>
+        <li><a href="Sample_Stack01_MyRemark_Read_Write.html" title="Sample_Stack01_MyRemark：スタックサンプル１" >前へ</a></li>
         <li><a href="../index.html">[MinecraftMOD] ChatLoggerPlus 1.0.0 ドキュメント</a></li> 
       
     </ul>

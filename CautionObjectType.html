@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     
-    <title>プラグイン作成のチュートリアル（準備中） &mdash; [MinecraftMOD] ChatLoggerPlus 1.0.0 ドキュメント</title>
+    <title>オブジェクト型に対する意識（重要） &mdash; [MinecraftMOD] ChatLoggerPlus 1.0.0 ドキュメント</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
@@ -60,8 +60,8 @@
   });
 </script>
     <link rel="top" title="[MinecraftMOD] ChatLoggerPlus 1.0.0 ドキュメント" href="index.html" />
-    <link rel="next" title="Sample_ReplaceThree：３の時にアフォになる" href="sampleplugin/Sample_ReplaceThree.html" />
-    <link rel="prev" title="オブジェクト型に対する意識（重要）" href="CautionObjectType.html" /> 
+    <link rel="next" title="プラグイン作成のチュートリアル（準備中）" href="TutorialCreatePlugin.html" />
+    <link rel="prev" title="JavaScriptによるプラグインテンプレート" href="PluginTemplate.html" /> 
   </head>
   <body>
     <div class="navbar navbar-fixed-top ">
@@ -80,10 +80,10 @@
                 <a href="genindex.html" title="総合索引" accesskey="I">索引</a>
                 </li>
                 <li>
-                <a href="sampleplugin/Sample_ReplaceThree.html" title="Sample_ReplaceThree：３の時にアフォになる" accesskey="N">次へ</a>
+                <a href="TutorialCreatePlugin.html" title="プラグイン作成のチュートリアル（準備中）" accesskey="N">次へ</a>
                 </li>
                 <li>
-                <a href="CautionObjectType.html" title="オブジェクト型に対する意識（重要）" accesskey="P">前へ</a>
+                <a href="PluginTemplate.html" title="JavaScriptによるプラグインテンプレート" accesskey="P">前へ</a>
                 </li>
               
             </ul>
@@ -104,14 +104,14 @@
   <a class="visible-phone btn btn-small show-sidebar" data-toggle="collapse" data-target=".for-mobile">Open Table Of Contents</a>
   <div class="for-mobile sidebar hidden-phone">
   <h4>前のトピックへ</h4>
-  <p class="topless"><a href="CautionObjectType.html"
-                        title="前の章へ">オブジェクト型に対する意識（重要）</a></p>
+  <p class="topless"><a href="PluginTemplate.html"
+                        title="前の章へ">JavaScriptによるプラグインテンプレート</a></p>
   <h4>次のトピックへ</h4>
-  <p class="topless"><a href="sampleplugin/Sample_ReplaceThree.html"
-                        title="次の章へ">Sample_ReplaceThree：３の時にアフォになる</a></p>
+  <p class="topless"><a href="TutorialCreatePlugin.html"
+                        title="次の章へ">プラグイン作成のチュートリアル（準備中）</a></p>
   <h3>このページ</h3>
   <ul class="this-page-menu">
-    <li><a href="_sources/TutorialCreatePlugin.txt"
+    <li><a href="_sources/CautionObjectType.txt"
            rel="nofollow">ソースコードを表示</a></li>
   </ul>
 <div id="searchbox">
@@ -144,13 +144,47 @@
               <div class="bodywrapper">
                 <div class="body">
                   
-  <div class="section" id="tutorial-create-plugin">
-<span id="id1"></span><h1>プラグイン作成のチュートリアル（準備中）<a class="headerlink" href="#tutorial-create-plugin" title="このヘッドラインへのパーマリンク">¶</a></h1>
-<div class="toctree-wrapper compound">
-<ul class="simple">
-</ul>
+  <div class="section" id="caution-object-type">
+<span id="id1"></span><h1>オブジェクト型に対する意識（重要）<a class="headerlink" href="#caution-object-type" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>いくつかのサンプルスクリプトのソースを見ると、次のような処理を見かけるでしょう。</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">onChatMessage</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">env</span><span class="p">,</span> <span class="nx">chat</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">// チャットメッセージを取得（別のプラグインで加工された可能性のあるメッセージ）</span>
+    <span class="kd">var</span> <span class="nx">chatmessage</span> <span class="o">=</span> <span class="nx">chat</span><span class="p">.</span><span class="nx">getMessage</span><span class="p">();</span>
+
+    <span class="c1">// 他のプラグインによって、チャットメッセージが削除されている場合は</span>
+    <span class="c1">// nullになっているため、チェックしてから処理を行うようにする。</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">chatmessage</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// JavaのStringからJavaScriptのStringに型変換（replaceを使うために）</span>
+        <span class="kd">var</span> <span class="nx">message</span> <span class="o">=</span> <span class="nb">String</span><span class="p">(</span><span class="nx">chatmessage</span><span class="p">);</span>
+
+        <span class="c1">// （省略）</span>
+    <span class="p">}</span>
+<span class="p">},</span>
+</pre></div>
 </div>
-<p>（準備中）</p>
+<p>ここで特に重要なのが、なんてことない、この１行です。</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">message</span> <span class="o">=</span> <span class="nb">String</span><span class="p">(</span><span class="nx">chatmessage</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>これは、 <strong>Java言語の文字列型</strong> と、 <strong>JavaScript言語の文字列型</strong> が異なるので、JavaScriptのString型に変換する処理になります。</p>
+<p>まず、chat.getMessage()で取得した文字列は、Java言語のString型を取得します。
+このままでは、JavaScriptのstring.replaceや、string.substring、string.splitといったメソッドが使えません。
+そのため、JavaScriptのString型を生成することで、型を置き換えます。</p>
+<p>このように、ところどころ、「オブジェクトの型が何か。JavaのオブジェクトかJavaScriptのオブジェクトか？」を意識する必要があります。</p>
+<p>※逆にJava言語のString型としてそのまま使えるので、JavaScriptのメソッドにこだわらなければ、 <strong>Javaのメソッドもスクリプト内から呼び出せます。</strong>
+サンプルでは、「JavaScript使い」の方のために、できるだけJavaScript側で統一しています。</p>
+<div class="admonition tip">
+<p class="first admonition-title">ちなみに</p>
+<p class="last">Java言語とJavaScript言語は、同じJavaという言葉が使われているのですが、これはまったく異なるの別のプログラミング言語です。</p>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">ちなみに</p>
+<p class="last">MinecraftもChatLoggerPlusもJava言語で作られたプログラムです。
+そんな中、ChatLoggerPlusはプラグインの機能を実現するために、Java言語の上でJavaScript言語を動かしています。
+これがJavaScriptのスクリプトの中で、Java言語のオブジェクトを意識しなければならない主な原因となっています。</p>
+</div>
 </div>
 
 
@@ -163,14 +197,14 @@
 <div class="span4 visible-desktop visible-tablet">
   <div class=" sidebar hidden-phone">
   <h4>前のトピックへ</h4>
-  <p class="topless"><a href="CautionObjectType.html"
-                        title="前の章へ">オブジェクト型に対する意識（重要）</a></p>
+  <p class="topless"><a href="PluginTemplate.html"
+                        title="前の章へ">JavaScriptによるプラグインテンプレート</a></p>
   <h4>次のトピックへ</h4>
-  <p class="topless"><a href="sampleplugin/Sample_ReplaceThree.html"
-                        title="次の章へ">Sample_ReplaceThree：３の時にアフォになる</a></p>
+  <p class="topless"><a href="TutorialCreatePlugin.html"
+                        title="次の章へ">プラグイン作成のチュートリアル（準備中）</a></p>
   <h3>このページ</h3>
   <ul class="this-page-menu">
-    <li><a href="_sources/TutorialCreatePlugin.txt"
+    <li><a href="_sources/CautionObjectType.txt"
            rel="nofollow">ソースコードを表示</a></li>
   </ul>
 <div id="searchbox">
@@ -199,8 +233,8 @@
     <ul class="nav pull-right">
       
         <li><a href="genindex.html" title="総合索引" >索引</a></li>
-        <li><a href="sampleplugin/Sample_ReplaceThree.html" title="Sample_ReplaceThree：３の時にアフォになる" >次へ</a></li>
-        <li><a href="CautionObjectType.html" title="オブジェクト型に対する意識（重要）" >前へ</a></li>
+        <li><a href="TutorialCreatePlugin.html" title="プラグイン作成のチュートリアル（準備中）" >次へ</a></li>
+        <li><a href="PluginTemplate.html" title="JavaScriptによるプラグインテンプレート" >前へ</a></li>
         <li><a href="index.html">[MinecraftMOD] ChatLoggerPlus 1.0.0 ドキュメント</a></li> 
       
     </ul>

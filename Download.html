@@ -103,6 +103,19 @@
 <div class="span4 ">
   <a class="visible-phone btn btn-small show-sidebar" data-toggle="collapse" data-target=".for-mobile">Open Table Of Contents</a>
   <div class="for-mobile sidebar hidden-phone">
+  <h3><a href="index.html">目次</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">ダウンロード</a><ul>
+<li><a class="reference internal" href="#chatloggerplus-v0-x-xv1-x-x">ChatLoggerPlus v0.x.x系からv1.x.x系にアップデートする方へ注意</a></li>
+<li><a class="reference internal" href="#chatloggerplus-v0-1-6">ChatLoggerPlus v0.1.6をお使いの方へ注意</a></li>
+<li><a class="reference internal" href="#minecraft-1-5-11-5-2">Minecraft 1.5.1と1.5.2をお使いの方へ注意</a></li>
+<li><a class="reference internal" href="#minecraft-1-4-5">Minecraft 1.4.5をお使いの方へ注意</a></li>
+<li><a class="reference internal" href="#id3">通常版ダウンロード</a></li>
+<li><a class="reference internal" href="#id4">開発版ダウンロード</a></li>
+</ul>
+</li>
+</ul>
+
   <h4>前のトピックへ</h4>
   <p class="topless"><a href="Install.html"
                         title="前の章へ">インストールの仕方</a></p>
@@ -146,11 +159,481 @@
                   
   <div class="section" id="download">
 <span id="id1"></span><h1>ダウンロード<a class="headerlink" href="#download" title="このヘッドラインへのパーマリンク">¶</a></h1>
-<div class="toctree-wrapper compound">
-<ul class="simple">
-</ul>
+<p>MinecraftForgeのバージョンは、動作確認しているバージョンです。前後のバージョンでも動作する可能性が非常に高いです。
+（ただし、明記しているForgeバージョン以外での動作確認はしておりません）</p>
+<div class="section" id="chatloggerplus-v0-x-xv1-x-x">
+<h2>ChatLoggerPlus v0.x.x系からv1.x.x系にアップデートする方へ注意<a class="headerlink" href="#chatloggerplus-v0-x-xv1-x-x" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>メジャーバージョンアップに伴い、configの設定項目の見直しを行いました。廃止・追加した項目、名称を変更した項目があります。
+以前にChatLoggerPlus v0.x.x系をお使いの方は、以下の手順で導入してください。</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>com.tojc.minecraft.mod.ChatLoggerPlus.cfgをバックアップ後、configファイルを削除し、Minecraftを起動する。（新しいconfigファイルが生成されます）</li>
+<li>バックアップを元に、config設定を移植する。
+この時、FillColorCodeEnabledを使っていた方は要注意です。必ず <a class="reference internal" href="SettingConfig.html#setting-config"><em>configファイルの設定</em></a> のpluginscriptsdisabledgeneralを参照してください。</li>
+</ol>
+</div></blockquote>
+<p>特に設定を変更していなかった方も、 <strong>configファイルを削除してから</strong> ChatLoggerPlus v1.x.x系を導入することをお勧めします。（古い設定が残る可能性があります）</p>
+<p>ChatLoggerPlus v1.x.x系から新しく使い始める方は、特に何も意識せずインストールして使うことができます。</p>
 </div>
-<p>（準備中）</p>
+<div class="section" id="chatloggerplus-v0-1-6">
+<h2>ChatLoggerPlus v0.1.6をお使いの方へ注意<a class="headerlink" href="#chatloggerplus-v0-1-6" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>ChatLoggerPlus v0.1.6で修正した部分で、他のMODと競合する問題が発生しました。
+このため、競合しないように回避したバージョン「ChatLoggerPlus v0.1.6a」を急きょ用意いたしました。
+詳しくは <a class="reference external" href="http://forum.minecraftuser.jp/viewtopic.php?f=13&amp;t=7929&amp;start=40#p125146">こちら</a> のDesrulerさんの書き込み以降をご覧ください。</p>
+<p>他にも、競合するMODを見つけた方は、是非ご報告ください。
+※1.6.1用は用意していませんが、需要があるようでしたら準備しますので、お気軽に声をかけてください。（でも、たぶん、1.6.2用がそのまま動く気がします）</p>
+</div>
+<div class="section" id="minecraft-1-5-11-5-2">
+<h2>Minecraft 1.5.1と1.5.2をお使いの方へ注意<a class="headerlink" href="#minecraft-1-5-11-5-2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>ChatLoggerPlus v0.1.4では、Forgeのバージョンによっては、「ネザーなどのワールド移動後に「ChatLoggerPlus: Logging start.」が発言の度に出力される。」という不具合が発生する場合があります。
+これはForgeの挙動変更による影響です。
+この場合は、1.5.1をプレイ中の方も、1.5.2用の「ChatLoggerPlus v0.1.5 Minecraft 1.5.2 / Forge 7.8.0.684(srg)」を利用してください。
+srgビルドですので、そのまま動作するかと思います。（未確認なので、動作確認された方は報告頂けると助かります）</p>
+<p>※以下は、ゲストさん、ルーターさん、森林軽風さんにご報告頂きました。ありがとうございます！</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>[発生した環境]※この環境では、[ChatLoggerPlus v0.1.5 Minecraft 1.5.2 / Forge 7.8.0.684(srg)]を使用してください。</dt>
+<dd><ul class="first last simple">
+<li>minecraftforge-universal-1.5.2-7.8.0.688</li>
+<li>minecraftforge-universal-1.5.2-7.8.0.684</li>
+<li>minecraftforge-universal-1.5.1-7.7.2.682</li>
+</ul>
+</dd>
+<dt>[発生しなかった環境]</dt>
+<dd><ul class="first last simple">
+<li>minecraftforge-universal-1.5.1-7.7.1.639</li>
+</ul>
+</dd>
+</dl>
+</div></blockquote>
+<p>上記の結果から、639から682の間のどこかに、境目があります。（こちらでは特定してません）</p>
+<p>※v0.1.4とv0.1.5で機能の差はありません。</p>
+</div>
+<div class="section" id="minecraft-1-4-5">
+<h2>Minecraft 1.4.5をお使いの方へ注意<a class="headerlink" href="#minecraft-1-4-5" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>Forge 6.4.0.397とForge 6.4.2.448の間で、Forgeの作りが変わっているため、ChatLoggerPlusも影響を受けています。
+導入しているForgeのバージョンが448に近い場合は、極力v0.1.3を使ってください。（v0.1.2でも動作するかもしれませんが非推奨）
+逆に、Forgeのバージョンが397に近い場合は、v0.1.2を使ってください。</p>
+<p>※v0.1.2とv0.1.3で機能の差はありません。</p>
+<blockquote>
+<div>Forge448でv0.1.2の作りだと、使っていたイベントの挙動が変更されてしまったため、発言の度にログファイルへのOpen/Closeが行われ、非効率的な動作をしてしまいます。
+Forge467では再現しなかったため、一時的なForgeの不具合の可能性もありますが、v0.1.3では処理方法を変更し、Forge448以降の作りに最適化しています。</div></blockquote>
+</div>
+<div class="section" id="id3">
+<h2>通常版ダウンロード<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<table border="1" class="docutils">
+<caption>ChatLoggerPlus v1.0.0</caption>
+<colgroup>
+<col width="5%" />
+<col width="15%" />
+<col width="45%" />
+<col width="5%" />
+<col width="30%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Minecraft</th>
+<th class="head">Forge</th>
+<th class="head">FILE</th>
+<th class="head">DATE</th>
+<th class="head">備考</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>1.6.4</td>
+<td>9.11.0.883</td>
+<td><a class="reference external" href="http://jakenjarvis.github.io/ChatLoggerPlus/release/ChatLoggerPlus_v100_mc164_forge9110883_srg.zip">[v100_mc164_forge9110883_srg.zip]</a></td>
+<td>2013/10/00</td>
+<td>上記注意参照</td>
+</tr>
+<tr class="row-odd"><td>1.6.2</td>
+<td>9.10.1.871</td>
+<td><a class="reference external" href="http://jakenjarvis.github.io/ChatLoggerPlus/release/ChatLoggerPlus_v100_mc162_forge9101871_srg.zip">[v100_mc162_forge9101871_srg.zip]</a></td>
+<td>2013/10/00</td>
+<td>上記注意参照</td>
+</tr>
+</tbody>
+</table>
+<table border="1" class="docutils">
+<caption>ChatLoggerPlus v0.1.6a <a class="reference external" href="https://github.com/jakenjarvis/ChatLoggerPlus/blob/ChatLoggerPlus_v016_mc162_forge9100804_srg/README.md">[README v0.1.6a]</a></caption>
+<colgroup>
+<col width="5%" />
+<col width="15%" />
+<col width="45%" />
+<col width="5%" />
+<col width="30%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Minecraft</th>
+<th class="head">Forge</th>
+<th class="head">FILE</th>
+<th class="head">DATE</th>
+<th class="head">備考</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>1.6.2</td>
+<td>9.10.0.804</td>
+<td><a class="reference external" href="http://jakenjarvis.github.io/ChatLoggerPlus/release/ChatLoggerPlus_v016a_mc162_forge9100804_srg.zip">[v016a_mc162_forge9100804_srg.zip]</a></td>
+<td>2013/09/02</td>
+<td>上記注意参照 MOD競合回避版</td>
+</tr>
+</tbody>
+</table>
+<table border="1" class="docutils">
+<caption>ChatLoggerPlus v0.1.6 <a class="reference external" href="https://github.com/jakenjarvis/ChatLoggerPlus/blob/ChatLoggerPlus_v016_mc162_forge9100804_srg/README.md">[README v0.1.6]</a></caption>
+<colgroup>
+<col width="5%" />
+<col width="15%" />
+<col width="45%" />
+<col width="5%" />
+<col width="30%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Minecraft</th>
+<th class="head">Forge</th>
+<th class="head">FILE</th>
+<th class="head">DATE</th>
+<th class="head">備考</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>1.6.2</td>
+<td>9.10.0.804</td>
+<td><a class="reference external" href="http://jakenjarvis.github.io/ChatLoggerPlus/release/ChatLoggerPlus_v016_mc162_forge9100804_srg.zip">[v016_mc162_forge9100804_srg.zip]</a></td>
+<td>2013/08/31</td>
+<td>上記注意参照</td>
+</tr>
+<tr class="row-odd"><td>1.6.1</td>
+<td>8.9.0.775</td>
+<td><a class="reference external" href="http://jakenjarvis.github.io/ChatLoggerPlus/release/ChatLoggerPlus_v016_mc161_forge890775_srg.zip">[v016_mc161_forge890775_srg.zip]</a></td>
+<td>2013/08/31</td>
+<td>上記注意参照</td>
+</tr>
+</tbody>
+</table>
+<table border="1" class="docutils">
+<caption>ChatLoggerPlus v0.1.5 <a class="reference external" href="https://github.com/jakenjarvis/ChatLoggerPlus/blob/ChatLoggerPlus_v015_mc152_forge780684_srg/README.md">[README v0.1.5]</a></caption>
+<colgroup>
+<col width="5%" />
+<col width="15%" />
+<col width="45%" />
+<col width="5%" />
+<col width="30%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Minecraft</th>
+<th class="head">Forge</th>
+<th class="head">FILE</th>
+<th class="head">DATE</th>
+<th class="head">備考</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>1.5.2</td>
+<td>7.8.0.684</td>
+<td><a class="reference external" href="http://jakenjarvis.github.io/ChatLoggerPlus/release/ChatLoggerPlus_v015_mc152_forge780684_srg.zip">[v015_mc152_forge780684_srg.zip]</a></td>
+<td>2013/05/13</td>
+<td>上記注意参照</td>
+</tr>
+</tbody>
+</table>
+<table border="1" class="docutils">
+<caption>ChatLoggerPlus v0.1.4 <a class="reference external" href="https://github.com/jakenjarvis/ChatLoggerPlus/blob/ChatLoggerPlus_v014_mc147_forge662534/README.md">[README v0.1.4]</a></caption>
+<colgroup>
+<col width="5%" />
+<col width="15%" />
+<col width="45%" />
+<col width="5%" />
+<col width="30%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Minecraft</th>
+<th class="head">Forge</th>
+<th class="head">FILE</th>
+<th class="head">DATE</th>
+<th class="head">備考</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>1.5.2</td>
+<td>7.8.0.684</td>
+<td><a class="reference external" href="http://jakenjarvis.github.io/ChatLoggerPlus/release/ChatLoggerPlus_v014_mc152_forge780684_srg.zip">[v014_mc152_forge780684_srg.zip]</a></td>
+<td>2013/05/11</td>
+<td>不具合あり</td>
+</tr>
+<tr class="row-odd"><td>1.5.1</td>
+<td>7.7.0.605</td>
+<td><a class="reference external" href="http://jakenjarvis.github.io/ChatLoggerPlus/release/ChatLoggerPlus_v014_mc151_forge770605.zip">[v014_mc151_forge770605.zip]</a></td>
+<td>2013/03/24</td>
+<td>上記注意参照</td>
+</tr>
+<tr class="row-even"><td>1.5.0</td>
+<td>7.7.0.582</td>
+<td><a class="reference external" href="http://jakenjarvis.github.io/ChatLoggerPlus/release/ChatLoggerPlus_v014_mc150_forge770582.zip">[v014_mc150_forge770582.zip]</a></td>
+<td>2013/03/20</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>1.5.0(pre)</td>
+<td>7.7.0.569</td>
+<td><a class="reference external" href="http://jakenjarvis.github.io/ChatLoggerPlus/release/ChatLoggerPlus_v014_mc150_forge770569.zip">[v014_mc150_forge770569.zip]</a></td>
+<td>2013/03/12</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>1.4.7</td>
+<td>6.6.2.534</td>
+<td><a class="reference external" href="http://jakenjarvis.github.io/ChatLoggerPlus/release/ChatLoggerPlus_v014_mc147_forge662534.zip">[v014_mc147_forge662534.zip]</a></td>
+<td>2013/03/12</td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<table border="1" class="docutils">
+<caption>ChatLoggerPlus v0.1.3 <a class="reference external" href="https://github.com/jakenjarvis/ChatLoggerPlus/blob/ChatLoggerPlus_v013_mc147_forge660497/README.md">[README v0.1.3]</a></caption>
+<colgroup>
+<col width="5%" />
+<col width="15%" />
+<col width="45%" />
+<col width="5%" />
+<col width="30%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Minecraft</th>
+<th class="head">Forge</th>
+<th class="head">FILE</th>
+<th class="head">DATE</th>
+<th class="head">備考</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>1.4.7</td>
+<td>6.6.0.497</td>
+<td><a class="reference external" href="http://jakenjarvis.github.io/ChatLoggerPlus/release/ChatLoggerPlus_v013_mc147_forge660497.zip">[v013_mc147_forge660497.zip]</a></td>
+<td>2013/01/12</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>1.4.6</td>
+<td>6.5.0.467</td>
+<td><a class="reference external" href="http://jakenjarvis.github.io/ChatLoggerPlus/release/ChatLoggerPlus_v013_mc146_forge650467.zip">[v013_mc146_forge650467.zip]</a></td>
+<td>2012/12/23</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>1.4.5</td>
+<td>6.4.2.448</td>
+<td><a class="reference external" href="http://jakenjarvis.github.io/ChatLoggerPlus/release/ChatLoggerPlus_v013_mc145_forge642448.zip">[v013_mc145_forge642448.zip]</a></td>
+<td>2012/12/23</td>
+<td>上記注意参照</td>
+</tr>
+</tbody>
+</table>
+<table border="1" class="docutils">
+<caption>ChatLoggerPlus v0.1.2 <a class="reference external" href="https://github.com/jakenjarvis/ChatLoggerPlus/blob/ChatLoggerPlus_v012_mc145_forge640397/README.md">[README v0.1.2]</a></caption>
+<colgroup>
+<col width="5%" />
+<col width="15%" />
+<col width="45%" />
+<col width="5%" />
+<col width="30%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Minecraft</th>
+<th class="head">Forge</th>
+<th class="head">FILE</th>
+<th class="head">DATE</th>
+<th class="head">備考</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>1.4.5</td>
+<td>6.4.0.397</td>
+<td><a class="reference external" href="http://jakenjarvis.github.io/ChatLoggerPlus/release/ChatLoggerPlus_v012_mc145_forge640397.zip">[v012_mc145_forge640397.zip]</a></td>
+<td>2012/12/11</td>
+<td>上記注意参照</td>
+</tr>
+<tr class="row-odd"><td>1.4.4</td>
+<td>6.3.0.378</td>
+<td><a class="reference external" href="http://jakenjarvis.github.io/ChatLoggerPlus/release/ChatLoggerPlus_v012_mc144_forge630378.zip">[v012_mc144_forge630378.zip]</a></td>
+<td>2012/12/11</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>1.4.2</td>
+<td>6.0.1.355</td>
+<td><a class="reference external" href="http://jakenjarvis.github.io/ChatLoggerPlus/release/ChatLoggerPlus_v012_mc142_forge601355.zip">[v012_mc142_forge601355.zip]</a></td>
+<td>2012/12/11</td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="first admonition-title">警告</p>
+<p class="last">以下は、「チャット文字に％を含むと落ちる」という致命的な不具合があります。</p>
+</div>
+<table border="1" class="docutils">
+<caption>ChatLoggerPlus v0.1.1 <a class="reference external" href="https://github.com/jakenjarvis/ChatLoggerPlus/blob/ChatLoggerPlus_v011_mc145_forge640394/README.md">[README v0.1.1]</a></caption>
+<colgroup>
+<col width="5%" />
+<col width="15%" />
+<col width="45%" />
+<col width="5%" />
+<col width="30%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Minecraft</th>
+<th class="head">Forge</th>
+<th class="head">FILE</th>
+<th class="head">DATE</th>
+<th class="head">備考</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>1.4.5</td>
+<td>6.4.0.397</td>
+<td><a class="reference external" href="http://jakenjarvis.github.io/ChatLoggerPlus/release/ChatLoggerPlus_v011_mc145_forge640397.zip">[v011_mc145_forge640397.zip]</a></td>
+<td>2012/11/27</td>
+<td>不具合あり</td>
+</tr>
+<tr class="row-odd"><td>1.4.5</td>
+<td>6.4.0.394</td>
+<td><a class="reference external" href="http://jakenjarvis.github.io/ChatLoggerPlus/release/ChatLoggerPlus_v011_mc145_forge640394.zip">[v011_mc145_forge640394.zip]</a></td>
+<td>2012/11/21</td>
+<td>不具合あり</td>
+</tr>
+<tr class="row-even"><td>1.4.4</td>
+<td>6.3.0.378</td>
+<td><a class="reference external" href="http://jakenjarvis.github.io/ChatLoggerPlus/release/ChatLoggerPlus_v011_mc144_forge630378.zip">[v011_mc144_forge630378.zip]</a></td>
+<td>2012/11/21</td>
+<td>不具合あり</td>
+</tr>
+<tr class="row-odd"><td>1.4.2</td>
+<td>6.0.1.355</td>
+<td><a class="reference external" href="http://jakenjarvis.github.io/ChatLoggerPlus/release/ChatLoggerPlus_v011_mc142_forge601355.zip">[v011_mc142_forge601355.zip]</a></td>
+<td>2012/11/21</td>
+<td>不具合あり</td>
+</tr>
+</tbody>
+</table>
+<table border="1" class="docutils">
+<caption>ChatLoggerPlus v0.1.0 <a class="reference external" href="https://github.com/jakenjarvis/ChatLoggerPlus/blob/ChatLoggerPlus_v010_mc144_forge630372/README.md">[README]</a></caption>
+<colgroup>
+<col width="5%" />
+<col width="15%" />
+<col width="45%" />
+<col width="5%" />
+<col width="30%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Minecraft</th>
+<th class="head">Forge</th>
+<th class="head">FILE</th>
+<th class="head">DATE</th>
+<th class="head">備考</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>1.4.4</td>
+<td>6.3.0.378</td>
+<td><a class="reference external" href="http://jakenjarvis.github.io/ChatLoggerPlus/release/ChatLoggerPlus_v010_mc144_forge630378.zip">[v010_mc144_forge630378.zip]</a></td>
+<td>2012/11/18</td>
+<td>不具合あり</td>
+</tr>
+<tr class="row-odd"><td>1.4.4</td>
+<td>6.3.0.372</td>
+<td><a class="reference external" href="http://jakenjarvis.github.io/ChatLoggerPlus/release/ChatLoggerPlus_v010_mc144_forge630372.zip">[v010_mc144_forge630372.zip]</a></td>
+<td>2012/11/15</td>
+<td>不具合あり</td>
+</tr>
+<tr class="row-even"><td>1.4.2</td>
+<td>6.0.1.355</td>
+<td><a class="reference external" href="http://jakenjarvis.github.io/ChatLoggerPlus/release/ChatLoggerPlus_v010_mc142_forge601355.zip">[v010_mc142_forge601355.zip]</a></td>
+<td>2012/11/15</td>
+<td>不具合あり</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id4">
+<h2>開発版ダウンロード<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>以下は、開発版です。これはv0.x.x系の頃にプリリリース版として配布したものです。</p>
+<div class="admonition note">
+<p class="first admonition-title">ノート</p>
+<p class="last">以下は通常版v1.0.0にて統合しました。また、SamplePluginはAPI仕様を変更したため、通常版v1.0.0では使えません。</p>
+</div>
+<table border="1" class="docutils">
+<caption>ChatLoggerPlus <strong>Develop</strong> v1.0.0</caption>
+<colgroup>
+<col width="5%" />
+<col width="15%" />
+<col width="45%" />
+<col width="5%" />
+<col width="30%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Minecraft</th>
+<th class="head">Forge</th>
+<th class="head">FILE</th>
+<th class="head">DATE</th>
+<th class="head">備考</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>1.5.2</td>
+<td>7.8.0.684</td>
+<td><a class="reference external" href="http://jakenjarvis.github.io/ChatLoggerPlus/release/ChatLoggerPlus_v100dev20130513_mc152_forge780684_srg.zip">[v100dev20130513_mc152_forge780684_srg.zip]</a></td>
+<td>2013/05/13</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>1.5.2</td>
+<td>7.8.0.684</td>
+<td><a class="reference external" href="http://jakenjarvis.github.io/ChatLoggerPlus/release/ChatLoggerPlus_v100dev20130511_mc152_forge780684_srg.zip">[v100dev20130511_mc152_forge780684_srg.zip]</a></td>
+<td>2013/05/11</td>
+<td>不具合あり</td>
+</tr>
+<tr class="row-even"><td>1.5.1</td>
+<td>7.7.0.605</td>
+<td><a class="reference external" href="http://jakenjarvis.github.io/ChatLoggerPlus/release/ChatLoggerPlus_v100dev20130324_mc151_forge770605.zip">[v100dev20130324_mc151_forge770605.zip]</a></td>
+<td>2013/03/24</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>1.5.0</td>
+<td>7.7.0.582</td>
+<td><a class="reference external" href="http://jakenjarvis.github.io/ChatLoggerPlus/release/ChatLoggerPlus_v100dev20130324_mc150_forge770582.zip">[v100dev20130324_mc150_forge770582.zip]</a></td>
+<td>2013/03/24</td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<table border="1" class="docutils">
+<caption>ChatLoggerPlus <strong>Develop v1.0.0用 SamplePlugin</strong></caption>
+<colgroup>
+<col width="5%" />
+<col width="15%" />
+<col width="45%" />
+<col width="5%" />
+<col width="30%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Minecraft</th>
+<th class="head">Forge</th>
+<th class="head">FILE</th>
+<th class="head">DATE</th>
+<th class="head">備考</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>&nbsp;</td>
+<td>&nbsp;</td>
+<td><a class="reference external" href="http://jakenjarvis.github.io/ChatLoggerPlus/release/20130328SamplePluginPack.zip">[20130328SamplePluginPack.zip]</a></td>
+<td>2013/03/28</td>
+<td>SamplePluginPack 20130328</td>
+</tr>
+<tr class="row-odd"><td>&nbsp;</td>
+<td>&nbsp;</td>
+<td><a class="reference external" href="http://jakenjarvis.github.io/ChatLoggerPlus/release/minerabot101.zip">[minerabot101.zip]</a></td>
+<td>2013/04/19</td>
+<td>MiNeRa bot v1.0.1</td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 
 
@@ -162,6 +645,19 @@
          
 <div class="span4 visible-desktop visible-tablet">
   <div class=" sidebar hidden-phone">
+  <h3><a href="index.html">目次</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">ダウンロード</a><ul>
+<li><a class="reference internal" href="#chatloggerplus-v0-x-xv1-x-x">ChatLoggerPlus v0.x.x系からv1.x.x系にアップデートする方へ注意</a></li>
+<li><a class="reference internal" href="#chatloggerplus-v0-1-6">ChatLoggerPlus v0.1.6をお使いの方へ注意</a></li>
+<li><a class="reference internal" href="#minecraft-1-5-11-5-2">Minecraft 1.5.1と1.5.2をお使いの方へ注意</a></li>
+<li><a class="reference internal" href="#minecraft-1-4-5">Minecraft 1.4.5をお使いの方へ注意</a></li>
+<li><a class="reference internal" href="#id3">通常版ダウンロード</a></li>
+<li><a class="reference internal" href="#id4">開発版ダウンロード</a></li>
+</ul>
+</li>
+</ul>
+
   <h4>前のトピックへ</h4>
   <p class="topless"><a href="Install.html"
                         title="前の章へ">インストールの仕方</a></p>

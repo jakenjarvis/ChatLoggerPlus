@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     
-    <title>Sample_Stack01_MyRemark_Read_Write：スタックサンプル１ &mdash; [MinecraftMOD] ChatLoggerPlus 1.0.0 ドキュメント</title>
+    <title>Sample_Stack01_MyRemark：スタックサンプル１ &mdash; [MinecraftMOD] ChatLoggerPlus 1.0.0 ドキュメント</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
@@ -60,7 +60,7 @@
   });
 </script>
     <link rel="top" title="[MinecraftMOD] ChatLoggerPlus 1.0.0 ドキュメント" href="../index.html" />
-    <link rel="next" title="Sample_Stack02_PassingObjects_Read_Write：スタックサンプル２" href="Sample_Stack02_PassingObjects_Read_Write.html" />
+    <link rel="next" title="Sample_Stack02_PassingObjects：スタックサンプル２" href="Sample_Stack02_PassingObjects_Read_Write.html" />
     <link rel="prev" title="Sample_ReplaceThree：３の時にアフォになる" href="Sample_ReplaceThree.html" /> 
   </head>
   <body>
@@ -80,7 +80,7 @@
                 <a href="../genindex.html" title="総合索引" accesskey="I">索引</a>
                 </li>
                 <li>
-                <a href="Sample_Stack02_PassingObjects_Read_Write.html" title="Sample_Stack02_PassingObjects_Read_Write：スタックサンプル２" accesskey="N">次へ</a>
+                <a href="Sample_Stack02_PassingObjects_Read_Write.html" title="Sample_Stack02_PassingObjects：スタックサンプル２" accesskey="N">次へ</a>
                 </li>
                 <li>
                 <a href="Sample_ReplaceThree.html" title="Sample_ReplaceThree：３の時にアフォになる" accesskey="P">前へ</a>
@@ -103,12 +103,21 @@
 <div class="span4 ">
   <a class="visible-phone btn btn-small show-sidebar" data-toggle="collapse" data-target=".for-mobile">Open Table Of Contents</a>
   <div class="for-mobile sidebar hidden-phone">
+  <h3><a href="../index.html">目次</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Sample_Stack01_MyRemark：スタックサンプル１</a><ul>
+<li><a class="reference internal" href="#id1">ダウンロード</a></li>
+<li><a class="reference internal" href="#id2">ソースコード</a></li>
+</ul>
+</li>
+</ul>
+
   <h4>前のトピックへ</h4>
   <p class="topless"><a href="Sample_ReplaceThree.html"
                         title="前の章へ">Sample_ReplaceThree：３の時にアフォになる</a></p>
   <h4>次のトピックへ</h4>
   <p class="topless"><a href="Sample_Stack02_PassingObjects_Read_Write.html"
-                        title="次の章へ">Sample_Stack02_PassingObjects_Read_Write：スタックサンプル２</a></p>
+                        title="次の章へ">Sample_Stack02_PassingObjects：スタックサンプル２</a></p>
   <h3>このページ</h3>
   <ul class="this-page-menu">
     <li><a href="../_sources/sampleplugin/Sample_Stack01_MyRemark_Read_Write.txt"
@@ -144,9 +153,242 @@
               <div class="bodywrapper">
                 <div class="body">
                   
-  <div class="section" id="sample-stack01-myremark-read-write-1">
-<span id="sample-stack01-myremark-read-write"></span><h1>Sample_Stack01_MyRemark_Read_Write：スタックサンプル１<a class="headerlink" href="#sample-stack01-myremark-read-write-1" title="このヘッドラインへのパーマリンク">¶</a></h1>
-<p>（準備中）</p>
+  <div class="section" id="sample-stack01-myremark-1">
+<span id="sample-stack01-myremark-read-write"></span><h1>Sample_Stack01_MyRemark：スタックサンプル１<a class="headerlink" href="#sample-stack01-myremark-1" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>（コンテンツ準備中）</p>
+<div class="section" id="id1">
+<h2>ダウンロード<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>このプラグインをダウンロードする場合は、以下のリンクを右クリックして「名前を付けて保存」で保存してください。</p>
+<p><a class="reference download internal" href="../_downloads/Sample_Stack01_MyRemark_Read.js"><tt class="xref download docutils literal"><span class="pre">Sample_Stack01_MyRemark_Read.js</span></tt></a></p>
+<p><a class="reference download internal" href="../_downloads/Sample_Stack01_MyRemark_Write.js"><tt class="xref download docutils literal"><span class="pre">Sample_Stack01_MyRemark_Write.js</span></tt></a></p>
+</div>
+<div class="section" id="id2">
+<h2>ソースコード<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>Sample_Stack01_MyRemark_Read.js</p>
+<div class="highlight-javascript"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54</pre></div></td><td class="code"><div class="highlight"><pre><span class="c1">// ファイル形式はUTF-8で保存すること</span>
+<span class="c1">// Please file format to UTF-8.</span>
+<span class="nx">importPackage</span><span class="p">(</span><span class="nx">com</span><span class="p">.</span><span class="nx">tojc</span><span class="p">.</span><span class="nx">minecraft</span><span class="p">.</span><span class="nx">mod</span><span class="p">.</span><span class="nx">ChatLoggerPlusPlugin</span><span class="p">.</span><span class="nx">v1</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">name</span> <span class="o">=</span> <span class="s2">&quot;My remark(read)&quot;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">version</span> <span class="o">=</span> <span class="s2">&quot;1.0.0&quot;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">description</span> <span class="o">=</span> <span class="s2">&quot;sample plugin&quot;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">auther</span> <span class="o">=</span> <span class="s2">&quot;Jaken&quot;</span><span class="p">;</span>
+
+<span class="kd">var</span> <span class="nx">plugin</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PluginInterface</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="nx">onInitialize</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">settings</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// Stack MyRemark への読み込み権限登録</span>
+        <span class="nx">settings</span><span class="p">.</span><span class="nx">registerPermissionReadStack</span><span class="p">(</span><span class="s2">&quot;MyRemark&quot;</span><span class="p">);</span>
+        <span class="c1">// チャットを書き換えるために、パーミッション取得。</span>
+        <span class="nx">settings</span><span class="p">.</span><span class="nx">registerPermissionMessageModification</span><span class="p">();</span>
+    <span class="p">},</span>
+
+    <span class="nx">onChatMessage</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">env</span><span class="p">,</span> <span class="nx">chat</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// Stack MyRemark から結果を読み込み（数値）</span>
+        <span class="kd">var</span> <span class="nx">myRemark</span> <span class="o">=</span> <span class="nx">chat</span><span class="p">.</span><span class="nx">readStack</span><span class="p">(</span><span class="s2">&quot;MyRemark&quot;</span><span class="p">);</span>
+
+        <span class="c1">// デバッグに値を表示して確認する。</span>
+        <span class="nx">debug</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="s2">&quot;myRemark: &quot;</span> <span class="o">+</span> <span class="nx">myRemark</span><span class="p">);</span>
+
+        <span class="c1">// MyRemarkが1の時だけチャット加工処理を行う。</span>
+        <span class="k">if</span><span class="p">(</span><span class="nx">myRemark</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="c1">// チャットメッセージを取得（別のプラグインで加工された可能性のあるメッセージ）</span>
+            <span class="kd">var</span> <span class="nx">chatmessage</span> <span class="o">=</span> <span class="nx">chat</span><span class="p">.</span><span class="nx">getMessage</span><span class="p">();</span>
+
+            <span class="c1">// 他のプラグインによって、チャットメッセージが削除されている場合は</span>
+            <span class="c1">// nullになっているため、チェックしてから処理を行うようにする。</span>
+            <span class="k">if</span><span class="p">(</span><span class="nx">chatmessage</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="c1">// JavaのStringからJavaScriptのStringに型変換</span>
+                <span class="kd">var</span> <span class="nx">message</span> <span class="o">=</span> <span class="nb">String</span><span class="p">(</span><span class="nx">chatmessage</span><span class="p">);</span>
+
+                <span class="c1">// 前後にカラー記号を入れる。Gray表示とする。</span>
+                <span class="kd">var</span> <span class="nx">newmessage</span> <span class="o">=</span> <span class="s2">&quot;§7&quot;</span> <span class="o">+</span> <span class="nx">message</span> <span class="o">+</span> <span class="s2">&quot;§r&quot;</span><span class="p">;</span>
+
+                <span class="c1">// 編集したメッセージをセット。</span>
+                <span class="c1">// これを呼び出すためには、MessageModificationのパーミッションが必要。</span>
+                <span class="nx">chat</span><span class="p">.</span><span class="nx">setMessage</span><span class="p">(</span><span class="nx">newmessage</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+
+    <span class="nx">onFinalize</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span>
+    <span class="p">{</span>
+    <span class="p">},</span>
+<span class="p">};</span>
+</pre></div>
+</td></tr></table></div>
+<p>Sample_Stack01_MyRemark_Write.js</p>
+<div class="highlight-javascript"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56</pre></div></td><td class="code"><div class="highlight"><pre><span class="c1">// ファイル形式はUTF-8で保存すること</span>
+<span class="c1">// Please file format to UTF-8.</span>
+<span class="nx">importPackage</span><span class="p">(</span><span class="nx">com</span><span class="p">.</span><span class="nx">tojc</span><span class="p">.</span><span class="nx">minecraft</span><span class="p">.</span><span class="nx">mod</span><span class="p">.</span><span class="nx">ChatLoggerPlusPlugin</span><span class="p">.</span><span class="nx">v1</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">name</span> <span class="o">=</span> <span class="s2">&quot;My remark(write)&quot;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">version</span> <span class="o">=</span> <span class="s2">&quot;1.0.0&quot;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">description</span> <span class="o">=</span> <span class="s2">&quot;sample plugin&quot;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">auther</span> <span class="o">=</span> <span class="s2">&quot;Jaken&quot;</span><span class="p">;</span>
+
+<span class="kd">var</span> <span class="nx">plugin</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PluginInterface</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="nx">onInitialize</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">settings</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// Stack MyRemark への書き込み権限登録</span>
+        <span class="nx">settings</span><span class="p">.</span><span class="nx">registerPermissionWriteStack</span><span class="p">(</span><span class="s2">&quot;MyRemark&quot;</span><span class="p">);</span>
+    <span class="p">},</span>
+
+    <span class="nx">onChatMessage</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">env</span><span class="p">,</span> <span class="nx">chat</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// プレイヤー名を取得</span>
+        <span class="kd">var</span> <span class="nx">playername</span> <span class="o">=</span> <span class="nx">env</span><span class="p">.</span><span class="nx">getPlayerName</span><span class="p">();</span>
+        <span class="c1">// ユーザー名の取得（発言者）</span>
+        <span class="kd">var</span> <span class="nx">username</span> <span class="o">=</span> <span class="nx">chat</span><span class="p">.</span><span class="nx">getUserName</span><span class="p">();</span>
+
+        <span class="c1">// デバッグに値を表示して確認する。</span>
+        <span class="nx">debug</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="s2">&quot;playername: &quot;</span> <span class="o">+</span> <span class="nx">playername</span><span class="p">);</span>
+        <span class="nx">debug</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="s2">&quot;username: &quot;</span> <span class="o">+</span> <span class="nx">username</span><span class="p">);</span>
+
+        <span class="c1">// ユーザー名とプレイヤー名が等しい場合は1とし、それ以外の場合は0とする。</span>
+        <span class="kd">var</span> <span class="nx">myRemark</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+        <span class="c1">// ユーザー名がnullの場合は、ユーザーの発言ではないので無視する。</span>
+        <span class="k">if</span><span class="p">(</span><span class="nx">username</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="c1">// JavaのStringからJavaScriptのStringに型変換</span>
+            <span class="nx">playername</span> <span class="o">=</span> <span class="nb">String</span><span class="p">(</span><span class="nx">playername</span><span class="p">);</span>
+            <span class="nx">username</span> <span class="o">=</span> <span class="nb">String</span><span class="p">(</span><span class="nx">username</span><span class="p">);</span>
+
+            <span class="k">if</span><span class="p">(</span><span class="nx">playername</span> <span class="o">==</span> <span class="nx">username</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="c1">// ユーザー名とプレイヤー名が等しい場合は MyRemark を 1 とする。</span>
+                <span class="nx">myRemark</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="c1">// デバッグに値を表示して確認する。</span>
+        <span class="nx">debug</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="s2">&quot;myRemark: &quot;</span> <span class="o">+</span> <span class="nx">myRemark</span><span class="p">);</span>
+
+        <span class="c1">// Stack MyRemark へ書き込む。</span>
+        <span class="nx">chat</span><span class="p">.</span><span class="nx">writeStack</span><span class="p">(</span><span class="s2">&quot;MyRemark&quot;</span><span class="p">,</span> <span class="nx">myRemark</span><span class="p">);</span>
+    <span class="p">},</span>
+
+    <span class="nx">onFinalize</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span>
+    <span class="p">{</span>
+    <span class="p">},</span>
+<span class="p">};</span>
+</pre></div>
+</td></tr></table></div>
+</div>
 </div>
 
 
@@ -158,12 +400,21 @@
          
 <div class="span4 visible-desktop visible-tablet">
   <div class=" sidebar hidden-phone">
+  <h3><a href="../index.html">目次</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Sample_Stack01_MyRemark：スタックサンプル１</a><ul>
+<li><a class="reference internal" href="#id1">ダウンロード</a></li>
+<li><a class="reference internal" href="#id2">ソースコード</a></li>
+</ul>
+</li>
+</ul>
+
   <h4>前のトピックへ</h4>
   <p class="topless"><a href="Sample_ReplaceThree.html"
                         title="前の章へ">Sample_ReplaceThree：３の時にアフォになる</a></p>
   <h4>次のトピックへ</h4>
   <p class="topless"><a href="Sample_Stack02_PassingObjects_Read_Write.html"
-                        title="次の章へ">Sample_Stack02_PassingObjects_Read_Write：スタックサンプル２</a></p>
+                        title="次の章へ">Sample_Stack02_PassingObjects：スタックサンプル２</a></p>
   <h3>このページ</h3>
   <ul class="this-page-menu">
     <li><a href="../_sources/sampleplugin/Sample_Stack01_MyRemark_Read_Write.txt"
@@ -195,7 +446,7 @@
     <ul class="nav pull-right">
       
         <li><a href="../genindex.html" title="総合索引" >索引</a></li>
-        <li><a href="Sample_Stack02_PassingObjects_Read_Write.html" title="Sample_Stack02_PassingObjects_Read_Write：スタックサンプル２" >次へ</a></li>
+        <li><a href="Sample_Stack02_PassingObjects_Read_Write.html" title="Sample_Stack02_PassingObjects：スタックサンプル２" >次へ</a></li>
         <li><a href="Sample_ReplaceThree.html" title="Sample_ReplaceThree：３の時にアフォになる" >前へ</a></li>
         <li><a href="../index.html">[MinecraftMOD] ChatLoggerPlus 1.0.0 ドキュメント</a></li> 
       

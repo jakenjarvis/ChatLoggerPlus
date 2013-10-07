@@ -1,8 +1,8 @@
 .. _formatting_codes_remover:
 
-FormattingCodesRemover：カラーコード削除
+FormattingCodesRemover：フォーマットコード削除
 ##################################################
-メッセージ中にある、カラーコードを除外するためのプラグインです。
+メッセージ中にある、フォーマットコードを除外するためのプラグインです。
 機能としては、configのFillFormattingCodesEnabledをtrueにした時の処理と同等です。
 
 特に設定等はありませんので、Addボタンで追加すれば使うことができます。
@@ -14,7 +14,7 @@ Screenプラグインとしても使えますが、ChatLogプラグインとし�
 
 ダウンロード
 **************************************************
-このプラグインをダウンロードする場合は、以下のFormattingCodesRemover.jsを右クリックして「名前を付けて保存」で保存してください。
+このプラグインをダウンロードする場合は、以下のリンクを右クリックして「名前を付けて保存」で保存してください。
 
 :download:`FormattingCodesRemover.js <../../../SamplePlugin/FormattingCodesRemover.js>` 
 
