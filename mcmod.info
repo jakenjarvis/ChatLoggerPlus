@@ -3,8 +3,8 @@
   "modid": "com.tojc.minecraft.mod.ChatLoggerPlus",
   "name": "ChatLoggerPlus",
   "description": "Output to log chat conversations.",
-  "version": "0.1.6a",
-  "mcversion": "1.6.2",
+  "version": "1.0.0",
+  "mcversion": "1.6.4",
   "url": "https://github.com/jakenjarvis/ChatLoggerPlus",
   "updateUrl": "",
   "authors": [

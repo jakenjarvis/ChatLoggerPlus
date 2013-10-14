@@ -20,52 +20,119 @@ package com.tojc.minecraft.mod.ChatLogger;
 
 import java.io.File;
 
-import com.tojc.minecraft.mod.ChatLogger.SpecialLogWriter.FileOperationCompletedEvent;
-import com.tojc.minecraft.mod.ChatLogger.SpecialLogWriter.FileOperationCompletedListener;
+import javax.script.ScriptEngineFactory;
+import javax.script.ScriptEngineManager;
+
+import com.tojc.minecraft.mod.ChatLoggerPlus;
+import com.tojc.minecraft.mod.ChatLogger.Plugin.PluginManager;
+import com.tojc.minecraft.mod.ChatLogger.Plugin.PluginOrderManager;
+import com.tojc.minecraft.mod.ChatLogger.Writer.SpecialLogWriter;
 import com.tojc.minecraft.mod.log.DebugLog;
+import com.tojc.minecraft.mod.proxy.ProxyInterface;
 
 import net.minecraft.client.Minecraft;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.event.FMLServerAboutToStartEvent;
+import cpw.mods.fml.common.event.FMLServerStartedEvent;
+import cpw.mods.fml.common.event.FMLServerStartingEvent;
+import cpw.mods.fml.common.event.FMLServerStoppedEvent;
+import cpw.mods.fml.common.event.FMLServerStoppingEvent;
 
-public class ChatLoggerCore implements FileOperationCompletedListener
+public class ChatLoggerCore
 {
 	private ChatLoggerConfiguration config = null;
+	private PluginManager pluginManager = null;
+
 	private HandlerAndEventListener listener = null;
 	private SpecialLogWriter writer = null;
+
+	public ProxyInterface getSidedProxy()
+	{
+		return ChatLoggerPlus.proxy;
+	}
 
 	public ChatLoggerConfiguration getConfig()
 	{
 		return this.config;
 	}
 
+	public PluginManager getPluginManager()
+	{
+		return this.pluginManager;
+	}
+
 	public void onPreInit(FMLPreInitializationEvent event)
 	{
-		DebugLog.info("onPreInit");
+		DebugLog.trace("onPreInit");
 
 		this.config = new ChatLoggerConfiguration(event.getSuggestedConfigurationFile());
+		DebugLog.loadConfig(this.config);
 
 		this.listener = new HandlerAndEventListener(this);
-		this.writer = new SpecialLogWriter(this.config, this);
 	}
 
 	public void onInit(FMLInitializationEvent event)
 	{
-		DebugLog.info("onInit");
+		DebugLog.trace("onInit");
+
+		this.writer = new SpecialLogWriter(this);
+
+		if(this.config.getPluginScriptsEnabled().get())
+		{
+			this.pluginManager = new PluginManager(this.config);
+		}
 	}
 
 	public void onPostInit(FMLPostInitializationEvent event)
 	{
-		DebugLog.info("onPostInit");
+		DebugLog.trace("onPostInit");
 	}
 
-	public void onWorldConnection(String worldname)
+
+	public void onFMLServerAboutToStartEvent(FMLServerAboutToStartEvent event)
+    {
+		DebugLog.trace("onFMLServerAboutToStartEvent");
+    }
+
+    public void onFMLServerStartingEvent(FMLServerStartingEvent event)
+    {
+		DebugLog.trace("onFMLServerStartingEvent");
+    }
+
+    public void onFMLServerStartedEvent(FMLServerStartedEvent event)
+    {
+		DebugLog.trace("onFMLServerStartedEvent");
+    }
+
+    public void onFMLServerStoppingEvent(FMLServerStoppingEvent event)
+    {
+		DebugLog.trace("onFMLServerStoppingEvent");
+    }
+
+    public void onFMLServerStoppedEvent(FMLServerStoppedEvent event)
+    {
+		DebugLog.trace("onFMLServerStoppedEvent");
+    }
+
+
+	public void onWorldLoad(String worldname)
 	{
-		if(!worldname.equals("MpServer"))
+		this.writer.setWorldName(worldname);
+
+		if(this.config.getPluginScriptsEnabled().get())
 		{
-			this.writer.setWorldName(worldname);
+			this.pluginManager.load();
+		}
+	}
+
+	public void onWorldUnload(String worldname)
+	{
+		if(this.config.getPluginScriptsEnabled().get())
+		{
+			this.pluginManager.unload();
 		}
 	}
 
@@ -76,49 +143,37 @@ public class ChatLoggerCore implements FileOperationCompletedListener
 
 	public void onOpen()
 	{
-		if(this.config.getChatLoggerEnabled().get())
-		{
-			this.writer.open();
-		}
-	}
-
-	@Override
-	public void onOpenFileOperationCompleted(FileOperationCompletedEvent e)
-	{
-		this.sendChatMessage("§aChatLoggerPlus: Logging start.");
-		this.sendChatMessage("§aChatLoggerPlus: " + e.getFileName());
+		this.writer.open();
 	}
 
 	public void onWrite(String message)
 	{
-		if(this.config.getChatLoggerEnabled().get())
-		{
-			this.writer.write(message);
-		}
+		this.writer.write(message);
 	}
 
 	public void onFlush()
 	{
-		if(this.config.getChatLoggerEnabled().get())
-		{
-			this.writer.flush();
-		}
+		this.writer.flush();
 	}
 
 	public void onClose()
 	{
-		if(this.config.getChatLoggerEnabled().get())
-		{
-			this.writer.close();
-		}
+		this.writer.close();
 	}
 
-	@Override
-	public void onCloseFileOperationCompleted(FileOperationCompletedEvent e)
+
+	public String getPlayerName()
 	{
+		String result = null;
+		Minecraft mc = Minecraft.getMinecraft();
+		if((mc != null) && (mc.thePlayer != null))
+		{
+			result = mc.thePlayer.getEntityName();
+		}
+		return result;
 	}
 
-	private void sendChatMessage(String message)
+	public void sendLocalChatMessage(String message)
 	{
 		Minecraft mc = Minecraft.getMinecraft();
 		if((mc != null) && (mc.thePlayer != null))
@@ -127,4 +182,12 @@ public class ChatLoggerCore implements FileOperationCompletedListener
 		}
 	}
 
+	public void sendGlobalChatMessage(String message)
+	{
+		Minecraft mc = Minecraft.getMinecraft();
+		if((mc != null) && (mc.thePlayer != null))
+		{
+			mc.thePlayer.sendChatMessage(message);
+		}
+	}
 }
