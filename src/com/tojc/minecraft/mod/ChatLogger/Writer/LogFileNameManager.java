@@ -16,12 +16,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.tojc.minecraft.mod.ChatLogger;
+package com.tojc.minecraft.mod.ChatLogger.Writer;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+
+import com.tojc.minecraft.mod.ChatLogger.ChatLoggerConfiguration;
 
 import net.minecraft.client.Minecraft;
 
