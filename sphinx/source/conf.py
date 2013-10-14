@@ -46,6 +46,10 @@ graphviz_dot_args = [
     '-Efontname=MS PGothic',
 ]
 
+
+# Google Analytics
+googleanalytics_id = 'UA-44840464-1' 
+
 # -- General configuration ------------------------------------------------
 
 # If your documentation needs a minimal Sphinx version, state it here.
@@ -65,7 +69,8 @@ extensions = [
     'sphinx.ext.inheritance_diagram',
     'sphinxcontrib.mscgen',
     'sphinxjp.themecore',
-    'javasphinx'
+    'javasphinx',
+    'sphinxcontrib.googleanalytics'
 ]
 
 # Add any paths that contain templates here, relative to this directory.
