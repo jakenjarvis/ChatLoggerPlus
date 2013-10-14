@@ -13,7 +13,7 @@ ChatLoggerPlus v0.x.x系からv1.x.x系にアップデートする方へ注意
 
  #. com.tojc.minecraft.mod.ChatLoggerPlus.cfgをバックアップ後、configファイルを削除し、Minecraftを起動する。（新しいconfigファイルが生成されます）
  #. バックアップを元に、config設定を移植する。
-    この時、FillColorCodeEnabledを使っていた方は要注意です。必ず :ref:`setting_config` のpluginscriptsdisabledgeneralを参照してください。
+    この時、 **FillColorCodeEnabledを使っていた方は要注意** です。必ず :ref:`setting_config` のpluginscriptsdisabledgeneralを参照してください。
 
 特に設定を変更していなかった方も、 **configファイルを削除してから** ChatLoggerPlus v1.x.x系を導入することをお勧めします。（古い設定が残る可能性があります）
 
@@ -71,8 +71,8 @@ Forge 6.4.0.397とForge 6.4.2.448の間で、Forgeの作りが変わっている
     :header: "Minecraft", "Forge", "FILE", "DATE", "備考"
     :widths: 5, 15, 45, 5, 30
 
-    "1.6.4", "9.11.0.883", `[v100_mc164_forge9110883_srg.zip] <http://jakenjarvis.github.io/ChatLoggerPlus/release/ChatLoggerPlus_v100_mc164_forge9110883_srg.zip>`_ , "2013/10/00", "上記注意参照"
-    "1.6.2", "9.10.1.871", `[v100_mc162_forge9101871_srg.zip] <http://jakenjarvis.github.io/ChatLoggerPlus/release/ChatLoggerPlus_v100_mc162_forge9101871_srg.zip>`_ , "2013/10/00", "上記注意参照"
+    "1.6.4", "9.11.1.916", `[v100_mc164_forge9111916_srg.zip] <http://jakenjarvis.github.io/ChatLoggerPlus/release/ChatLoggerPlus_v100_mc164_forge9111916_srg.zip>`_ , "2013/10/15", "上記注意参照"
+    "1.6.2", "9.10.1.871", `[v100_mc162_forge9101871_srg.zip] <http://jakenjarvis.github.io/ChatLoggerPlus/release/ChatLoggerPlus_v100_mc162_forge9101871_srg.zip>`_ , "2013/10/15", "上記注意参照"
 
 .. csv-table:: ChatLoggerPlus v0.1.6a `[README v0.1.6a] <https://github.com/jakenjarvis/ChatLoggerPlus/blob/ChatLoggerPlus_v016_mc162_forge9100804_srg/README.md>`_ 
     :header: "Minecraft", "Forge", "FILE", "DATE", "備考"
