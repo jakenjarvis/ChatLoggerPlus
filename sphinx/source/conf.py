@@ -48,7 +48,7 @@ graphviz_dot_args = [
 
 
 # Google Analytics
-googleanalytics_id = 'UA-44840464-1' 
+googleanalytics_id = 'UA-44840464-1'
 
 # -- General configuration ------------------------------------------------
 
